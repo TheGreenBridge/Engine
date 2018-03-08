@@ -1,0 +1,29 @@
+Names of Variables:
+
+Member Variables:	m_[datatype][name]		example:	m_pEntity
+
+short forms of datatypes:
+
+	p	pointer
+	a	array
+	i	integer
+	f	float
+	s	string
+	v	vector
+	q	Quaternion
+
+Class names:	first letter is upper case - The file name is the same
+
+files of non classes are first letter lower case
+
+
+namespaces:
+
+	# engine
+		-> entity
+		-> graphics
+		-> animation
+		-> collision
+		-> memory
+
+WARNING: a variables must not have the same name as a namespace!

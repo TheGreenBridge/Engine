@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inputcontexts>
+  <context name="gameplay">default_input_context.xml</context>
+</inputcontexts>
