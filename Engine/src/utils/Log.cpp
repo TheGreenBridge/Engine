@@ -54,4 +54,13 @@ void LOG(const char* title, const unsigned int number) {
 // ERROR
 void LOG_ERROR(const char* text) {
 	std::cerr << "ERROR: " << text << std::endl;
+	HALT();
+}
+
+void HALT()
+{
+	//system("Color C");
+	std::cout << "Beliebige Taste druecken ..." << std::endl;
+	std::getchar();
+	//system("Color");
 }

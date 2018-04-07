@@ -51,9 +51,6 @@
     <ClCompile Include="src\graphics\animation\interpolation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\memory\Allocator.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils\types\String.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -147,12 +144,150 @@
     <ClCompile Include="src\renderapi\opengl\GLLoader.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\scripting\lua\lapi.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lzio.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lutf8lib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lvm.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lundump.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lauxlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lbaselib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lbitlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lcode.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lcorolib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lctype.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ldblib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ldebug.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ldo.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ldump.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lfunc.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lgc.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\linit.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\liolib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\llex.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lmathlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lmem.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\loadlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lobject.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lopcodes.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\loslib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lparser.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lstate.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lstring.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lstrlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ltable.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ltablib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\ltm.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\lua.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\lua\luac.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\threadding\Worker.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\LuaScript.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\ScriptManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\pbr\PBRMaterial.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asset\AssetLoader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asset\AssetParser.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\EntityManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\allocator\IAllocator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\allocator\LinearAllocator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\allocator\PoolAllocator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\LookupHandle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\PoolContainer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity\Entity.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\math\mat4.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\math\maths.h">
@@ -221,16 +356,10 @@
     <ClInclude Include="src\entity\component\Transform.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\render\RenderAPI.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils\Log.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\animation\interpolation.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\memory\Allocator.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\types\String.h">
@@ -294,9 +423,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\entity\FollowCamera.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\collision\collideable.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\systems\CollisionManager.h">
@@ -368,9 +494,6 @@
     <ClInclude Include="src\graphics\Renderable2D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\render\gltypes.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\renderapi\opengl\GLCommon.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -422,26 +545,157 @@
     <ClInclude Include="src\graphics\api\Context.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\scripting\lua\lundump.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lvm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lzio.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lapi.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lauxlib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lcode.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lctype.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\ldebug.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\ldo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lfunc.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lgc.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\llex.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\llimits.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lmem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lobject.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lopcodes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lparser.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lprefix.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lstate.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lstring.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\ltable.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\ltm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lua.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lua.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\luaconf.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\lua\lualib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\threadding\Worker.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\LuaScript.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\ScriptManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\pbr\PBRMaterial.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asset\AssetLoader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asset\AssetParser.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\EntityManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\allocator\IAllocator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\allocator\LinearAllocator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\allocator\PoolAllocator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\LookupHandle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\PoolContainer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\mat4.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\collision\Collidable2D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\collision\Collidable3D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shader\basic.frag" />
-    <None Include="res\shader\basic.vert" />
-    <None Include="res\shader\default.vert" />
-    <None Include="res\shader\default.frag" />
     <None Include="res\shader\ui\uishader.frag" />
     <None Include="res\shader\ui\uishader.vert" />
-    <None Include="res\shader\boxshader.vert" />
-    <None Include="res\shader\boxshader.frag" />
-    <None Include="res\shader\animation\rigshader.vert" />
-    <None Include="res\shader\animation\rigshader.frag" />
-    <None Include="res\shader\defaultmaterial.frag" />
-    <None Include="res\shader\defaultmaterial.vert" />
-    <None Include="res\shader\aabbshader.frag" />
-    <None Include="res\shader\aabbshader.vert" />
-    <None Include="res\shader\terrainshader.vert" />
-    <None Include="res\shader\terrainshader.frag" />
-    <None Include="res\shader\environmentShader.vert" />
-    <None Include="res\shader\environmentShader.frag" />
+    <None Include="res\scripts\test.lua" />
+    <None Include="res\shader\default\default.frag" />
+    <None Include="res\shader\default\default.vert" />
+    <None Include="res\shader\terrain\terrainshader.frag" />
+    <None Include="res\shader\terrain\terrainshader.vert" />
+    <None Include="res\shader\tests\testShader.frag" />
+    <None Include="res\shader\tests\testshader.vert" />
+    <None Include="res\shader\default\boxshader.vert" />
+    <None Include="res\shader\default\boxshader.frag" />
+    <None Include="res\shader\environment\environmentShader.frag" />
+    <None Include="res\shader\environment\environmentShader.vert" />
+    <None Include="res\shader\default\defaultmaterial.vert" />
+    <None Include="res\shader\default\defaultmaterial.frag" />
+    <None Include="res\shader\default\aabbshader.vert" />
+    <None Include="res\shader\default\aabbshader.frag" />
+    <None Include="res\shader\default\basic.frag" />
+    <None Include="res\shader\default\basic.vert" />
+    <None Include="res\entities\test.lua" />
+    <None Include="res\shader\post_processing\blurring.glsl" />
+    <None Include="res\shader\animation\rigshader.glsl" />
+    <None Include="res\shader\material\pbr_material.glsl" />
+    <None Include="res\shader\post_processing\combine.glsl" />
+    <None Include="res\shader\example.glsl" />
+    <None Include="res\shader\post_processing\one_color.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\inputmapping\contexts.xml" />

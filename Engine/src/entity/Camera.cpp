@@ -114,6 +114,7 @@ namespace engine {	namespace graphics {
 			0, 0, 1, 0,
 			m_Position.x, m_Position.y, m_Position.z, 1);
 		m_ViewMatrix = rotation * translation;
+		
 	}
 
 	mat4 Camera::lookAt(const Vec3 &eye, const Vec3 &target, const Vec3 &up) {

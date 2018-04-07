@@ -29,4 +29,6 @@ void LOG(const char* title, const int number);
 
 void LOG_ERROR(const char* text);
 
+void HALT();
+
 #endif

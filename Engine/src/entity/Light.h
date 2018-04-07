@@ -9,6 +9,7 @@ namespace engine {	namespace graphics {
 		Vec3 m_Position;
 		Vec3 m_Color;
 	public:
+		Light();
 		Light(const Vec3 &position, const Vec3 &color);
 		const Vec3 &getPosition()const { return m_Position; }
 		void setPosition(const Vec3 &position) { m_Position = position; }

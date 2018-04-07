@@ -1,7 +1,6 @@
 #pragma once
 
 #include <common\types.h>
-#include <graphics\render\RenderAPI.h>
 #include <vector>
 
 namespace engine {	namespace graphics {

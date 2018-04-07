@@ -8,19 +8,19 @@
 ///</summary>
 
 enum class STATE : U8 {
-	player_up,
-	player_down,
-	player_left,
-	player_right,
+	player_up = 0,
+	player_down = 1,
+	player_left = 2,
+	player_right = 3,
 
 
 	// DEBUG
-	camera_up,
-	camera_down,
-	camera_right,
-	camera_left,
-	camera_forward,
-	camera_backward,
+	camera_up = 4,
+	camera_down = 5,
+	camera_right = 6,
+	camera_left = 7,
+	camera_forward = 8,
+	camera_backward = 9,
 };
 
 enum class ACTION : U8 {

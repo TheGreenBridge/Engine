@@ -8,6 +8,7 @@
 #include "../graphics/Model.h"
 #include "../graphics/Material.h"
 #include "../graphics/animation/Animation.h"
+#include <graphics\pbr\PBRMaterial.h>
 
 #include "component\Transform.h"
 #include "component\Animatable.h"
@@ -21,14 +22,19 @@ using namespace engine::graphics;
 
 namespace engine {
 
+	// forward declaration
+	//class PBRMaterial;
 
+	struct EntityId
+	{
+		U32 id;
+	};
 
 	class Entity {
-	private:
-	
 	public:
 		/*Entity(const Vec3 &postion, const Quaternion &rotation, const float scale);
 		Entity();*/
+		//Entity() {};
 		~Entity() {};
 
 		// COMPONENTS
@@ -36,12 +42,19 @@ namespace engine {
 		Mesh *mesh;
 		Model *model;
 		Material *material;
+
 		Animation *animation;
 	
 		Animatable *animatable;
 		AABB3D *collidable;
+		PBRMaterial *pbrmaterial;
 
 		mat4 getTransformation();
+
+		EntityId m_UniqueId;
+		//EntityId getId();
+	//private:
+	//	EntityId m_UniqueId;
 	};
 
 }

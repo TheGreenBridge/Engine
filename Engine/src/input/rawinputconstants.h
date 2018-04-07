@@ -12,7 +12,7 @@ enum class INPUTMETA : U8{
 	key_released,
 };
 
-enum class INPUTBUTTON : U16 {
+enum class INPUTBUTTON : U32 {
 	NO_CODE,
 	l_mouse_button = 0x01,
 	r_mouse_button = 0x02,
@@ -83,6 +83,13 @@ enum class INPUTBUTTON : U16 {
 
 	subtract = 0x6D,
 	divide = 0x6F,
+
+	// temporary test
+	new_SDL_W = 0x77,
+	SDL_DOWN = 1073741905,
+	SDL_UP = 1073741906,
+	SDL_LEFT = 1073741904,
+	SDL_RIGHT = 1073741903,
 };
 
 enum class INPUTAXIS : U8 {

@@ -5,6 +5,7 @@
 
 const BOOL Context::init() 
 {
+	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK) {
 		LOG_ERROR("Could not initialize GLEW!");
 		return false;

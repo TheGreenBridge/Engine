@@ -3,18 +3,18 @@
   <name>gameplay</name>
   <mapping>
     <states>
-      <state input="262" output="3"/>
-      <state input="263" output="2"/>
-      <state input="264" output="1"/>
-      <state input="265" output="0"/>
+      <state input="1073741903" output="3"/>
+      <state input="1073741904" output="2"/>
+      <state input="1073741905" output="1"/>
+      <state input="1073741906" output="0"/>
       <!--<state input="65" output="7"/>-->
      
       <state input="97" output="7"/><!-- a -->
-      <state input="83" output="9"/><!-- s -->
-      <state input="68" output="6"/><!-- d -->
-      <state input="87" output="8"/><!-- w -->
+      <state input="115" output="9"/><!-- s -->
+      <state input="100" output="6"/><!-- d -->
+      <state input="119" output="8"/><!-- w -->
       <state input="32" output="4"/><!-- space -->
-      <state input="67" output="5"/><!-- c -->
+      <state input="99" output="5"/><!-- c -->
     </states>
     <actions>
       <action input="77" output="0"/>

@@ -5,6 +5,8 @@
 #include <collision\AABB.h>
 #include <entity\Camera.h>
 
+#include <graphics\pbr\PBRMaterial.h>
+
 
 using namespace engine::graphics;
 using namespace engine;
@@ -45,10 +47,7 @@ namespace engine {	namespace graphics {
 	}
 
 	void Renderer::render(const Scene &scene, const Shader &shader, const Light &light) const {
-		
-		
-		
-			
+
 		for each (Entity *entity in scene.getContainer())
 		{
 			if (entity->model == nullptr) continue;
@@ -99,28 +98,44 @@ namespace engine {	namespace graphics {
 		shader.setUniformMat4("transformation_matrix", entity.getTransformation());
 		glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3));
 		glBindVertexArray(0);
+		shader.disable();
+		
 	}
+
+	float counter = 0;
 
 	void Renderer::renderRenderSkin(Entity &entity, const Shader &shader) const {
 		shader.enable();
-		if (entity.animatable == nullptr) LOG("IN RENDERER: IST NULLPTR");
-		if (entity.animatable->m_pSkin == nullptr) LOG("IN RENDERER: SKIN IST NULLPTR");
+		if (entity.animatable == nullptr) LOG_ERROR("IN RENDERER: IST NULLPTR");
+		if (entity.animatable->m_pSkin == nullptr) LOG_ERROR("IN RENDERER: SKIN IST NULLPTR");
 		glBindVertexArray(entity.animatable->m_pSkin->vao);
+
+		/*LOG("projection", m_Camera->getProjectionMatrix());
+		LOG("view", m_Camera->getViewMatrix());*/
+		//LOG("trans", entity.getTransformation());
+		counter += 0.01f;
+		if (counter >= 2.0) counter = 0;
+		Vec3 color(counter, 1.0, 0.0);
+
 		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("trans_matrix", entity.getTransformation());
 		shader.setUniformMat4Array("joint_transforms", entity.animatable->m_pBones->elements);
+		shader.setUniform3f("color", color);
 
 		glDrawArrays(GL_TRIANGLES, 0, entity.animatable->m_pSkin->numVerts);
 		glBindVertexArray(0);
+		shader.disable();
 	}
+
+	
 
 	void Renderer::renderUI(Entity &entity, const Shader &shader) const {
 		shader.enable();
 		glBindVertexArray(entity.model->vao);
 		//shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
-		shader.setUniformMat4("transformation_matrix", entity.getTransformation());
+		shader.setUniformMat4Array("transformation_matrix", entity.getTransformation().elements);
 		glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3));
 		glBindVertexArray(0);
 	}
@@ -134,12 +149,45 @@ namespace engine {	namespace graphics {
 		glDrawArrays(GL_LINES, 0, size * sizeof(float));
 	}
 
+	void Renderer::render(Entity & entity, const Texture &texture, const Shader &shader) const
+	{
+		shader.enable();
+
+		glBindVertexArray(entity.model->vao);
+		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+
+		shader.setUniform3f("lightPosition", m_Lights[0].getPosition());
+		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
+		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
+		shader.setUniformMat4("transformation_matrix", entity.getTransformation());
+		shader.setUniform3f("viewPos", m_Camera->getPosition());
+
+		shader.setUniformTexture("modelTexture", 0, texture.getID());
+		
+		shader.disable();
+	}
+
+	void Renderer::render(Entity & entity, const Shader & shader) const
+	{
+		shader.enable();
+		glBindVertexArray(entity.model->vao);
+		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
+		shader.setUniformMat4("proj_matrix", m_Camera->getProjectionMatrix());
+		shader.setUniformMat4("model_matrix", entity.getTransformation());
+
+		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		shader.disable();
+	}
+
+
+
 	void Renderer::renderTerrain(const U32 vao, const Shader &shader, const int dim, U32 indicesSize) const {
 		shader.enable();
 		glBindVertexArray(vao);
 		//glVertexAttribPointer(0, dim, GL_FLOAT, GL_FALSE, 0, 0);
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
+		
 			
 		glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
 		//glDrawArrays(GL_TRIANGLES, 0, size * sizeof(float));
@@ -162,6 +210,39 @@ namespace engine {	namespace graphics {
 		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
 		glBindVertexArray(0);
 		entity.material->shader->disable();
+		
+	}
+
+	void Renderer::renderPBR(Entity &entity) const
+	{
+		const PBRMaterial &material = *entity.pbrmaterial;
+		const Shader &shader = material.getShader();
+
+		shader.enable();
+
+		glBindVertexArray(entity.model->vao);
+
+		shader.setUniformMat4("projection", m_Camera->getProjectionMatrix());
+		shader.setUniformMat4("view", m_Camera->getViewMatrix());
+		shader.setUniformMat4("model", entity.getTransformation());
+
+		/*shader.setUniform1f("roughness", material.roughness);
+		shader.setUniform1f("metallic", material.metallic);
+		shader.setUniform3f("albedo", material.albedo);*/
+
+		shader.setUniform1f("ao", 1.0f);
+		shader.setUniform3f("light", m_Lights[0].getPosition());
+
+		shader.setUniformTexture("albedoMap", 0, material.getAlbedo());
+		shader.setUniformTexture("metallicMap", 1, material.getMetallic());
+		shader.setUniformTexture("roughnessMap", 2, material.getRoughness());
+
+		shader.setUniform3f("camPos", m_Camera->getPosition());
+
+		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		
+		glBindVertexArray(0);
+		shader.disable();
 	}
 
 	//bool change = true;
@@ -256,4 +337,31 @@ namespace engine {	namespace graphics {
 		m_Camera = camera;
 	}
 
+	void Renderer::setLight(U32 slot, const Light &light)
+	{
+		if (slot >= MAX_LIGHTS && slot < 0)	{
+			LOG_ERROR("Renderer::setLight invalid slot!");
+			return;
+		}
+		m_Lights[slot] = light;				
+	}
+
+	Light &Renderer::getLight(U32 slot) 
+	{	
+		if (slot >= MAX_LIGHTS && slot < 0)	{
+			LOG_ERROR("Renderer::getLight invalid slot!");
+			return m_Lights[0];
+		}
+		return m_Lights[slot];	
+	}
+
+	void Renderer::combineTextures(const U32 vao, const Texture &tex1, const Texture &tex2, const Shader &shader)
+	{
+		shader.enable();
+
+		shader.setUniformTexture("baseMap", 0, tex1.getID());
+		shader.setUniformTexture("overlayMap", 1, tex2.getID());
+		//glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		shader.disable();
+	}
 }}

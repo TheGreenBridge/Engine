@@ -32,4 +32,9 @@ namespace engine {
 
 		return result;
 	}
+
+	/*EntityId Entity::getId()
+	{
+		return m_UniqueId;
+	}*/
 }

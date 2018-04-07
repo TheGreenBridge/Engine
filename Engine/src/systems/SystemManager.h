@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../memory/Allocator.h"
+#include <memory/allocator/LinearAllocator.h>
 
 /// <summary>
 /// This is the Manager for all systems
@@ -23,6 +23,8 @@ RenderManager;
 CollisionManager;
 AudioManager;
 
+EntityManager;
+
 
 */
 
@@ -35,7 +37,7 @@ namespace engine {
 	class SystemManager {
 	private: 
 		std::vector<ISystem*> m_systems;
-		Allocator m_allocator;
+		LinearAllocator m_allocator;
 	public:
 		
 		SystemManager();
@@ -50,6 +52,8 @@ namespace engine {
 
 		template<typename T>
 		T* requestMemory(size_t N);
+
+		
 
 		void testManager();
 	};

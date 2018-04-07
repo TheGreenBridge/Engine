@@ -16,9 +16,12 @@ namespace engine {	namespace input {
 
 	void InputMapper::dispatch() {
 		// When empty nothing happens
+		
 		if (m_currentMappedInput.states.empty() && 
 			m_currentMappedInput.actions.empty() && 
 			m_currentMappedInput.ranges.empty()) return; 
+
+		//LOG("Theres input");
 
 		MappedInput input = m_currentMappedInput;
 		for (std::multimap<int, InputCallback>::const_iterator iter = m_callbackTable.begin(); iter != m_callbackTable.end(); ++iter)

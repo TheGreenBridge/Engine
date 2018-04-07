@@ -15,6 +15,9 @@
 #define ATT_JOINT	3
 #define ATT_WEIGHT	4
 
+#define LAYOUT_ATTR_POSITION	0
+#define LAYOUT_ATTR_NORMAL		1
+#define LAYOUT_ATTR_UV			2
 
 Model Loader::loadModel(engine::graphics::Mesh &mesh) {
 	Model model;
@@ -25,18 +28,18 @@ Model Loader::loadModel(engine::graphics::Mesh &mesh) {
 	glGenBuffers(3, &model.vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, model.vertices);
 	glBufferData(GL_ARRAY_BUFFER, mesh.getVertices().size() * sizeof(Vec3), &mesh.getVertices()[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(LAYOUT_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(LAYOUT_ATTR_POSITION);
 	// Normals
 	glBindBuffer(GL_ARRAY_BUFFER, model.normals);
 	glBufferData(GL_ARRAY_BUFFER, mesh.getNormals().size() * sizeof(Vec3), &mesh.getNormals()[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(LAYOUT_ATTR_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(LAYOUT_ATTR_NORMAL);
 	//UV Coordinates
 	glBindBuffer(GL_ARRAY_BUFFER, model.uvs);
 	glBufferData(GL_ARRAY_BUFFER, mesh.getUVs().size() * sizeof(vec2), &mesh.getUVs()[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(LAYOUT_ATTR_UV, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(LAYOUT_ATTR_UV);
 
 	glBindVertexArray(0);
 	return model;

@@ -33,11 +33,12 @@ void RawInput::key_callback(GLFWwindow* commingWindow, int key, int scancode, in
 }
 
 void RawInput::key_callback(int key, int scancode, int action) {
-	bool boolAction, boolPreviouslyPressed = true;
+	bool boolAction = false;
+	bool boolPreviouslyPressed = false;
 	switch (action) {
 		case 0: boolAction = false;
 			break;
-		case 1: boolAction = false;
+		case 1: boolAction = true;
 			break;
 		default:
 			break;

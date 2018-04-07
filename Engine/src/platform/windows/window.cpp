@@ -1,6 +1,5 @@
 #include "window.h"
 #include "../../utils/Log.h"
-#include "../../graphics/render/RenderAPI.h"
 #include "..\..\..\tests\Game.h"
 #include <graphics\api\Context.h>
 #include <SDL.h>
@@ -113,16 +112,7 @@ const bool Window::init() {
 	* not affect the GL attribute state, only
 	* the standard 2D blitting setup.
 	*/
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	
 
 	/*
 	* We want to request that SDL provide us
@@ -148,7 +138,20 @@ const bool Window::init() {
 		return false;
 	}
 	SDL_GL_CreateContext(m_Window);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	
+	SDL_GL_SetSwapInterval(1);
+
 	//if (SDL_SetVideoMode(width, height, bpp, flags) == 0) {
 		/*
 		* This could happen for a variety of reasons,
@@ -159,8 +162,12 @@ const bool Window::init() {
 		//	SDL_GetError());
 		//return false;
 	//}
+	
 	if (!Context::init()) return false;
 	Context::setViewport(m_Width, m_Height);
+
+	SDL_GL_SwapWindow(m_Window);
+
 	return true;
 }
 

@@ -16,6 +16,9 @@ namespace engine {
 
 		public:
 			Framebuffer(U16 pixelWidth, U16 pixelHeight);
+			void enable() const;
+			void disable() const;
+			const U32 getRenderbuffer() const;
 		};
 
 	}

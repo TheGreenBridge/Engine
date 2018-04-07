@@ -50,9 +50,6 @@ Skeletons
 
 */
 
-
-
-
 namespace engine{
 
 	// Storage size in Byte: 10KB
