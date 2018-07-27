@@ -15,7 +15,7 @@ namespace engine {
 	{
 		EntityIds++;
 		Entity* entity = m_Allocator.allocate();
-		m_Handle.insertEntry(EntityIds, nullptr);
+		m_Handle.insertEntry(EntityIds, entity);
 		entity->m_UniqueId.id = EntityIds;
 		return entity;
 	}

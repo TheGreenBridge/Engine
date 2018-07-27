@@ -1,0 +1,15 @@
+
+1) File-Structure:
+
+Every File needs a header-text:
+
+//------------------------------------------------------------------------------
+// example.c
+//
+// short description
+//
+// Author: xxxxx
+// Created: xx.xx.xx
+// Changed: xx.xx.xx
+//------------------------------------------------------------------------------
+//

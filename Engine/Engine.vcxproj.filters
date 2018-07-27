@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\entity\Entity.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -54,22 +51,10 @@
     <ClCompile Include="src\utils\types\String.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\systems\SystemManager.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\systems\System.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\systems\AnimationManager.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\animation\AnimationLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\entity\FollowCamera.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\systems\CollisionManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\platform\windows\Console.cpp">
@@ -117,9 +102,6 @@
     <ClCompile Include="src\renderapi\opengles\GLESTexture2D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderapi\opengl\VertexBuffer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderapi\opengl\GLFramebuffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -143,111 +125,6 @@
     </ClCompile>
     <ClCompile Include="src\renderapi\opengl\GLLoader.cpp">
       <Filter>Headerdateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lapi.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lzio.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lutf8lib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lvm.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lundump.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lauxlib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lbaselib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lbitlib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lcode.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lcorolib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lctype.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ldblib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ldebug.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ldo.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ldump.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lfunc.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lgc.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\linit.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\liolib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\llex.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lmathlib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lmem.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\loadlib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lobject.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lopcodes.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\loslib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lparser.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lstate.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lstring.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lstrlib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ltable.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ltablib.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\ltm.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\lua.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\lua\luac.c">
-      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\threadding\Worker.cpp">
       <Filter>Quelldateien</Filter>
@@ -283,6 +160,156 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\memory\PoolContainer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\ComponentManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\EngineTest.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\AnimationManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\CollisionManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\ISystem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\SystemManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\FileReader\JsonReader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\FileReader\XmlReader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lapi.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lauxlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lbaselib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lbitlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lcode.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lcorolib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lctype.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ldblib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ldebug.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ldo.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ldump.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lfunc.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lgc.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\linit.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\liolib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\llex.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lmathlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lmem.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\loadlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lobject.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lopcodes.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\loslib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lparser.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lstate.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lstring.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lstrlib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ltable.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ltablib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\ltm.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lua.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\luac.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lundump.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lutf8lib.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lvm.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\Lua\lzio.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\font\Font.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderapi\opengl\GLVertexBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderapi\opengl\GLVertexArray.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderapi\opengl\GLVertexBufferLayout.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\MemoryManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -344,12 +371,6 @@
     <ClInclude Include="src\utils\Time.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\systems\System.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\SystemManager.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\animation\Animation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -366,21 +387,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\entity\mesh\plane.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\messageing\Event.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\messageing\EventDispatcher.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\messageing\EventHandler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\messageing\types\KeyPressedEvent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\AnimationManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\animation\skinning\AnimationClip.h">
@@ -419,13 +425,7 @@
     <ClInclude Include="src\graphics\animation\skinning\RenderableSkin.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\systems\messageing\types\AnimationEvent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\entity\FollowCamera.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\CollisionManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\collision\AABB.h">
@@ -462,18 +462,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\input\InputMapper.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\xmlreader\rapidxml.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\xmlreader\rapidxml_iterators.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\xmlreader\rapidxml_print.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\xmlreader\rapidxml_utils.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\input\RangeConverter.h">
@@ -545,84 +533,6 @@
     <ClInclude Include="src\graphics\api\Context.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\lua\lundump.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lvm.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lzio.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lapi.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lauxlib.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lcode.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lctype.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\ldebug.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\ldo.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lfunc.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lgc.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\llex.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\llimits.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lmem.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lobject.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lopcodes.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lparser.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lprefix.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lstate.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lstring.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\ltable.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\ltm.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lua.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lua.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\luaconf.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\lua\lualib.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\threadding\Worker.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -668,6 +578,171 @@
     <ClInclude Include="src\collision\Collidable3D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\ComponentManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\EngineTest.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\old_commentsj.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\PhysicComponent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\Renderable3DComponent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\AnimationManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\CollisionManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\ISystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\SystemManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\messageing\types\AnimationEvent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\messageing\types\KeyPressedEvent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\messageing\Event.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\messageing\EventDispatcher.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\messageing\EventHandler.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_iterators.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_print.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_utils.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\FileReader\JsonReader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\FileReader\XmlReader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lapi.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lauxlib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lcode.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lctype.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\ldebug.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\ldo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lfunc.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lgc.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\llex.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\llimits.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lmem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lobject.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lopcodes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lparser.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lprefix.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lstate.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lstring.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\ltable.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\ltm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lua.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lua.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\luaconf.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lualib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lundump.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lvm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\Lua\lzio.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\font\Font.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\iVec2.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\api\VertexArray.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\api\IndexBuffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\api\VertexBufferLayout.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\Window.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\Memory.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\MemoryManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\ui\uishader.frag" />
@@ -677,10 +752,6 @@
     <None Include="res\shader\default\default.vert" />
     <None Include="res\shader\terrain\terrainshader.frag" />
     <None Include="res\shader\terrain\terrainshader.vert" />
-    <None Include="res\shader\tests\testShader.frag" />
-    <None Include="res\shader\tests\testshader.vert" />
-    <None Include="res\shader\default\boxshader.vert" />
-    <None Include="res\shader\default\boxshader.frag" />
     <None Include="res\shader\environment\environmentShader.frag" />
     <None Include="res\shader\environment\environmentShader.vert" />
     <None Include="res\shader\default\defaultmaterial.vert" />
@@ -696,6 +767,9 @@
     <None Include="res\shader\post_processing\combine.glsl" />
     <None Include="res\shader\example.glsl" />
     <None Include="res\shader\post_processing\one_color.glsl" />
+    <None Include="res\shader\ui\text.glsl" />
+    <None Include="res\shader\tests\testShader.glsl" />
+    <None Include="res\shader\default\boxshader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\inputmapping\contexts.xml" />
@@ -703,5 +777,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\common\convention.txt" />
+    <Text Include="rules.txt" />
   </ItemGroup>
 </Project>

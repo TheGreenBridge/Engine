@@ -1,8 +1,12 @@
 #include "Log.h"
 #include <iostream>
-#include "../math/mat4.h"
-#include "../math/Quaternion.h"
 #include <string>
+
+#include <math/mat4.h>
+#include <math/Quaternion.h>
+
+
+
 
 #define PRINTLOG(a) std::cout << a << std::endl
 #define NEWLINE() std::cout << std::endl
@@ -32,35 +36,51 @@ void LOG(const Vec3 &v) {
 }
 
 void LOG(const std::string text) {
+#ifdef DEBUG
 	std::cout << text << std::endl;
+#endif
 }
 
 void LOG(const std::string title, const std::string text) {
+#ifdef DEBUG
 	std::cout << title << ": " << text << std::endl;
+#endif
 }
 
 void LOG(const char* title, const int number) {
+#ifdef DEBUG
 	std::cout << title << ": " << number << std::endl;
+#endif
 }
 
 void LOG(const char* title, const float number) {
+#ifdef DEBUG
 	std::cout << title << ": " << number << std::endl;
+#endif
 }
 
 void LOG(const char* title, const unsigned int number) {
+#ifdef DEBUG
 	std::cout << title << ": " << number << std::endl;
+#endif
 }
 
+
 // ERROR
-void LOG_ERROR(const char* text) {
+void logError(const char* text, const char* file, U32 line) {
 	std::cerr << "ERROR: " << text << std::endl;
 	HALT();
+}
+
+void logDebug(const char * text, const char * file, U32 line)
+{
+	std::cout << text << file << ": " << line << std::endl;
 }
 
 void HALT()
 {
 	//system("Color C");
-	std::cout << "Beliebige Taste druecken ..." << std::endl;
+	std::cout << "Enter Taste druecken ..." << std::endl;
 	std::getchar();
 	//system("Color");
 }

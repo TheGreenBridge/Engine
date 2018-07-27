@@ -38,9 +38,9 @@ namespace engine {	namespace memory {
 	
 		unsigned int getFreeStorage();
 
-		void *allocate(size_t size);
+		blk allocate(size_t size);
 
-		void free(void *location, size_t size);
+		void free(blk allocation);
 		void logStates() const;
 		void expand(unsigned int size);
 	};

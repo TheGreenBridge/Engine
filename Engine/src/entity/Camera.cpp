@@ -5,12 +5,10 @@ namespace engine {	namespace graphics {
 
 	Camera::Camera(float fov, float aspectRatio, float near, float far)
 		: m_Fov(fov), m_AspectRatio(aspectRatio), m_Near(near), m_Far(far),
-		m_Rotation(0.0f,0.0f,1.0f,0.0f), m_Speed(0.01f){
+		m_Rotation(0.0f,0.0f,0.0f,1.0f), m_Speed(0.01f){
 		key_roll = 0;
 		key_pitch = 0;
 		key_roll = 0;
-	
-	
 	}
 
 	Camera::~Camera() {}

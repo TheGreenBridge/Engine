@@ -4,9 +4,9 @@
 #include <utils\Log.h>
 
 extern "C" {
-	#include <scripting\lua\lua.h>
-	#include <scripting\lua\lauxlib.h>
-	#include <scripting\lua\lualib.h>
+	#include <3rdParty\Lua\lua.h>
+	#include <3rdParty\Lua\lauxlib.h>
+	#include <3rdParty\Lua\lualib.h>
 }
 
 class LuaScript {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System.h"
+#include "ISystem.h"
 #include "../graphics/animation/skinning/RenderableSkin.h"
 #include "../math/mat4.h"
 

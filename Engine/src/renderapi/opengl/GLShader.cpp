@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// GLCommon.h
+//
+// OPEN GL implementation of a shader
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 22.07.18
+//------------------------------------------------------------------------------
+//
+
 #include <graphics\api\Shader.h>
 #include <renderapi\opengl\GLCommon.h>
 #include <utils\Log.h>
@@ -6,21 +17,26 @@
 
 namespace engine { namespace graphics{
 
-	Shader::Shader(const char* vertexPath, const char* fragmentPath) : m_VertPath(vertexPath), m_FragPath(fragmentPath) {	
+	//--------------------------------------------------------------------------
+	Shader::Shader(const char* vertexPath, const char* fragmentPath) : 
+		m_VertPath(vertexPath), m_FragPath(fragmentPath) 
+	{	
 		m_ShaderID = load(parseFile(vertexPath, fragmentPath));
-		//LOG("Shader ID", m_ShaderID);
 	}
 
-	Shader::Shader(const char* shaderPath) {
+	//--------------------------------------------------------------------------
+	Shader::Shader(const char* shaderPath) 
+	{
 		m_ShaderID = load(parseFile(shaderPath));
-		//LOG("Shader ID", m_ShaderID);
 	}
 
-	Shader::~Shader() {
-		glDeleteProgram(m_ShaderID);
+	//--------------------------------------------------------------------------
+	Shader::~Shader() 
+	{
+		GLCall(glDeleteProgram(m_ShaderID));
 	}
 	
-
+	//--------------------------------------------------------------------------
 	ShaderSource Shader::parseFile(const char* path)
 	{
 		std::string rawData = FileUtils::read_file(path);
@@ -41,6 +57,7 @@ namespace engine { namespace graphics{
 		return source;
 	}
 
+	//--------------------------------------------------------------------------
 	ShaderSource Shader::parseFile(const char* vertexPath, const char* fragmentPath)
 	{
 		ShaderSource source;
@@ -49,7 +66,9 @@ namespace engine { namespace graphics{
 		return source;
 	}
 
-	U32 Shader::load(ShaderSource source) {
+	//--------------------------------------------------------------------------
+	U32 Shader::load(ShaderSource source) 
+	{
 		U32 program = glCreateProgram();
 		U32 vertex = glCreateShader(GL_VERTEX_SHADER);
 		U32 fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -61,112 +80,120 @@ namespace engine { namespace graphics{
 		const char *fragSource = source.fragmentShader.c_str();
 
 		// Vertex Shader
-		glShaderSource(vertex, 1, &vertSource, NULL);
-		glCompileShader(vertex);
+		GLCall(glShaderSource(vertex, 1, &vertSource, NULL));
+		GLCall(glCompileShader(vertex));
 
 		int result;
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &result);
+		GLCall(glGetShaderiv(vertex, GL_COMPILE_STATUS, &result));
 		if (result == false) {
 			int length;
-			glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
+			GLCall(glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length));
 			LOG("Length: ", length);
 			std::vector<GLchar> error(length);
-			glGetShaderInfoLog(vertex, length, &length, error.data());
+			GLCall(glGetShaderInfoLog(vertex, length, &length, error.data()));
 			LOG("Failed to compile Vertex Shader. ");
 			LOG(&error[0]);
-			glDeleteShader(vertex);
+			GLCall(glDeleteShader(vertex));
 			HALT();
 			return 0;
 		}
 
 		// Fragment Shader
-		glShaderSource(fragment, 1, &fragSource, NULL);
-		glCompileShader(fragment);
+		GLCall(glShaderSource(fragment, 1, &fragSource, NULL));
+		GLCall(glCompileShader(fragment));
 
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
+		GLCall(glGetShaderiv(fragment, GL_COMPILE_STATUS, &result));
 		if (result == false) {
 			int length;
-			glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
+			GLCall(glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length));
 			std::vector<GLchar> error(length);
-			glGetShaderInfoLog(fragment, length, &length, error.data());
+			GLCall(glGetShaderInfoLog(fragment, length, &length, error.data()));
 			LOG("Failed to compile Fragment Shader. ");
 			LOG(&error[0]);
-			glDeleteShader(fragment);
+			GLCall(glDeleteShader(fragment));
 			HALT();
 			return 0;
 		}
 
 		// Erstellen des Shader Programms
-		glAttachShader(program, vertex);
-		glAttachShader(program, fragment);
-		glLinkProgram(program);
-		glValidateProgram(program);
+		GLCall(glAttachShader(program, vertex));
+		GLCall(glAttachShader(program, fragment));
+		GLCall(glLinkProgram(program));
+		GLCall(glValidateProgram(program));
 
 		// Die Shader werden nicht mehr gebraucht
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
+		GLCall(glDeleteShader(vertex));
+		GLCall(glDeleteShader(fragment));
 
 		return program;
 	}
 
+	//--------------------------------------------------------------------------
 	void Shader::enable() const {
-		glUseProgram(m_ShaderID);
+		GLCall(glUseProgram(m_ShaderID));
 	}
 
+	//--------------------------------------------------------------------------
 	void Shader::disable() const {
-		glUseProgram(0);
+		GLCall(glUseProgram(0));
 	}
 
-
-	void Shader::setUniform3f(const char* name, const Vec3 &value) const {
+	//--------------------------------------------------------------------------
+	void Shader::setUniform3f(const char* name, const Vec3 &value) const 
+	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform 3f with name", name); return; }
-		glUniform3f(location, value.x, value.y, value.z);
+		GLCall(glUniform3f(location, value.x, value.y, value.z));
 	}
 
-	void Shader::setUniformMat4(const char *name, const mat4 &matrix) const {
+	//--------------------------------------------------------------------------
+	void Shader::setUniformMat4(const char *name, const mat4 &matrix) const 
+	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform mat4fv with name", name); return; }
-		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.elements);
+		GLCall(glUniformMatrix4fv(location, 1, GL_FALSE, matrix.elements));
 	}
 
-	void Shader::setUniformMat4Array(const char *name, const F32 *matrix) const {
+	//--------------------------------------------------------------------------
+	void Shader::setUniformMat4Array(const char *name, const F32 *matrix) const 
+	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform mat4fva with name", name); return; }
-		glUniformMatrix4fv(location, 30, GL_FALSE, matrix);
+		GLCall(glUniformMatrix4fv(location, 30, GL_FALSE, matrix));
 	}
 
+	//--------------------------------------------------------------------------
 	void Shader::setUniform1f(const char * name, F32 value) const
 	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform 1f with name", name); return; }
-		glUniform1f(location, value);
-		
+		GLCall(glUniform1f(location, value));		
 	}
 
+	//--------------------------------------------------------------------------
 	void Shader::setUniform1i(const char * name, I32 value) const
 	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform 1i with name", name); return; }
-		glUniform1i(location, value);
+		GLCall(glUniform1i(location, value));
 	}
 
+	//--------------------------------------------------------------------------
 	void Shader::setUniformTexture(const char * name, I32 slot, I32 texture) const
 	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
 		if (location == -1) { LOG("Could not find Uniform Texture with name", name); return; }
-		glUniform1i(location, slot);
+		GLCall(glUniform1i(location, slot));
 		switch (slot) 
 		{
-			case 0: glActiveTexture(GL_TEXTURE0); break;
-			case 1: glActiveTexture(GL_TEXTURE1); break;
-			case 2: glActiveTexture(GL_TEXTURE2); break;
-			case 3: glActiveTexture(GL_TEXTURE3); break;
-			case 4: glActiveTexture(GL_TEXTURE4); break;
-			case 5: glActiveTexture(GL_TEXTURE5); break;
+			case 0: GLCall(glActiveTexture(GL_TEXTURE0)); break;
+			case 1: GLCall(glActiveTexture(GL_TEXTURE1)); break;
+			case 2: GLCall(glActiveTexture(GL_TEXTURE2)); break;
+			case 3: GLCall(glActiveTexture(GL_TEXTURE3)); break;
+			case 4: GLCall(glActiveTexture(GL_TEXTURE4)); break;
+			case 5: GLCall(glActiveTexture(GL_TEXTURE5)); break;
 			default: LOG_ERROR("Slot not supported");
 		}
-		glBindTexture(GL_TEXTURE_2D, texture);
+		GLCall(glBindTexture(GL_TEXTURE_2D, texture));
 	}
-
 }}

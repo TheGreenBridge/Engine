@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// GLRenderer.cpp
+//
+// OPEN GL implementation of the renderer
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 22.07.18
+//------------------------------------------------------------------------------
+//
+
 #include <graphics\api\Renderer.h>
 #include <graphics\api\Texture.h> 
 
@@ -12,6 +23,10 @@ using namespace engine::graphics;
 using namespace engine;
 
 namespace engine {	namespace graphics {
+	
+	Renderer::Renderer()
+	{
+	}
 
 	Renderer::Renderer(Camera *camera) {
 		setCamera(camera);
@@ -34,12 +49,12 @@ namespace engine {	namespace graphics {
 		verts[6] = Vec3(1, 1, 1);
 		verts[7] = Vec3(0, 1, 1);
 
-		glGenBuffers(1, &vbo_aabb);
+		GLCall(glGenBuffers(1, &vbo_aabb));
 
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb);
-		glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), verts, GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb));
+		GLCall(glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), verts, GL_STATIC_DRAW));
+		GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0));
+		GLCall(glEnableVertexAttribArray(0));
 	}
 
 	void Renderer::initialize() {
@@ -56,9 +71,9 @@ namespace engine {	namespace graphics {
 			if (entity->material->shader == nullptr) continue;
 			Shader &rShader = *entity->material->shader;
 			rShader.enable();
-			glBindVertexArray(entity->model->vao);
+			GLCall(glBindVertexArray(entity->model->vao));
 			/*glBindTexture(GL_TEXTURE_2D, entity->material->texture->getID());*/
-			glBindTexture(GL_TEXTURE_CUBE_MAP, m_Skybox->getTextureID());
+			GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, m_Skybox->getTextureID()));
 			
 			// Entity
 			rShader.setUniformMat4("trans_matrix", entity->getTransformation());
@@ -71,33 +86,34 @@ namespace engine {	namespace graphics {
 			//rShader.setUniform3f("lightPosition", light.getPosition());
 			//shader.setUniform3f("light.color", light.getColor());
 
-			glDrawArrays(GL_TRIANGLES, 0, entity->mesh->getVertices().size() * sizeof(Vec3));
+			GLCall(glDrawArrays(GL_TRIANGLES, 0, entity->mesh->getVertices().size() * sizeof(Vec3)));
 			rShader.disable();
 		}
-		glBindVertexArray(0);
+		GLCall(glBindVertexArray(0));
 	}
 
-	void Renderer::render(const Cubemap &cubemap, const U32 vao, const Shader &shader) const {
-		glDepthMask(GL_FALSE);
+	void Renderer::render(const Cubemap &cubemap, const VertexArray& vao, const Shader &shader) const {
+		GLCall(glDepthMask(GL_FALSE));
 		shader.enable();
-		glBindVertexArray(vao);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap.getTextureID());
+		
+		vao.bind();
+		GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap.getTextureID()));
 		shader.setUniformMat4("projection", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view", m_Camera->getRotationMatrix());
 	
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
-		glDepthMask(GL_TRUE);
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+		vao.unbind();
+		GLCall(glDepthMask(GL_TRUE));
 	}
 
 	void Renderer::renderLINES(Entity &entity, const Shader &shader) const {
 		shader.enable();
-		glBindVertexArray(entity.model->vao);
+		GLCall(glBindVertexArray(entity.model->vao));
 		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("transformation_matrix", entity.getTransformation());
-		glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3));
-		glBindVertexArray(0);
+		GLCall(glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3)));
+		GLCall(glBindVertexArray(0));
 		shader.disable();
 		
 	}
@@ -108,11 +124,8 @@ namespace engine {	namespace graphics {
 		shader.enable();
 		if (entity.animatable == nullptr) LOG_ERROR("IN RENDERER: IST NULLPTR");
 		if (entity.animatable->m_pSkin == nullptr) LOG_ERROR("IN RENDERER: SKIN IST NULLPTR");
-		glBindVertexArray(entity.animatable->m_pSkin->vao);
+		GLCall(glBindVertexArray(entity.animatable->m_pSkin->vao));
 
-		/*LOG("projection", m_Camera->getProjectionMatrix());
-		LOG("view", m_Camera->getViewMatrix());*/
-		//LOG("trans", entity.getTransformation());
 		counter += 0.01f;
 		if (counter >= 2.0) counter = 0;
 		Vec3 color(counter, 1.0, 0.0);
@@ -123,8 +136,8 @@ namespace engine {	namespace graphics {
 		shader.setUniformMat4Array("joint_transforms", entity.animatable->m_pBones->elements);
 		shader.setUniform3f("color", color);
 
-		glDrawArrays(GL_TRIANGLES, 0, entity.animatable->m_pSkin->numVerts);
-		glBindVertexArray(0);
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.animatable->m_pSkin->numVerts));
+		GLCall(glBindVertexArray(0));
 		shader.disable();
 	}
 
@@ -132,29 +145,29 @@ namespace engine {	namespace graphics {
 
 	void Renderer::renderUI(Entity &entity, const Shader &shader) const {
 		shader.enable();
-		glBindVertexArray(entity.model->vao);
+		GLCall(glBindVertexArray(entity.model->vao));
 		//shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4Array("transformation_matrix", entity.getTransformation().elements);
-		glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3));
-		glBindVertexArray(0);
+		GLCall(glDrawArrays(GL_LINES, 0, entity.mesh->getVertices().size() * sizeof(Vec3)));
+		GLCall(glBindVertexArray(0));
 	}
 
 	void Renderer::render(const U32 vbo, const Shader &shader, const int dim, U32 size) const {
 		shader.enable();
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glVertexAttribPointer(0, dim, GL_FLOAT, GL_FALSE, 0, 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo));
+		GLCall(glVertexAttribPointer(0, dim, GL_FLOAT, GL_FALSE, 0, 0));
 		shader.setUniformMat4("view_matrix", m_Camera->getRotationMatrix());
 		//shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
-		glDrawArrays(GL_LINES, 0, size * sizeof(float));
+		GLCall(glDrawArrays(GL_LINES, 0, size * sizeof(float)));
 	}
 
 	void Renderer::render(Entity & entity, const Texture &texture, const Shader &shader) const
 	{
 		shader.enable();
 
-		glBindVertexArray(entity.model->vao);
-		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		GLCall(glBindVertexArray(entity.model->vao));
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
 
 		shader.setUniform3f("lightPosition", m_Lights[0].getPosition());
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
@@ -170,12 +183,12 @@ namespace engine {	namespace graphics {
 	void Renderer::render(Entity & entity, const Shader & shader) const
 	{
 		shader.enable();
-		glBindVertexArray(entity.model->vao);
+		GLCall(glBindVertexArray(entity.model->vao));
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("proj_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("model_matrix", entity.getTransformation());
 
-		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
 		shader.disable();
 	}
 
@@ -183,21 +196,21 @@ namespace engine {	namespace graphics {
 
 	void Renderer::renderTerrain(const U32 vao, const Shader &shader, const int dim, U32 indicesSize) const {
 		shader.enable();
-		glBindVertexArray(vao);
+		GLCall(glBindVertexArray(vao));
 		//glVertexAttribPointer(0, dim, GL_FLOAT, GL_FALSE, 0, 0);
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		
 			
-		glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
+		GLCall(glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0));
 		//glDrawArrays(GL_TRIANGLES, 0, size * sizeof(float));
-		glBindVertexArray(0);
+		GLCall(glBindVertexArray(0));
 	}
 
 	void Renderer::renderReflection(Entity & entity) const
 	{
 		entity.material->shader->enable();
-		glBindVertexArray(entity.model->vao);
+		GLCall(glBindVertexArray(entity.model->vao));
 		
 
 		entity.material->shader->setUniformMat4("view_matrix", m_Camera->getViewMatrix());
@@ -206,9 +219,9 @@ namespace engine {	namespace graphics {
 		
 		entity.material->shader->setUniform3f("camera_position", m_Camera->getPosition());
 		
-		glBindTexture(GL_TEXTURE_CUBE_MAP, m_Skybox->getTextureID());
-		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
-		glBindVertexArray(0);
+		GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, m_Skybox->getTextureID()));
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
+		GLCall(glBindVertexArray(0));
 		entity.material->shader->disable();
 		
 	}
@@ -220,7 +233,7 @@ namespace engine {	namespace graphics {
 
 		shader.enable();
 
-		glBindVertexArray(entity.model->vao);
+		GLCall(glBindVertexArray(entity.model->vao));
 
 		shader.setUniformMat4("projection", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("view", m_Camera->getViewMatrix());
@@ -239,15 +252,11 @@ namespace engine {	namespace graphics {
 
 		shader.setUniform3f("camPos", m_Camera->getPosition());
 
-		glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3));
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
 		
-		glBindVertexArray(0);
+		GLCall(glBindVertexArray(0));
 		shader.disable();
 	}
-
-	//bool change = true;
-		
-		
 		
 		
 	void Renderer::renderAABB(const collision::AABB3D &aabb, const Shader &shader) const {
@@ -291,20 +300,20 @@ namespace engine {	namespace graphics {
 		shader.enable();
 
 		//glVertexPointer(3, GL_FLOAT, 0, verts);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb);
-		glVertexAttribPointer(3, GL_UNSIGNED_SHORT, false, 0, 0, 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb));
+		GLCall(glVertexAttribPointer(3, GL_UNSIGNED_SHORT, false, 0, 0, 0));
 		shader.setUniformMat4("view_matrix", m_Camera->getViewMatrix());
 		shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 		shader.setUniformMat4("transformation_matrix", result);
 
-		glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, indices);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		GLCall(glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, indices));
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		shader.disable();
 	}
 
 	void Renderer::renderAABBs(const collision::AABB3D *colliders, const U32 size, const Shader &shader) const {
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb);
-		glVertexAttribPointer(3, GL_UNSIGNED_SHORT, false, 0, 0, 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo_aabb));
+		GLCall(glVertexAttribPointer(3, GL_UNSIGNED_SHORT, false, 0, 0, 0));
 		shader.enable();
 		for (U32 i = 0; i < size; i++) {
 				
@@ -327,9 +336,9 @@ namespace engine {	namespace graphics {
 			shader.setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
 			shader.setUniformMat4("transformation_matrix", result);
 
-			glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, indices);			
+			GLCall(glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, indices));
 		}
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		shader.disable();
 	}
 

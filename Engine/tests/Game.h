@@ -5,8 +5,10 @@
 #include "..\src\platform\windows\InputManager.h"
 #include "..\src\systems\CollisionManager.h"
 #include "..\src\systems\AnimationManager.h"
-#include "..\src\platform\windows\Console.h"
+//#include "..\src\platform\windows\Console.h"
 #include "..\src\systems\SystemManager.h"
+
+#include <application\Application.h>
 
 //#include <AntTweakBar.h>
 // NAMESPACES
@@ -18,9 +20,8 @@ using namespace engine::collision;
 
 // GLOBALS
 //Vec3 fPoint(10, 10, 10);
-class Game {
+class Game : public Application {
 private:	
-	Window window;	
 	// SYSTEMS
 	SystemManager gSystemManager;
 	InputManager gInputManager;
@@ -30,6 +31,8 @@ public:
 	Game();
 	~Game();
 
-	void init();
-	void run();
+	virtual void init();
+	virtual void run();
+	virtual void pause();
+	virtual void stop();
 };

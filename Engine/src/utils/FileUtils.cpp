@@ -1,3 +1,10 @@
+//------------------------------------------------------
+// File name:		FileUtils.cpp
+// Author:			Christian Sommerauer
+// Last Update:		09.04.2018
+// Description:		Load file on the system
+//------------------------------------------------------
+
 #include <utils\FileUtils.h>
 #include <utils\Log.h>
 #include <math\vec3.h>
@@ -9,7 +16,17 @@ namespace engine {
 	std::string FileUtils::read_file(const char* filepath) {
 
 		// flag "r" für nur lesen, "t" für Zeilenende in Textdateien 
-		FILE* file = fopen(filepath, "rt");
+		//FILE* file = fopen(filepath, "rt");
+		FILE* file;
+
+		errno_t err = fopen_s( &file,filepath, "r");
+		
+		// err is 0 if file failed to open
+		if (err != 0)
+		{
+			LOG_ERROR("Could not read file in path!");
+			return std::string("");
+		}
 
 		fseek(file, 0, SEEK_END);
 		unsigned long length = ftell(file);
@@ -25,7 +42,7 @@ namespace engine {
 		return result;
 	}
 
-	void FileUtils::load_obj(const char* path, Mesh & mesh) {
+	void FileUtils::load_obj(const char* filepath, Mesh & mesh) {
 
 		unsigned int counter = 0;
 		unsigned int faces = 0;
@@ -36,18 +53,25 @@ namespace engine {
 		std::vector< Vec3 > temp_normals;
 		std::vector< vec2 > temp_uvs;
 
-		FILE * file = fopen(path, "r");
-		if (file == NULL) {
-			printf("Impossible to open the file !\n");
+		// FILE * file = fopen(path, "r");
+		FILE* file;
+
+		errno_t err = fopen_s(&file, filepath, "r");
+
+		// err is 0 if file failed to open
+		if (err != 0 || file == NULL) {
+			LOG("Impossible to open the file !\n");
 			return;
 		}
-		else printf("Loading Mesh ...");
+
+		else LOG("Loading Mesh ...");
 
 		while (1) {
 
 			char lineHeader[128];
 			// read the first word of the line
 			int res = fscanf(file, "%s", lineHeader);
+
 			if (res == EOF)
 				break; // EOF = End Of File. Quit the loop.
 
@@ -77,7 +101,7 @@ namespace engine {
 				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
-					printf("File can't be read by our simple parser : ( Try exporting with other options\n");
+					LOG_ERROR("File can't be read by our simple parser : ( Try exporting with other options\n");
 					return;
 				}
 				vertexIndices.push_back(vertexIndex[0]);

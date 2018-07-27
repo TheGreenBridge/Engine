@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System.h"
+#include <systems/ISystem.h>
 
 namespace engine {
 	namespace collision {

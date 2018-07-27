@@ -205,7 +205,19 @@ void Window::update()  {
 	SDL_PumpEvents();
 	SDL_Event events;
 	while (SDL_PollEvent(&events)) {
+
 		switch (events.type) {
+		case SDL_WINDOWEVENT:
+			switch (events.window.event) {
+			case SDL_WINDOWEVENT_RESIZED:
+				LOG("Window.width", events.window.data1);
+				LOG("Window.height", events.window.data2);
+				Context::setViewport(events.window.data1, events.window.data2);
+				break;
+			default:
+				break;
+			}
+			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:		
 			if (events.type == SDL_KEYUP) {

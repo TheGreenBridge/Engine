@@ -3,7 +3,7 @@
 /// <summary>base class for an event </summary>
 ///
 
-#include "../../systems/System.h"
+#include <systems/ISystem.h>
 #include "../../input/MappedInput.h"
 #include "../../input/InputMapper.h"
 #include <map>

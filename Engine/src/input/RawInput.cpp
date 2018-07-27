@@ -28,8 +28,6 @@ void RawInput::key_callback(GLFWwindow* commingWindow, int key, int scancode, in
 		
 	}
 	RawInput::inputManager->mapper.setRawButtonState((INPUTBUTTON)key, boolAction, boolPreviouslyPressed);
-	
-	LOG("Button pressed", key);
 }
 
 void RawInput::key_callback(int key, int scancode, int action) {
@@ -45,6 +43,4 @@ void RawInput::key_callback(int key, int scancode, int action) {
 	}
 	
 	RawInput::inputManager->mapper.setRawButtonState((INPUTBUTTON)key, boolAction, boolPreviouslyPressed);
-
-	LOG("Button pressed", key);
 }

@@ -2,6 +2,7 @@
 
 #include <map>
 #include <common\types.h>
+#include <iostream>
 
 namespace engine {
 	namespace memory {

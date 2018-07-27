@@ -15,15 +15,13 @@
 #include "..\src\entity\Entity.h" // MESH MODEL MATERIAL(TEXTURE) ANIMATION(TRANSFORM)
 #include "..\src\entity\FollowCamera.h"
 
-#include <graphics\api\Buffer.h>
+
 #include "..\src\entity\mesh\plane.h"
 ///RENDER
 
-#include "..\src\graphics\render\shader.h"
-#include "..\src\graphics\render\Renderer.h"
-#include "..\src\graphics\render\Loader.h"
 
-#include "..\src\graphics\Scene.h"
+
+
 #include "..\src\entity\Light.h"
 #include "..\src\entity\Terrain.h"
 
@@ -40,7 +38,7 @@
 
 
 ///MEMORY
-#include "..\src\memory\Allocator.h"
+
 ///UTILS
 #include "..\src\math\maths.h"
 #include "..\src\utils\Time.h"

@@ -69,14 +69,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Engine\src;$(SolutionDir)Dependencies\ASSIMP\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\ATB\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\ATB\lib\debug;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib-vc2015;$(SolutionDir)Dependencies\ASSIMP\lib;$(SolutionDir)Dependencies\SOIL\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Engine\src;$(SolutionDir)Dependencies\ASSIMP\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\ATB\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\ATB\lib\debug;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib-vc2015;$(SolutionDir)Dependencies\ASSIMP\lib;$(SolutionDir)Dependencies\SOIL\lib;$(SolutionDir)Dependencies\FreeType\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\SDL2\include;$(SolutionDir)Engine\src;$(SolutionDir)Dependencies\ASSIMP\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\ATB\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\SDL2\lib;$(SolutionDir)Dependencies\ATB\lib\debug;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib-vc2015;$(SolutionDir)Dependencies\ASSIMP\lib;$(SolutionDir)Dependencies\SOIL\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +87,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;SOIL.lib;assimp-vc140-mt.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;SOIL.lib;assimp-vc140-mt.lib;SDL2.lib;SDL2main.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PreventDllBinding>
       </PreventDllBinding>
     </Link>
@@ -105,6 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,19 +129,58 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\3rdParty\Lua\lapi.c" />
+    <ClCompile Include="src\3rdParty\Lua\lauxlib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lbaselib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lbitlib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lcode.c" />
+    <ClCompile Include="src\3rdParty\Lua\lcorolib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lctype.c" />
+    <ClCompile Include="src\3rdParty\Lua\ldblib.c" />
+    <ClCompile Include="src\3rdParty\Lua\ldebug.c" />
+    <ClCompile Include="src\3rdParty\Lua\ldo.c" />
+    <ClCompile Include="src\3rdParty\Lua\ldump.c" />
+    <ClCompile Include="src\3rdParty\Lua\lfunc.c" />
+    <ClCompile Include="src\3rdParty\Lua\lgc.c" />
+    <ClCompile Include="src\3rdParty\Lua\linit.c" />
+    <ClCompile Include="src\3rdParty\Lua\liolib.c" />
+    <ClCompile Include="src\3rdParty\Lua\llex.c" />
+    <ClCompile Include="src\3rdParty\Lua\lmathlib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lmem.c" />
+    <ClCompile Include="src\3rdParty\Lua\loadlib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lobject.c" />
+    <ClCompile Include="src\3rdParty\Lua\lopcodes.c" />
+    <ClCompile Include="src\3rdParty\Lua\loslib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lparser.c" />
+    <ClCompile Include="src\3rdParty\Lua\lstate.c" />
+    <ClCompile Include="src\3rdParty\Lua\lstring.c" />
+    <ClCompile Include="src\3rdParty\Lua\lstrlib.c" />
+    <ClCompile Include="src\3rdParty\Lua\ltable.c" />
+    <ClCompile Include="src\3rdParty\Lua\ltablib.c" />
+    <ClCompile Include="src\3rdParty\Lua\ltm.c" />
+    <ClCompile Include="src\3rdParty\Lua\lua.c" />
+    <ClCompile Include="src\3rdParty\Lua\luac.c" />
+    <ClCompile Include="src\3rdParty\Lua\lundump.c" />
+    <ClCompile Include="src\3rdParty\Lua\lutf8lib.c" />
+    <ClCompile Include="src\3rdParty\Lua\lvm.c" />
+    <ClCompile Include="src\3rdParty\Lua\lzio.c" />
     <ClCompile Include="src\application\Application.cpp" />
     <ClCompile Include="src\asset\AssetLoader.cpp" />
     <ClCompile Include="src\asset\AssetParser.cpp" />
     <ClCompile Include="src\audio\AudioSource.cpp" />
     <ClCompile Include="src\debug\ATB.cpp" />
+    <ClCompile Include="src\EngineCore.cpp" />
     <ClCompile Include="src\entity\Camera.cpp" />
+    <ClCompile Include="src\entity\ComponentManager.cpp" />
     <ClCompile Include="src\entity\Entity.cpp" />
     <ClCompile Include="src\entity\EntityManager.cpp" />
     <ClCompile Include="src\entity\FollowCamera.cpp" />
     <ClCompile Include="src\entity\Light.cpp" />
+    <ClCompile Include="src\memory\MemoryManager.cpp" />
     <ClCompile Include="src\entity\Terrain.cpp" />
     <ClCompile Include="src\graphics\animation\Animation.cpp" />
     <ClCompile Include="src\graphics\animation\AnimationLoader.cpp" />
+    <ClCompile Include="src\graphics\font\Font.cpp" />
     <ClCompile Include="src\graphics\pbr\PBRMaterial.cpp" />
     <ClCompile Include="src\memory\PoolContainer.cpp" />
     <ClCompile Include="src\memory\allocator\IAllocator.cpp" />
@@ -156,47 +197,14 @@
     <ClCompile Include="src\math\Vec3.cpp" />
     <ClCompile Include="src\platform\windows\Console.cpp" />
     <ClCompile Include="src\renderapi\opengles\GLESTexture2D.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLVertexArray.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLVertexBufferLayout.cpp" />
     <ClCompile Include="src\scripting\LuaScript.cpp" />
-    <ClCompile Include="src\scripting\lua\lapi.c" />
-    <ClCompile Include="src\scripting\lua\lauxlib.c" />
-    <ClCompile Include="src\scripting\lua\lbaselib.c" />
-    <ClCompile Include="src\scripting\lua\lbitlib.c" />
-    <ClCompile Include="src\scripting\lua\lcode.c" />
-    <ClCompile Include="src\scripting\lua\lcorolib.c" />
-    <ClCompile Include="src\scripting\lua\lctype.c" />
-    <ClCompile Include="src\scripting\lua\ldblib.c" />
-    <ClCompile Include="src\scripting\lua\ldebug.c" />
-    <ClCompile Include="src\scripting\lua\ldo.c" />
-    <ClCompile Include="src\scripting\lua\ldump.c" />
-    <ClCompile Include="src\scripting\lua\lfunc.c" />
-    <ClCompile Include="src\scripting\lua\lgc.c" />
-    <ClCompile Include="src\scripting\lua\linit.c" />
-    <ClCompile Include="src\scripting\lua\liolib.c" />
-    <ClCompile Include="src\scripting\lua\llex.c" />
-    <ClCompile Include="src\scripting\lua\lmathlib.c" />
-    <ClCompile Include="src\scripting\lua\lmem.c" />
-    <ClCompile Include="src\scripting\lua\loadlib.c" />
-    <ClCompile Include="src\scripting\lua\lobject.c" />
-    <ClCompile Include="src\scripting\lua\lopcodes.c" />
-    <ClCompile Include="src\scripting\lua\loslib.c" />
-    <ClCompile Include="src\scripting\lua\lparser.c" />
-    <ClCompile Include="src\scripting\lua\lstate.c" />
-    <ClCompile Include="src\scripting\lua\lstring.c" />
-    <ClCompile Include="src\scripting\lua\lstrlib.c" />
-    <ClCompile Include="src\scripting\lua\ltable.c" />
-    <ClCompile Include="src\scripting\lua\ltablib.c" />
-    <ClCompile Include="src\scripting\lua\ltm.c" />
-    <ClCompile Include="src\scripting\lua\lua.c" />
-    <ClCompile Include="src\scripting\lua\luac.c" />
-    <ClCompile Include="src\scripting\lua\lundump.c" />
-    <ClCompile Include="src\scripting\lua\lutf8lib.c" />
-    <ClCompile Include="src\scripting\lua\lvm.c" />
-    <ClCompile Include="src\scripting\lua\lzio.c" />
     <ClCompile Include="src\scripting\ScriptManager.cpp" />
     <ClCompile Include="src\systems\AnimationManager.cpp" />
     <ClCompile Include="src\graphics\animation\interpolation.cpp" />
     <ClCompile Include="src\memory\allocator\LinearAllocator.cpp" />
-    <ClCompile Include="src\renderapi\opengl\VertexBuffer.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLVertexBuffer.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLCubemap.cpp" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLRenderer.cpp" />
@@ -207,16 +215,45 @@
     <ClCompile Include="src\math\mat4.cpp" />
     <ClCompile Include="src\math\Quaternion.cpp" />
     <ClCompile Include="src\systems\CollisionManager.cpp" />
-    <ClCompile Include="src\systems\System.cpp" />
+    <ClCompile Include="src\systems\ISystem.cpp" />
     <ClCompile Include="src\systems\SystemManager.cpp" />
     <ClCompile Include="src\threadding\Worker.cpp" />
+    <ClCompile Include="src\utils\FileReader\JsonReader.cpp" />
+    <ClCompile Include="src\utils\FileReader\XmlReader.cpp" />
     <ClCompile Include="src\utils\FileUtils.cpp" />
     <ClCompile Include="src\utils\Log.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\utils\types\String.cpp" />
+    <ClCompile Include="tests\EngineTest.cpp" />
     <ClCompile Include="tests\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\3rdParty\Lua\lapi.h" />
+    <ClInclude Include="src\3rdParty\Lua\lauxlib.h" />
+    <ClInclude Include="src\3rdParty\Lua\lcode.h" />
+    <ClInclude Include="src\3rdParty\Lua\lctype.h" />
+    <ClInclude Include="src\3rdParty\Lua\ldebug.h" />
+    <ClInclude Include="src\3rdParty\Lua\ldo.h" />
+    <ClInclude Include="src\3rdParty\Lua\lfunc.h" />
+    <ClInclude Include="src\3rdParty\Lua\lgc.h" />
+    <ClInclude Include="src\3rdParty\Lua\llex.h" />
+    <ClInclude Include="src\3rdParty\Lua\llimits.h" />
+    <ClInclude Include="src\3rdParty\Lua\lmem.h" />
+    <ClInclude Include="src\3rdParty\Lua\lobject.h" />
+    <ClInclude Include="src\3rdParty\Lua\lopcodes.h" />
+    <ClInclude Include="src\3rdParty\Lua\lparser.h" />
+    <ClInclude Include="src\3rdParty\Lua\lprefix.h" />
+    <ClInclude Include="src\3rdParty\Lua\lstate.h" />
+    <ClInclude Include="src\3rdParty\Lua\lstring.h" />
+    <ClInclude Include="src\3rdParty\Lua\ltable.h" />
+    <ClInclude Include="src\3rdParty\Lua\ltm.h" />
+    <ClInclude Include="src\3rdParty\Lua\lua.h" />
+    <ClInclude Include="src\3rdParty\Lua\lua.hpp" />
+    <ClInclude Include="src\3rdParty\Lua\luaconf.h" />
+    <ClInclude Include="src\3rdParty\Lua\lualib.h" />
+    <ClInclude Include="src\3rdParty\Lua\lundump.h" />
+    <ClInclude Include="src\3rdParty\Lua\lvm.h" />
+    <ClInclude Include="src\3rdParty\Lua\lzio.h" />
     <ClInclude Include="src\application\Application.h" />
     <ClInclude Include="src\asset\AssetLoader.h" />
     <ClInclude Include="src\asset\AssetParser.h" />
@@ -226,15 +263,20 @@
     <ClInclude Include="src\collision\Collidable3D.h" />
     <ClInclude Include="src\collision\CollisionShape.h" />
     <ClInclude Include="src\common\common.h" />
+    <ClInclude Include="src\Components\PhysicComponent.h" />
+    <ClInclude Include="src\Components\Renderable3DComponent.h" />
     <ClInclude Include="src\debug\ATB.h" />
     <ClInclude Include="src\common\engine.h" />
+    <ClInclude Include="src\EngineCore.h" />
     <ClInclude Include="src\entity\Camera.h" />
+    <ClInclude Include="src\entity\ComponentManager.h" />
     <ClInclude Include="src\entity\component\Animatable.h" />
     <ClInclude Include="src\entity\component\Transform.h" />
     <ClInclude Include="src\entity\Entity.h" />
     <ClInclude Include="src\entity\EntityManager.h" />
     <ClInclude Include="src\entity\FollowCamera.h" />
     <ClInclude Include="src\entity\Light.h" />
+    <ClInclude Include="src\memory\MemoryManager.h" />
     <ClInclude Include="src\entity\Terrain.h" />
     <ClInclude Include="src\graphics\animation\Animation.h" />
     <ClInclude Include="src\graphics\animation\AnimationHandle.h" />
@@ -244,7 +286,11 @@
     <ClInclude Include="src\graphics\animation\skinning\RenderableSkin.h" />
     <ClInclude Include="src\graphics\api\Context.h" />
     <ClInclude Include="src\graphics\api\Framebuffer.h" />
+    <ClInclude Include="src\graphics\api\IndexBuffer.h" />
     <ClInclude Include="src\graphics\api\Loader.h" />
+    <ClInclude Include="src\graphics\api\VertexArray.h" />
+    <ClInclude Include="src\graphics\api\VertexBufferLayout.h" />
+    <ClInclude Include="src\graphics\font\Font.h" />
     <ClInclude Include="src\graphics\pbr\PBRMaterial.h" />
     <ClInclude Include="src\graphics\Renderable2D.h" />
     <ClInclude Include="src\graphics\api\Shader.h" />
@@ -256,11 +302,14 @@
     <ClInclude Include="src\input\RangeConverter.h" />
     <ClInclude Include="src\input\RawInput.h" />
     <ClInclude Include="src\input\rawinputconstants.h" />
+    <ClInclude Include="src\math\iVec2.h" />
     <ClInclude Include="src\math\Vec3.h" />
+    <ClInclude Include="src\memory\Memory.h" />
     <ClInclude Include="src\memory\PoolContainer.h" />
     <ClInclude Include="src\memory\allocator\IAllocator.h" />
     <ClInclude Include="src\memory\LookupHandle.h" />
     <ClInclude Include="src\memory\allocator\PoolAllocator.h" />
+    <ClInclude Include="src\platform\Window.h" />
     <ClInclude Include="src\platform\windows\Console.h" />
     <ClInclude Include="src\renderapi\opengles\GLESCommon.h" />
     <ClInclude Include="src\renderapi\opengles\GLESTexture2D.h" />
@@ -269,32 +318,6 @@
     <ClInclude Include="src\renderapi\opengl\GLTypes.h" />
     <ClInclude Include="src\common\state.h" />
     <ClInclude Include="src\scripting\LuaScript.h" />
-    <ClInclude Include="src\scripting\lua\lapi.h" />
-    <ClInclude Include="src\scripting\lua\lauxlib.h" />
-    <ClInclude Include="src\scripting\lua\lcode.h" />
-    <ClInclude Include="src\scripting\lua\lctype.h" />
-    <ClInclude Include="src\scripting\lua\ldebug.h" />
-    <ClInclude Include="src\scripting\lua\ldo.h" />
-    <ClInclude Include="src\scripting\lua\lfunc.h" />
-    <ClInclude Include="src\scripting\lua\lgc.h" />
-    <ClInclude Include="src\scripting\lua\llex.h" />
-    <ClInclude Include="src\scripting\lua\llimits.h" />
-    <ClInclude Include="src\scripting\lua\lmem.h" />
-    <ClInclude Include="src\scripting\lua\lobject.h" />
-    <ClInclude Include="src\scripting\lua\lopcodes.h" />
-    <ClInclude Include="src\scripting\lua\lparser.h" />
-    <ClInclude Include="src\scripting\lua\lprefix.h" />
-    <ClInclude Include="src\scripting\lua\lstate.h" />
-    <ClInclude Include="src\scripting\lua\lstring.h" />
-    <ClInclude Include="src\scripting\lua\ltable.h" />
-    <ClInclude Include="src\scripting\lua\ltm.h" />
-    <ClInclude Include="src\scripting\lua\lua.h" />
-    <ClInclude Include="src\scripting\lua\lua.hpp" />
-    <ClInclude Include="src\scripting\lua\luaconf.h" />
-    <ClInclude Include="src\scripting\lua\lualib.h" />
-    <ClInclude Include="src\scripting\lua\lundump.h" />
-    <ClInclude Include="src\scripting\lua\lvm.h" />
-    <ClInclude Include="src\scripting\lua\lzio.h" />
     <ClInclude Include="src\scripting\ScriptManager.h" />
     <ClInclude Include="src\systems\AnimationManager.h" />
     <ClInclude Include="src\graphics\animation\skinning\AnimationSample.h" />
@@ -310,7 +333,7 @@
     <ClInclude Include="src\systems\messageing\EventHandler.h" />
     <ClInclude Include="src\systems\messageing\types\AnimationEvent.h" />
     <ClInclude Include="src\systems\messageing\types\KeyPressedEvent.h" />
-    <ClInclude Include="src\systems\System.h" />
+    <ClInclude Include="src\systems\ISystem.h" />
     <ClInclude Include="src\systems\SystemManager.h" />
     <ClInclude Include="src\graphics\api\VertexBuffer.h" />
     <ClInclude Include="src\graphics\api\Cubemap.h" />
@@ -335,16 +358,20 @@
     <ClInclude Include="src\renderapi\opengl\openglAPI.h" />
     <ClInclude Include="src\common\types.h" />
     <ClInclude Include="src\threadding\Worker.h" />
+    <ClInclude Include="src\utils\FileReader\JsonReader.h" />
+    <ClInclude Include="src\utils\FileReader\XmlReader.h" />
     <ClInclude Include="src\utils\FileUtils.h" />
     <ClInclude Include="src\utils\Log.h" />
     <ClInclude Include="src\utils\meshloader.h" />
     <ClInclude Include="src\utils\Time.h" />
     <ClInclude Include="src\utils\types\String.h" />
-    <ClInclude Include="src\utils\xmlreader\rapidxml.hpp" />
-    <ClInclude Include="src\utils\xmlreader\rapidxml_iterators.hpp" />
-    <ClInclude Include="src\utils\xmlreader\rapidxml_print.hpp" />
-    <ClInclude Include="src\utils\xmlreader\rapidxml_utils.hpp" />
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml.hpp" />
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_iterators.hpp" />
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_print.hpp" />
+    <ClInclude Include="src\3rdParty\RapidXml\rapidxml_utils.hpp" />
+    <ClInclude Include="tests\EngineTest.h" />
     <ClInclude Include="tests\Game.h" />
+    <ClInclude Include="tests\old_commentsj.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\entities\test.lua" />
@@ -354,8 +381,7 @@
     <None Include="res\shader\default\aabbshader.vert" />
     <None Include="res\shader\default\basic.frag" />
     <None Include="res\shader\default\basic.vert" />
-    <None Include="res\shader\default\boxshader.frag" />
-    <None Include="res\shader\default\boxshader.vert" />
+    <None Include="res\shader\default\boxshader.glsl" />
     <None Include="res\shader\default\default.frag" />
     <None Include="res\shader\default\default.vert" />
     <None Include="res\shader\default\defaultmaterial.frag" />
@@ -369,12 +395,13 @@
     <None Include="res\shader\post_processing\one_color.glsl" />
     <None Include="res\shader\terrain\terrainshader.frag" />
     <None Include="res\shader\terrain\terrainshader.vert" />
-    <None Include="res\shader\tests\testShader.frag" />
-    <None Include="res\shader\tests\testshader.vert" />
+    <None Include="res\shader\tests\testShader.glsl" />
+    <None Include="res\shader\ui\text.glsl" />
     <None Include="res\shader\ui\uishader.frag" />
     <None Include="res\shader\ui\uishader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="rules.txt" />
     <Text Include="src\common\convention.txt" />
   </ItemGroup>
   <ItemGroup>

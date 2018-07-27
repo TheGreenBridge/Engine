@@ -2,14 +2,13 @@
 
 #include <input\RawInput.h>
 ///MEMORY
-//#include <memory/LookupHandle.h>
-#include <entity\EntityManager.h>
-#include <memory\PoolContainer.h>
 
 #include <entity\mesh\plane.h>
 #include <entity\Camera.h>
 #include <entity\Entity.h> // MESH MODEL MATERIAL(TEXTURE) ANIMATION(TRANSFORM)
 #include <entity\FollowCamera.h>
+
+#include <EngineCore.h>
 
 ///RENDER
 
@@ -52,7 +51,7 @@ using namespace engine::entity;
 using namespace engine;
 
 Game::Game():
-	window("Project Green Bridge", 1280, 720)
+	Application("Project Green Bridge", 1280, 720)
 {
 }
 
@@ -62,6 +61,17 @@ Game::~Game()
 
 void Game::init()
 {
+	Engine::Initialize();
+}
+
+void Game::pause()
+{
+
+}
+
+void Game::stop()
+{
+
 }
 
 // Entity
@@ -72,39 +82,13 @@ void Game::init()
 // Collidable2D
 // Model
 // Controlable
+// SkinAnimation
 // AI
+// Physics
 
 void Game::run()
 {
-	EntityManager manager;
-
-	PoolContainer<Model> model_container;
-	PoolContainer<Shader> shader_container;
-	PoolContainer<Material> material_container;
-
-	Entity *entity = manager.newEntity();
-	Entity *entity1 = manager.newEntity();
-	Entity *entity2 = manager.newEntity();
-	Entity *entity3 = manager.newEntity();
-
-	LOG("entity", entity2->m_UniqueId.id);
-	LOG("entity", entity1->m_UniqueId.id);
-	LOG("entity", entity->m_UniqueId.id);
-	LOG("entity", entity3->m_UniqueId.id);
-	int id = entity3->m_UniqueId.id;
-	manager.deleteEntity(id);
-	Entity *entity4 = manager.getEntity(id);
-	if (entity4 == nullptr)
-	{
-		LOG("IS NULLPTR");
-	}
-	//HALT();
-
-	// VARIABLES
-	Light sun(Vec3(5, 3, 0), Vec3(1.0, 0.0, 0.0));
-	Terrain terrain;
-
-	Shader *pbrShader = shader_container.newElement(0, "res/shader/material/pbr_material.glsl");
+	Shader pbrShader("res/shader/material/pbr_material.glsl");
 	Shader defaultShader("res/shader/default/default.vert", "res/shader/default/default.frag");
 	Shader shader("res/shader/default/defaultmaterial.vert", "res/shader/default/defaultmaterial.frag");
 	Shader skyBoxShader("res/shader/default/boxshader.vert", "res/shader/default/boxshader.frag");
@@ -115,14 +99,26 @@ void Game::run()
 	Shader oneColorShader("res/shader/post_processing/one_color.glsl");
 	Shader combineShader("res/shader/post_processing/combine.glsl");
 	Shader basicShader("res/shader/default/basic.vert", "res/shader/default/basic.frag");
+
+
+	
+	
+	PBRMaterial pbrmaterial = PBRMaterial(
+		Texture("res/textures/pbr_rust/rustediron2_basecolor.png"),
+		Texture("res/textures/pbr_rust/rustediron2_metallic.png"),
+		Texture("res/textures/pbr_rust/rustediron2_roughness.png"),
+		pbrShader);;
+
+	//HALT();
+
+	// VARIABLES
+	Light sun(Vec3(5, 3, 0), Vec3(1.0, 0.0, 0.0));
+	Terrain terrain;
+
 	
 	Cubemap skybox;
 	Texture texture("res/textures/wood_texture.png");
 	Texture texture_white("res/textures/colors/color_white.png");
-
-	Texture pbr_albedo("res/textures/pbr_rust/rustediron2_basecolor.png");
-	Texture pbr_metallic("res/textures/pbr_rust/rustediron2_metallic.png");
-	Texture pbr_roughness("res/textures/pbr_rust/rustediron2_roughness.png");
 
 	Material material{ Vec3(), Vec3(), Vec3(),	&texture, &environmentShader };
 	
@@ -132,25 +128,27 @@ void Game::run()
 	FileUtils::load_obj("res/mesh/default/cube.obj", sphereMesh);
 	createPlaneMesh(planemesh);
 
-	Model *model = model_container.newElement(0);
-	Model *sphereModel = model_container.newElement(1);
-	Model *planemodel = model_container.newElement(2);
+	Model model;
+	Model sphereModel;
+	Model planemodel;
 
-	*model = Loader::loadModel(mesh);
-	*sphereModel = Loader::loadModel(sphereMesh);
-	*planemodel = Model{ Loader::loadVAO(planemodel->vertices, &planemesh.getVertices()[0].x, planemesh.getVertices().size() * sizeof(Vec3), 3, 0) };
+	model = Loader::loadModel(mesh);
+	sphereModel = Loader::loadModel(sphereMesh);
+	//planemodel = Model{ Loader::loadVAO(planemodel.vbo_vertices, &planemesh.getVertices()[0].x, planemesh.getVertices().size() * sizeof(Vec3), 3, 0) };
 	
-	PBRMaterial pbrmaterial(pbr_albedo, pbr_metallic, pbr_roughness, *pbrShader);
+	
 	
 	U32 skyvbo;
-	GLuint skyvao = Loader::loadVAO(skyvbo, skybox.skyboxVertices, 108 * sizeof(float), 3, 0);
+	//GLuint skyvao = Loader::loadVAO(skyvbo, skybox.skyboxVertices, 108 * sizeof(float), 3, 0);
 	Animation testAnimation(Transform(Vec3(0, 0, 0), Quaternion(0, 0, 0, 1), 1.0f),
 		Transform(Vec3(10, 10, 0), Quaternion(0, 0, 0, 1), 3.0f));
 	Entity plane;
-	plane = Entity{ Transform(Vec3(0, 10.0f, 0), Quaternion(0, 0, 0, 1), 1.0f), &planemesh, planemodel, };
-	Entity rock{ Transform(Vec3(10, 0, 0), Quaternion(0, 0, 0, 1), 1.0f), &sphereMesh, sphereModel, &material, &testAnimation, };
+	plane = Entity{ Transform(Vec3(0, 10.0f, 0), Quaternion(0, 0, 0, 1), 1.0f), &planemesh, &planemodel, };
+	
+	Entity rock{ Transform(Vec3(10, 0, 0), Quaternion(0, 0, 0, 1), 1.0f), &sphereMesh, &sphereModel, &material, &testAnimation, };
+	
 	Entity player{ Transform(Vec3(0, 0, 2), Quaternion(0.0f,0.0f,0.0f,1.0f), /*Quaternion(0.5f, -0.5f, -0.4f, -0.6f),*/ 1.0f),
-		&mesh, model, &material,	nullptr, nullptr, nullptr, };
+		&mesh, &model, &material,	nullptr, nullptr, nullptr, };
 	player.transform.rotation.rotate(Vec3(-90.0f, 0, 0));
 	
 	
@@ -247,7 +245,7 @@ void Game::run()
 	
 	for (int i = 0; i < 10; i++) {
 		rocks[i].transform = Transform(Vec3(0.0f, 0.0f, i * 2.0f - 10.0f), Quaternion(0.0f, 0.0f, 0.0f, 1.0f), 1.0f);
-		rocks[i].model = sphereModel;
+		rocks[i].model = &sphereModel;
 		rocks[i].mesh = &sphereMesh;
 		rocks[i].material = &material;
 		rocks[i].pbrmaterial = &pbrmaterial;
@@ -311,7 +309,7 @@ void Game::run()
 		//gCollisionManager.update(10);
 
 
-		renderer.render(skybox, skyvao, skyBoxShader);
+		//renderer.render(skybox, skyvao, skyBoxShader);
 		renderer.renderAABBs(gCollisionManager.getCollidables(), gCollisionManager.getNumCollidables(), aabbShader);
 
 		renderer.render(player, oneColorShader);

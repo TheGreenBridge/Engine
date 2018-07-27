@@ -4,7 +4,6 @@
 //#include <GLFW\glfw3.h>
 #include <common\types.h>
 
-
 typedef void (*KeyboardCallback)(int key, int scancode, int action);
 typedef void (*MouseCallback)(int width, int height);
 

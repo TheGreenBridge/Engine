@@ -9,6 +9,13 @@
 #include "../math/Quaternion.h"
 #include <string>
 
+#include <common\types.h>
+
+#define DEBUG
+
+#define LOG_ERROR(x) logError(x, __FILE__, __LINE__);
+#define LOG_DEBUG(x) 
+
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 void LOG(std::string title, const mat4 &matrix);
@@ -27,7 +34,9 @@ void LOG(const char* title, const float number);
 
 void LOG(const char* title, const int number);
 
-void LOG_ERROR(const char* text);
+void logError(const char* text, const char* file, U32 line);
+
+void logDebug(const char* text, const char* file, U32 line);
 
 void HALT();
 

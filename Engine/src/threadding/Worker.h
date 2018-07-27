@@ -3,8 +3,11 @@
 
 class Worker {
 private:
-	std::thread worker;
-	void doWork();
+	std::thread m_Thread;
+
 public:
 	Worker();
+	~Worker();
+	void doWork(void (*)());
+	void join();
 };

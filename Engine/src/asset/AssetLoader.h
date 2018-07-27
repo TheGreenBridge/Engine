@@ -1,10 +1,11 @@
 #pragma once
 
-class AssetLoader {
-private:
+namespace engine {
+	class AssetLoader {
+	private:
 
 
-public:
-	
-
-};
+	public:
+		void loadEntity(const char *path) const;
+	};
+}

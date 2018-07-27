@@ -1,7 +1,19 @@
+//------------------------------------------------------
+// File name:		SystemManager.h
+// Author:			Christian Sommerauer
+// Last Update:		09.04.2018
+// Description:		Storage and entry point for systems
+//------------------------------------------------------
+
+#ifndef __SYSTEM_MANAGER_H__
+#define __SYSTEM_MANAGER_H__
 #pragma once
 
 #include <vector>
-#include <memory/allocator/LinearAllocator.h>
+
+#include <memory\allocator\LinearAllocator.h>
+#include <utils\Time.h>
+#include <common\types.h>
 
 /// <summary>
 /// This is the Manager for all systems
@@ -12,23 +24,9 @@
 ///	# memory allocation for the systems
 /// </remarks>
 
-/*
-(Sumi) Thoughts
-
-default Systems
-
-InputManager;
-AnimationManager;
-RenderManager;
-CollisionManager;
-AudioManager;
-
-EntityManager;
-
-
-*/
-
 namespace engine {
+
+	// Forward Declarations
 	class ISystem;
 	struct Event;
 	
@@ -36,12 +34,18 @@ namespace engine {
 
 	class SystemManager {
 	private: 
-		std::vector<ISystem*> m_systems;
-		LinearAllocator m_allocator;
+		std::vector<ISystem*> m_Systems;
+		LinearAllocator m_Allocator;
+		Time m_Time;
+		U32 m_FPS;
+		bool isActivated;
 	public:
 		
 		SystemManager();
 		~SystemManager();
+
+		void startUp();
+		void shutDown();
 	
 		void update();
 
@@ -52,9 +56,10 @@ namespace engine {
 
 		template<typename T>
 		T* requestMemory(size_t N);
-
-		
-
 		void testManager();
+
+		long long getDeltaTime() const;
 	};
 }
+
+#endif //__SYSTEM_MANAGER_H__

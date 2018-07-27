@@ -13,41 +13,47 @@ namespace engine {	namespace memory {
 		m_pLimit = static_cast<char*>(m_pBegin) + size;
 		m_freeStorage = size;
 		m_allocSize = size;
-	#ifdef DEBUG
-			LOG("Allocated Bytes", size);
-	#endif
+		
+		LOG("Allocated Bytes", size);
+		
 		m_pCurrentLocation = m_pBegin;
 	}
 
 	LinearAllocator::~LinearAllocator() {
-	#ifdef DEBUG	
-			LOG("Allocator destroyed!!");
-	#endif
+	
+		LOG("Linear Allocator destroyed!!");
+
 		std::free(m_pBegin);
 	}
 
-	void *LinearAllocator::allocate(size_t size) {
+	blk LinearAllocator::allocate(size_t size) {
+		blk allocation;
 		if (size < m_freeStorage) {
 			void *pMark = m_pCurrentLocation;
 			// To increment size * 8 
 			m_pCurrentLocation = static_cast<char*>(m_pCurrentLocation) + size;
 			m_freeStorage -= size;
-	#ifdef DEBUG	
-			printf("Address of x is %p\n", (void *)pMark);
+
+			//printf("Address of x is %p\n", (void *)pMark);
 			LOG("Requested Memory in Bytes", size);
-	#endif
-			return pMark;
+
+			
+			allocation.ptr = pMark;
+			allocation.size = size;
+			
 		}
 		else {
-	#ifdef DEBUG	
+	
 			LOG("Allocator", "Could not allocate memory!");
-	#endif
-			return nullptr;
+			allocation.ptr = nullptr;
+			allocation.size = 0;
 		}
+
+		return allocation;
 	}
 
-	void LinearAllocator::free(void *location, size_t size) {
-		std::free(location);
+	void LinearAllocator::free(blk allocation) {
+		//std::free(location);
 	}
 
 	void LinearAllocator::logStates() const {

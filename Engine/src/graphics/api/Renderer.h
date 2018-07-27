@@ -9,6 +9,7 @@
 #include <entity\Light.h>
 
 #include <graphics\pbr\PBRMaterial.h>
+#include <graphics\api\VertexArray.h>
 
 #include <common/types.h>
 
@@ -32,12 +33,13 @@ namespace engine {
 
 			void loadCollisionShapes();
 		public:
+			Renderer();
 			Renderer(Camera *camera);
 			~Renderer();
 
 			void initialize();
 			void render(const Scene &scene, const Shader &shader, const Light &light) const;
-			void render(const Cubemap &cubemap, const U32 vao, const Shader &shader) const;
+			void render(const Cubemap &cubemap, const VertexArray& vao, const Shader &shader) const;
 			void render(const U32 vbo, const Shader &shader, const int dim, U32 size) const;
 			
 			void render(Entity &entity, const Texture &texture, const Shader &shader) const;

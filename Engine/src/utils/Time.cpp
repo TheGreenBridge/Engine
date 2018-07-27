@@ -1,10 +1,22 @@
+//------------------------------------------------------------------------------
+// Time.cpp
+//
+// Provides a interface for time management
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 21.07.18
+//------------------------------------------------------------------------------
+//
+
 #include "Time.h"
 
+//------------------------------------------------------------------------------
 Time::Time():
 	m_Dt(0), m_PastTime(0){
-
 }
 
+//------------------------------------------------------------------------------
 void Time::measureTime() {
 	std::chrono::high_resolution_clock::now();
 	auto now = std::chrono::high_resolution_clock::now();
@@ -16,24 +28,28 @@ void Time::measureTime() {
 	m_PastTime += m_Dt;
 }
 
+//------------------------------------------------------------------------------
 void Time::init() {
 	m_Dt = 0;
 	m_PastTime = 0;
 }
 
+//------------------------------------------------------------------------------
 void Time::start() {
 	m_LastTime = std::chrono::high_resolution_clock::now();
 }
 
+//------------------------------------------------------------------------------
 void Time::erasePastTime() {
 	m_PastTime = 0;
 }
 
+//------------------------------------------------------------------------------
 long long Time::getDelta() const {
 	return m_Dt;
 }
 
-
+//------------------------------------------------------------------------------
 long long Time::getPastTime() const {
 	return m_PastTime;
 }

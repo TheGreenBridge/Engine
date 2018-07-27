@@ -1,6 +1,6 @@
 #include "InputContext.h"
 #include "../utils/FileUtils.h"
-#include "../utils/xmlreader/rapidxml.hpp"
+#include <3rdParty\RapidXml\rapidxml.hpp>
 #include "../utils/Log.h"
 #include <sstream>
 

@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// GLFramebuffer.cpp
+//
+// OPEN GL implementation of a framebuffer
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 22.07.18
+//------------------------------------------------------------------------------
+//
+
 #include <graphics\api\Framebuffer.h>
 #include <renderapi\opengl\GLCommon.h>
 #include <common\types.h>
@@ -5,11 +16,12 @@
 
 namespace engine {	namespace graphics {
 
+	//--------------------------------------------------------------------------
 	Framebuffer::Framebuffer(U16 pixelWidth, U16 pixelHeight):
 		m_PixelWidth(pixelWidth) , m_PixelHeight(pixelHeight)
 	{
 		// create a new Framebuffer
-		glGenFramebuffers(1, &m_BufferID);
+		GLCall(glGenFramebuffers(1, &m_BufferID));
 		glBindFramebuffer(GL_FRAMEBUFFER, m_BufferID);
 
 		glGenTextures(1, &m_RenderedTexture);
@@ -52,6 +64,7 @@ namespace engine {	namespace graphics {
 			//return false;
 	}
 
+	//--------------------------------------------------------------------------
 	void Framebuffer::enable() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_BufferID);
@@ -60,11 +73,13 @@ namespace engine {	namespace graphics {
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	//--------------------------------------------------------------------------
 	void Framebuffer::disable() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+	//--------------------------------------------------------------------------
 	const U32 Framebuffer::getRenderbuffer() const
 	{
 		return m_RenderedTexture;

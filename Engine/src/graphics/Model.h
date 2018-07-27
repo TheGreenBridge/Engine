@@ -5,7 +5,9 @@
 struct Model {
 	U32 vao;
 
-	U32 vertices;
-	U32 normals;
-	U32 uvs;
+	U32 vbo_vertices;
+	U32 vbo_normals;
+	U32 vbo_uvs;
+
+	U32 numVertices;;
 };

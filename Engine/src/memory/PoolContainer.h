@@ -6,14 +6,17 @@
 namespace engine {
 	namespace memory {
 
+		class IPoolContainer {
+		};
+
 		template<typename T>
-		class PoolContainer {
+		class PoolContainer : public IPoolContainer{
 		private:
 			LookupHandle<T> m_Handle;
 			PoolAllocator<T> m_Allocator;
 		public:
 
-			PoolContainer();
+			PoolContainer(size_t size);
 
 			template <typename... arguments>
 			T* newElement(U32 id, arguments&&... args);
@@ -33,7 +36,8 @@ namespace engine {
 	namespace memory {
 
 		template <typename T>
-		PoolContainer<T>::PoolContainer()
+		PoolContainer<T>::PoolContainer(size_t size)
+			: m_Allocator(size)
 		{
 
 		}
@@ -56,7 +60,7 @@ namespace engine {
 
 		template <typename T>
 		T* PoolContainer<T>::getElement(U32 id) const {
-			return m_Hashtable.find(id)->second;
+			return m_Handle.getEntry(id);
 		}
 
 		template <typename T>
