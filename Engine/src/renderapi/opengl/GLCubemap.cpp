@@ -18,7 +18,7 @@ namespace engine {	namespace graphics {
 	//--------------------------------------------------------------------------
 	Cubemap::Cubemap() 
 	{
-
+		GLCall(glGenTextures(1, &m_TexID));
 	}
 
 	//--------------------------------------------------------------------------
@@ -29,9 +29,8 @@ namespace engine {	namespace graphics {
 
 	//--------------------------------------------------------------------------
 	void Cubemap::loadTextures(std::vector<const char*> faces) {
-		GLCall(glGenTextures(1, &m_TexID));
+		
 		GLCall(glActiveTexture(GL_TEXTURE0));
-
 		int width, height;
 		unsigned char* image;
 

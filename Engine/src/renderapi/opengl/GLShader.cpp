@@ -5,7 +5,7 @@
 //
 // Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 22.07.18
+// Changed: 30.07.18
 //------------------------------------------------------------------------------
 //
 
@@ -179,10 +179,12 @@ namespace engine { namespace graphics{
 	}
 
 	//--------------------------------------------------------------------------
-	void Shader::setUniformTexture(const char * name, I32 slot, I32 texture) const
+	void Shader::setUniformTexture(const char * name, I32 slot, 
+		I32 texture) const
 	{
 		GLint location = glGetUniformLocation(m_ShaderID, name);
-		if (location == -1) { LOG("Could not find Uniform Texture with name", name); return; }
+		if (location == -1) { 
+			LOG("Could not find Uniform Texture with name", name); return; }
 		GLCall(glUniform1i(location, slot));
 		switch (slot) 
 		{
@@ -196,4 +198,16 @@ namespace engine { namespace graphics{
 		}
 		GLCall(glBindTexture(GL_TEXTURE_2D, texture));
 	}
+
+	//--------------------------------------------------------------------------
+	/*void Shader::setUniformBuffer(const UniformBuffer& buffer, 
+		const char* name) 
+	{
+		U32 block_index = glGetUniformBlockIndex(m_ShaderID, name);
+
+		glBindBufferBase(GL_UNIFORM_BUFFER, m_UniformIndex, buffer.getHandle());
+		glUniformBlockBinding(m_ShaderID, block_index, m_UniformIndex);
+
+		m_UniformIndex++;
+	}*/
 }}

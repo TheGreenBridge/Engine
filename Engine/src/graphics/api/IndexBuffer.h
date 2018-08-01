@@ -1,11 +1,11 @@
 //------------------------------------------------------------------------------
 // IndexBuffer.cpp
 //
-// Represents graphics data
+// Represents a buffer of indices on the gpu
 //
 // Author: Sumi
 // Created: 19.07.18
-// Changed: 19.07.18
+// Changed: 30.07.18
 //------------------------------------------------------------------------------
 //
 
@@ -13,28 +13,29 @@
 
 #include<common\types.h>
 
-namespace engine {
-	namespace graphics {
-		class VertexBuffer {
-		public:
-			enum BufferUsage {
-				STATIC, DYNAMIC
-			};
+namespace engine {	namespace graphics {
+
+		class IndexBuffer {
+
 		private:
 			U32 m_Handle;
-			U32 m_Size;
-			BufferUsage m_Usage;
+			U32 m_Count;
+			IndexBuffer();
 
 		public:
-			VertexBuffer(BufferUsage usage);
-			VertexBuffer(U32 size, BufferUsage usage);
-			~VertexBuffer();
+			// Ctr
+			IndexBuffer(const U32* data, U32 count);
+			// Deleted Ctr
+			IndexBuffer(const IndexBuffer&) = delete;
 
-			void setData(U32 size, const void* data);
-			void resize(U32 size);
+			~IndexBuffer();
 
+			// Binding
 			void bind() const;
 			void unbind() const;
+
+			// Getter
+			inline U32 getCount() const;
 		};
 
 	}

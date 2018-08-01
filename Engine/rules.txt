@@ -4,12 +4,12 @@
 Every File needs a header-text:
 
 //------------------------------------------------------------------------------
-// example.c
+// example.cpp
 //
 // short description
 //
-// Author: xxxxx
-// Created: xx.xx.xx
-// Changed: xx.xx.xx
+// Author: Sommerauer Christian
+// Created: 31.07.18
+// Changed: 31.07.18
 //------------------------------------------------------------------------------
 //

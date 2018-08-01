@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory\allocator\IAllocator.h>
+
 namespace engine {	namespace memory {
 
 	template <class T> 
@@ -20,27 +22,25 @@ namespace engine {	namespace memory {
 		memInfo *next;
 	};
 
-	struct blk {
-		void* ptr;
-		unsigned int size;
-	};
+	
 
-	class LinearAllocator {
+	class LinearAllocator : public IAllocator {
 
 	private:
 		void *m_pBegin, *m_pLimit;
 		void *m_pCurrentLocation;
-		size_t m_allocSize;
-		size_t m_freeStorage;
+		U32 m_allocSize;
+		U32 m_freeStorage;
 	public:
-		LinearAllocator(size_t size);
+		LinearAllocator(U32 size);
 		~LinearAllocator();
 	
 		unsigned int getFreeStorage();
 
-		blk allocate(size_t size);
+		blk allocate(U32 size);
 
-		void free(blk allocation);
+		void deallocate(blk allocation);
+
 		void logStates() const;
 		void expand(unsigned int size);
 	};

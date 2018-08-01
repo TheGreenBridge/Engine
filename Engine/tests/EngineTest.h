@@ -23,6 +23,8 @@
 #include <graphics\api\Loader.h>
 #include <graphics\api\Texture.h>
 #include <graphics\font\Font.h>
+#include <graphics\api\Framebuffer.h>
+#include <graphics\api\UniformBuffer.h>
 
 
 ///UTILS
@@ -49,10 +51,11 @@ private:
 	InputManager gInputManager;
 	AnimationManager gAnimationManager;
 	CollisionManager gCollisionManager;
+
+	Console gConsole;
+
 	
-	Shader pbrShader, skyBoxShader, fontShader, shader;
-	Cubemap skybox;
-	Camera camera;
+	
 
 	float vertices[12] = {
 		0.0, 0.0,
@@ -63,18 +66,21 @@ private:
 		0.5, 0.5
 	};
 
-	Font font;
+	Renderer* renderer;
 
-	Renderer renderer;
+	
+	Camera* camera;
 
-	VertexArray vao, skyvao;
-	VertexBuffer vbo, skyvbo;
+	// TESTS
+	Shader* pbrShader, *skyBoxShader, *fontShader, *shader;
+	Cubemap* skybox;
+
+	VertexArray* vao, *skyvao;
+	VertexBuffer* vbo, *skyvbo;
+	UniformBuffer* ubo;
+	Entity *entity;
 
 	//Font font;
-
-	Console gConsole;
-
-	Entity *entity;
 	
 	void stop_();
 	void run_();

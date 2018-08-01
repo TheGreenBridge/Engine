@@ -20,8 +20,14 @@ namespace engine {	namespace graphics {
 		U32 m_Handle;
 		I32 m_Width, m_Height;
 	public:
+		// Ctr
 		Texture();
 		Texture(const char *path);
+
+		// deleted Ctr
+		Texture(const Texture&) = delete;
+		Texture(Texture&&) = delete;
+
 		~Texture();
 
 		void loadImage(const char *path);

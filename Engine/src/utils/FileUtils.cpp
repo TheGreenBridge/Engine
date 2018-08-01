@@ -51,7 +51,7 @@ namespace engine {
 		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 		std::vector< Vec3 > temp_vertices;
 		std::vector< Vec3 > temp_normals;
-		std::vector< vec2 > temp_uvs;
+		std::vector< Vec2 > temp_uvs;
 
 		// FILE * file = fopen(path, "r");
 		FILE* file;
@@ -60,7 +60,7 @@ namespace engine {
 
 		// err is 0 if file failed to open
 		if (err != 0 || file == NULL) {
-			LOG("Impossible to open the file !\n");
+			LOG_ERROR("Impossible to open the file !\n");
 			return;
 		}
 
@@ -82,7 +82,7 @@ namespace engine {
 				temp_vertices.push_back(vertex);
 			}
 			else if (strcmp(lineHeader, "vt") == 0) {
-				vec2 uv;
+				Vec2 uv;
 				fscanf(file, "%f %f\n", &uv.x, &uv.y);
 				uv.y = -uv.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
 				temp_uvs.push_back(uv);
@@ -130,7 +130,7 @@ namespace engine {
 
 			Vec3 vertex;
 			Vec3 normal;
-			vec2 uv;
+			Vec2 uv;
 
 			if (vertexIndex > temp_vertices.size()) {
 				test = true;
@@ -154,13 +154,11 @@ namespace engine {
 				mesh.getNormals().push_back(normal);
 				mesh.getUVs().push_back(uv);
 			}
-			else LOG("Es gab ein Problem beim OBJ Loader!");
+			else LOG_ERROR("Es gab ein Problem beim OBJ Loader!");
 
 		}
 		mesh.numVertices = vertexIndices.size();
 
 		LOG("Vertex Count ", counter);
 	}
-
-	
 }

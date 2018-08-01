@@ -1,18 +1,20 @@
 //------------------------------------------------------------------------------
-// vec2.h
+// Vec2.h
 //
 // represents a vector in 2D with floats as elements
 //
-// Author: Sumi
+// Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 18.07.18
+// Changed: 30.07.18
 //------------------------------------------------------------------------------
 //
 
 #pragma once
 
-struct vec2 {
-	float x, y;
-	vec2(float const x, float const y) : x(x), y(y) {}
-	vec2() : x(0), y(0) {}
-};
+#include <common\types.h>
+
+struct Vec2 {
+	F32 x, y;
+	Vec2(float const x, float const y) : x(x), y(y) {}
+	Vec2() : x(0), y(0) {}
+}; 

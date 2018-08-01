@@ -14,8 +14,11 @@ namespace engine {	namespace graphics {
 	Camera::~Camera() {}
 
 	mat4 Camera::getProjectionMatrix() const{
-		return mat4::Perspective(m_Fov, m_AspectRatio, m_Near, m_Far);
+		
+		return m_ProjectionMatrix;
 	}
+
+
 
 	inline void setRotation(const Vec3 &rotation) {
 
@@ -106,6 +109,7 @@ namespace engine {	namespace graphics {
 		//m_Rotation.setEulerAngles(key_yaw, key_pitch, key_roll);
 		//m_Rotation.normalize();
 
+		// update view
 		mat4 rotation = m_Rotation.toMatrix();
 		mat4 translation(1, 0, 0, 0,
 			0, 1, 0, 0,
@@ -113,6 +117,8 @@ namespace engine {	namespace graphics {
 			m_Position.x, m_Position.y, m_Position.z, 1);
 		m_ViewMatrix = rotation * translation;
 		
+		// update perspective
+		m_ProjectionMatrix = mat4::Perspective(m_Fov, m_AspectRatio, m_Near, m_Far);
 	}
 
 	mat4 Camera::lookAt(const Vec3 &eye, const Vec3 &target, const Vec3 &up) {

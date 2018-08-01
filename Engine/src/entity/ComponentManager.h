@@ -36,7 +36,7 @@ namespace engine {
 		template <typename T>
 		void addNewContainer() 
 		{
-			blk temp = m_memory->newMemory(sizeof(memory::PoolContainer<T>));
+			blk temp = m_memory->allocate(sizeof(memory::PoolContainer<T>));
 			m_container.insert(
 				std::pair<size_t, memory::IPoolContainer*>
 				(
@@ -54,7 +54,7 @@ namespace engine {
 		~ComponentManager();
 
 		template <typename T, typename... arguments>
-		void AddComponent(const Entity *entity, arguments&&... args)
+		T* AddComponent(const Entity *entity, arguments&&... args)
 		{
 			//LOG(typeid(T).name());
 			//LOG("WHAT");
@@ -68,7 +68,7 @@ namespace engine {
 
 			memory::PoolContainer<T> *container = reinterpret_cast<memory::PoolContainer<T>*> (m_container.find(typeid(T).hash_code())->second);
 
-			container->newElement(entity->m_UniqueId.id, std::forward<arguments>(args)...);
+			return container->newElement(entity->m_UniqueId.id, std::forward<arguments>(args)...);
 
 			
 

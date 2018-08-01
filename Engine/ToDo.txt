@@ -4,3 +4,33 @@ ToDo:
 # ComponentManager -> PoolContainer memory from MemoryManager
 # SystemManager
 
+
+Type Checking:
+
+Bei Start checken, ob auch GLFloat == 4 bytes, ...
+
+
+Componentmanager
+{
+	Model
+	Material
+
+
+}
+
+AnimationData
+{
+
+}
+
+
+
+Cubemap
+Texture
+Shader
+
+Framebuffer
+UniformBuffer
+VertexBuffer
+VertexArray
+IndexBuffer

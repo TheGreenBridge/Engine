@@ -9,7 +9,7 @@ namespace engine {	namespace graphics {
 
 	class Mesh {
 		typedef std::vector<Vec3> vect3;
-		typedef std::vector<vec2> vect2;
+		typedef std::vector<Vec2> vect2;
 
 	private:
 		vect3 m_Vertices, m_Normals;

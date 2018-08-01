@@ -3,7 +3,7 @@
 
 namespace engine {
 
-	memory::MemoryManager *ComponentManager::m_memory = &Engine::m_memoryMgr;
+	memory::MemoryManager *ComponentManager::m_memory = &Engine::gMemoryManager;
 
 	U32 ComponentManager::TypeCounter = 0;
 

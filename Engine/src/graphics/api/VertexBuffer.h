@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// VertexBuffer.cpp
+// VertexBuffer.h
 //
 // Represents graphics data
 //
@@ -28,8 +28,14 @@ namespace engine {	namespace graphics {
 		BufferUsage m_Usage;
 
 	public:
+		// Ctr
 		VertexBuffer(BufferUsage usage);
 		VertexBuffer(U32 size, BufferUsage usage);
+
+		// deleted Ctr
+		VertexBuffer() = delete;
+		VertexBuffer(const VertexBuffer&) = delete;
+
 		~VertexBuffer();
 
 		void setData(U32 size, const void* data);

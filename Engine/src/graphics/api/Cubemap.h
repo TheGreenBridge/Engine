@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// Cubemap.h
+//
+// Represents a cubemap
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 30.07.18
+//------------------------------------------------------------------------------
+//
+
 #pragma once
 
 #include <common\types.h>
@@ -11,6 +22,7 @@ namespace engine {	namespace graphics {
 
 	public:
 		Cubemap();
+		Cubemap(const Cubemap&) = delete;
 		~Cubemap();
 
 		float skyboxVertices[108] = {

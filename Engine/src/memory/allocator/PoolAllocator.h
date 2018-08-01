@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
 #include <common\types.h>
+#include <memory\allocator\IAllocator.h>
+#include <utils\Log.h>
 
 namespace engine {
 	namespace memory {
@@ -14,7 +16,7 @@ namespace engine {
 			~PoolChunk() {};
 		};
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
+		template <typename T>
 		class PoolAllocator
 		{
 		private:
@@ -26,11 +28,11 @@ namespace engine {
 			PoolChunk<T> *m_Data = nullptr;
 			PoolChunk<T> *m_Head = nullptr;
 
-			Allocator* m_ParentAllocator = nullptr;
+			IAllocator* m_ParentAllocator = nullptr;
 			bool m_needsToDeleteParentAllocator = false;
 
 		public:
-			explicit PoolAllocator(size_t size = POOLALLOCATORDEFAULTSIZE, Allocator *parentAllocator = nullptr);
+			explicit PoolAllocator(IAllocator *parentAllocator, size_t size = POOLALLOCATORDEFAULTSIZE);
 
 			PoolAllocator(const PoolAllocator &other) = delete; // Copy Cstr
 			PoolAllocator(const PoolAllocator &&other) = delete; // Move Cstr
@@ -55,16 +57,17 @@ namespace engine {
 namespace engine {
 	namespace memory {
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
-		PoolAllocator<T, Allocator>::PoolAllocator(size_t size = POOLALLOCATORDEFAULTSIZE, Allocator *parentAllocator = nullptr)
+		template <typename T>
+		PoolAllocator<T>::PoolAllocator(IAllocator *parentAllocator, size_t size = POOLALLOCATORDEFAULTSIZE)
 			: m_Size(size), m_ParentAllocator(parentAllocator)
 		{
 			if (parentAllocator == nullptr) {
-				m_ParentAllocator = new Allocator();
-				m_needsToDeleteParentAllocator = true;
+				LOG_ERROR("parent allocator is nullptr");
+				//m_ParentAllocator = new Allocator();
+				//m_needsToDeleteParentAllocator = true;
 			}
-
-			m_Data = m_ParentAllocator->allocate(m_Size);// new PoolChunk<T>[size];
+			blk allocation = m_ParentAllocator->allocate(m_Size * sizeof(T));// new PoolChunk<T>[size];
+			m_Data = static_cast<PoolChunk<T>*>(allocation.ptr);
 			m_Head = m_Data;
 
 			for (size_t i = 0; i < m_Size - 1; ++i)
@@ -75,25 +78,25 @@ namespace engine {
 		}
 
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
-		PoolAllocator<T, Allocator>::~PoolAllocator()
+		template <typename T>
+		PoolAllocator<T>::~PoolAllocator()
 		{
 			if (m_OpenAllocations != 0) {
-				// Error
+				LOG_ERROR("Open allocations");
 			}
 
-			m_ParentAllocator->deallocate(m_Data, m_Size);
-			if (m_needsToDeleteParentAllocator)
-			{
-				delete m_ParentAllocator;
-			}
+			//m_ParentAllocator->deallocate(m_Data, m_Size);
+			//if (m_needsToDeleteParentAllocator)
+			//{
+			//	delete m_ParentAllocator;
+			//}
 			m_Data = nullptr;
 			m_Head = nullptr;
 		}
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
+		template <typename T>
 		template <typename... arguments>
-		T* PoolAllocator<T, Allocator>::allocate(arguments&&... args)
+		T* PoolAllocator<T>::allocate(arguments&&... args)
 		{
 			if (m_Head == nullptr)
 				return nullptr;
@@ -106,8 +109,8 @@ namespace engine {
 			return retVal;
 		}
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
-		void PoolAllocator<T, Allocator>::deallocate(T* data)
+		template <typename T>
+		void PoolAllocator<T>::deallocate(T* data)
 		{
 			if (data == nullptr)
 			{
@@ -120,8 +123,8 @@ namespace engine {
 			m_Head = poolChunk;
 		}
 
-		template <typename T, typename Allocator = std::allocator<PoolChunk<T>>>
-		U32 PoolAllocator<T, Allocator>::getSize() const {
+		template <typename T>
+		U32 PoolAllocator<T>::getSize() const {
 			return m_Size;
 		}
 	}

@@ -6,7 +6,11 @@
 
 struct mat4 {
 	// 64 Bytes
-	float elements[4 * 4];
+	union {
+		float vecs[4][4];
+		float elements[4 * 4];
+	};
+	
 
 	mat4();
 	explicit mat4(float diagonal);
@@ -23,6 +27,8 @@ struct mat4 {
 	mat4 multiply(const mat4 &other) const;
 	
 	static mat4 Perspective(float fov, float aspectRatio, float near, float far);
+	static mat4 Orthographic(const float &b, const float &t, const float &l, const float &r,
+		const float &n, const float &f);
 	static mat4 Translate(const Vec3 &translation);
 	static mat4 Rotate(float angle, const Vec3& axis);
 };

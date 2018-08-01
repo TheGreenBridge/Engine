@@ -47,7 +47,7 @@ namespace engine {
 	
 		Animatable *animatable;
 		AABB3D *collidable;
-		PBRMaterial *pbrmaterial;
+		//PBRMaterial *pbrmaterial;
 
 		mat4 getTransformation();
 

@@ -4,8 +4,7 @@ namespace engine {
 	class AssetLoader {
 	private:
 
-
 	public:
-		void loadEntity(const char *path) const;
+		void static loadEntity(const char *path);
 	};
 }

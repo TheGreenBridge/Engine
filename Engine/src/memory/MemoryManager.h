@@ -3,19 +3,24 @@
 #pragma once
 
 #include <memory\allocator\LinearAllocator.h>
+#include <common\types.h>
 
-#define GLOBAL_MEMORY 1024
+#define GLOBAL_MEMORY 102400
 
 namespace engine {
 	namespace memory {
 
-		class MemoryManager : private LinearAllocator{
+		class MemoryManager : public LinearAllocator{
 		private:
+
+
 		public:
 			MemoryManager();
 			~MemoryManager();
 
-			blk newMemory(size_t size);
+			//blk allocate(U32 size);
+			//void deallocate(blk allocation);
+
 			void hardReset();
 		};
 

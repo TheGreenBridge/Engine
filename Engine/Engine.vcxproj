@@ -176,6 +176,9 @@
     <ClCompile Include="src\entity\EntityManager.cpp" />
     <ClCompile Include="src\entity\FollowCamera.cpp" />
     <ClCompile Include="src\entity\Light.cpp" />
+    <ClCompile Include="src\graphics\BufferManager.cpp" />
+    <ClCompile Include="src\graphics\ShaderManager.cpp" />
+    <ClCompile Include="src\graphics\TextureManager.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp" />
     <ClCompile Include="src\entity\Terrain.cpp" />
     <ClCompile Include="src\graphics\animation\Animation.cpp" />
@@ -183,12 +186,11 @@
     <ClCompile Include="src\graphics\font\Font.cpp" />
     <ClCompile Include="src\graphics\pbr\PBRMaterial.cpp" />
     <ClCompile Include="src\memory\PoolContainer.cpp" />
-    <ClCompile Include="src\memory\allocator\IAllocator.cpp" />
     <ClCompile Include="src\memory\LookupHandle.cpp" />
     <ClCompile Include="src\memory\allocator\PoolAllocator.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLContext.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLFramebuffer.cpp" />
-    <ClCompile Include="src\graphics\Renderable2D.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLIndexBuffer.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLShader.cpp" />
     <ClCompile Include="src\input\InputContext.cpp" />
     <ClCompile Include="src\input\InputMapper.cpp" />
@@ -197,8 +199,9 @@
     <ClCompile Include="src\math\Vec3.cpp" />
     <ClCompile Include="src\platform\windows\Console.cpp" />
     <ClCompile Include="src\renderapi\opengles\GLESTexture2D.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLUniformBuffer.cpp" />
     <ClCompile Include="src\renderapi\opengl\GLVertexArray.cpp" />
-    <ClCompile Include="src\renderapi\opengl\GLVertexBufferLayout.cpp" />
+    <ClCompile Include="src\renderapi\opengl\GLBufferLayout.cpp" />
     <ClCompile Include="src\scripting\LuaScript.cpp" />
     <ClCompile Include="src\scripting\ScriptManager.cpp" />
     <ClCompile Include="src\systems\AnimationManager.cpp" />
@@ -263,8 +266,8 @@
     <ClInclude Include="src\collision\Collidable3D.h" />
     <ClInclude Include="src\collision\CollisionShape.h" />
     <ClInclude Include="src\common\common.h" />
-    <ClInclude Include="src\Components\PhysicComponent.h" />
-    <ClInclude Include="src\Components\Renderable3DComponent.h" />
+    <ClInclude Include="src\Components\Physic.h" />
+    <ClInclude Include="src\Components\Renderable3D.h" />
     <ClInclude Include="src\debug\ATB.h" />
     <ClInclude Include="src\common\engine.h" />
     <ClInclude Include="src\EngineCore.h" />
@@ -276,6 +279,12 @@
     <ClInclude Include="src\entity\EntityManager.h" />
     <ClInclude Include="src\entity\FollowCamera.h" />
     <ClInclude Include="src\entity\Light.h" />
+    <ClInclude Include="src\graphics\api\UniformBuffer.h" />
+    <ClInclude Include="src\graphics\BufferManager.h" />
+    <ClInclude Include="src\graphics\ShaderManager.h" />
+    <ClInclude Include="src\graphics\TextureManager.h" />
+    <ClInclude Include="src\graphics\Vertex.h" />
+    <ClInclude Include="src\math\Vec2.h" />
     <ClInclude Include="src\memory\MemoryManager.h" />
     <ClInclude Include="src\entity\Terrain.h" />
     <ClInclude Include="src\graphics\animation\Animation.h" />
@@ -289,7 +298,7 @@
     <ClInclude Include="src\graphics\api\IndexBuffer.h" />
     <ClInclude Include="src\graphics\api\Loader.h" />
     <ClInclude Include="src\graphics\api\VertexArray.h" />
-    <ClInclude Include="src\graphics\api\VertexBufferLayout.h" />
+    <ClInclude Include="src\graphics\api\BufferLayout.h" />
     <ClInclude Include="src\graphics\font\Font.h" />
     <ClInclude Include="src\graphics\pbr\PBRMaterial.h" />
     <ClInclude Include="src\graphics\Renderable2D.h" />
@@ -349,7 +358,6 @@
     <ClInclude Include="src\math\maths.h" />
     <ClInclude Include="src\math\math_def.h" />
     <ClInclude Include="src\math\Quaternion.h" />
-    <ClInclude Include="src\math\vec2.h" />
     <ClInclude Include="src\math\vertex.h" />
     <ClInclude Include="src\entity\mesh\plane.h" />
     <ClInclude Include="src\platform\windowAPI.h" />
@@ -375,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\entities\test.lua" />
+    <None Include="res\materials\material.lua" />
     <None Include="res\scripts\test.lua" />
     <None Include="res\shader\animation\rigshader.glsl" />
     <None Include="res\shader\default\aabbshader.frag" />

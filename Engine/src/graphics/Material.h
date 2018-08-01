@@ -1,6 +1,8 @@
 #pragma once
 
 #include <math/Vec3.h>
+#include <graphics\api\UniformBuffer.h>
+
 using namespace engine::graphics;
 namespace engine {	namespace graphics {
 	// forward declaration
@@ -10,12 +12,9 @@ namespace engine {	namespace graphics {
 	
 
 	struct Material {
-		Vec3 diffuse;
-		Vec3 ambient;
-		Vec3 specular;
-
 		Texture *texture;
 		Shader *shader;
+		UniformBuffer* uniforms;
 	};
 
 }}

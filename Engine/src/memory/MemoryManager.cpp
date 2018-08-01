@@ -5,17 +5,28 @@ namespace engine {
 
 		MemoryManager::MemoryManager()
 			: LinearAllocator(GLOBAL_MEMORY)
-		{}
-		MemoryManager::~MemoryManager()
 		{
+
 		}
 
-		blk MemoryManager::newMemory(size_t size)
+		MemoryManager::~MemoryManager()
+		{
+
+		}
+
+		/*blk MemoryManager::allocate(U32 size)
 		{
 			return allocate(size);
 		}
+
+		void MemoryManager::deallocate(blk allocation)
+		{
+
+		}*/
+
 		void MemoryManager::hardReset()
 		{
+
 		}
 	}
 }

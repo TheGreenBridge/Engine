@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// VertexBufferArray.h
+//
+// Represents a layout in a vertex buffer 
+//
+// Author: Sommerauer Christian
+// Created: 18.07.18
+// Changed: 30.07.18
+//------------------------------------------------------------------------------
+//
+
 #pragma once
 
 #include <common\types.h>
@@ -12,7 +23,7 @@ namespace engine { namespace graphics{
 		U32 normalized;
 	};
 
-	class VertexBufferLayout
+	class BufferLayout
 	{
 	private:
 
@@ -20,6 +31,12 @@ namespace engine { namespace graphics{
 		U32 m_Stride;
 
 	public:
+		BufferLayout();
+
+		// Deleted Ctr
+		BufferLayout(const BufferLayout&) = delete;
+
+		~BufferLayout();
 
 		void pushFloat(U32 count);
 

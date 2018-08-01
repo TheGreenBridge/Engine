@@ -1,10 +1,14 @@
 #include <entity\EntityManager.h>
+#include <EngineCore.h>
 
 namespace engine {
 
 	U32 EntityManager::EntityIds = 0;
 	
-	EntityManager::EntityManager() {
+	EntityManager::EntityManager() : 
+		m_Allocator(&Engine::gMemoryManager, 100)
+	{
+
 	}
 
 	EntityManager::~EntityManager()

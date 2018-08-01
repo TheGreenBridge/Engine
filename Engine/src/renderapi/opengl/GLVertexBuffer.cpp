@@ -60,6 +60,7 @@ namespace engine { namespace graphics {
 		m_Size = size;
 
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
+		// size is in bytes
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, nullptr, BufferUsageToGL(m_Usage)));
 
 	}

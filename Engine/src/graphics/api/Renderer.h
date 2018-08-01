@@ -1,3 +1,14 @@
+//------------------------------------------------------------------------------
+// UniformBuffer.h
+//
+// To render graphics
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 30.07.18
+//------------------------------------------------------------------------------
+//
+
 #pragma once
 
 
@@ -11,13 +22,22 @@
 #include <graphics\pbr\PBRMaterial.h>
 #include <graphics\api\VertexArray.h>
 
+#include <Components\Renderable3D.h>
+
 #include <common/types.h>
 
 #define MAX_LIGHTS 4
 
+using namespace engine::component;
+
 namespace engine {
 	// forward declaration
 	struct collision::AABB3D;
+
+	class RenderQueue
+	{
+
+	};
 	
 	namespace graphics {
 		// forward declaration
@@ -35,11 +55,15 @@ namespace engine {
 		public:
 			Renderer();
 			Renderer(Camera *camera);
+
+			Renderer(const Renderer&) = delete;
+
 			~Renderer();
 
 			void initialize();
-			void render(const Scene &scene, const Shader &shader, const Light &light) const;
 			void render(const Cubemap &cubemap, const VertexArray& vao, const Shader &shader) const;
+			
+			/*void render(const Scene &scene, const Shader &shader, const Light &light) const;
 			void render(const U32 vbo, const Shader &shader, const int dim, U32 size) const;
 			
 			void render(Entity &entity, const Texture &texture, const Shader &shader) const;
@@ -55,7 +79,9 @@ namespace engine {
 			void renderTerrain(const U32 vbo, const Shader &shader, const int dim, U32 size) const;
 			void renderReflection(Entity &entity) const;
 
-			void renderPBR(Entity &entity) const;
+			void renderPBR(Entity &entity) const;*/
+
+
 
 			void setCamera(Camera *camera);
 			void setSkybox(Cubemap *skybox) { m_Skybox = skybox; }
@@ -64,6 +90,12 @@ namespace engine {
 			Light &getLight(U32 slot) ;
 
 			void combineTextures(const U32 vao, const Texture &tex1, const Texture &tex2, const Shader &shader);
+		
+		
+			// NEW
+
+			void submit(const RenderItem& renderable);
+
 		};
 	}
 }

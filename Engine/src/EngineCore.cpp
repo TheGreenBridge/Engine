@@ -2,10 +2,14 @@
 
 namespace engine {
 	
+	MemoryManager Engine::gMemoryManager;
 	EntityManager Engine::m_entityMgr;
-	MemoryManager Engine::m_memoryMgr;
 	ComponentManager Engine::m_componentMgr;
 	SystemManager Engine::m_systemMgr;
+	
+	TextureManager Engine::gTextureManager(10, 10);
+	ShaderManager Engine::gShaderManager(10);
+	BufferManager Engine::gBufferManager(10, 10, 10);
 
 	void Engine::Initialize()
 	{

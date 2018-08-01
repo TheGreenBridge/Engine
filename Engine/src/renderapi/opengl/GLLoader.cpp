@@ -19,7 +19,9 @@
 #define LAYOUT_ATTR_NORMAL		1
 #define LAYOUT_ATTR_UV			2
 
-Model Loader::loadModel(engine::graphics::Mesh &mesh) {
+
+
+engine::graphics::Model Loader::loadModel(engine::graphics::Mesh &mesh) {
 	Model model;
 
 	GLCall(glGenVertexArrays(1, &model.vao));
@@ -37,7 +39,7 @@ Model Loader::loadModel(engine::graphics::Mesh &mesh) {
 	GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_NORMAL));
 	//UV Coordinates
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_uvs));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getUVs().size() * sizeof(vec2), &mesh.getUVs()[0], GL_STATIC_DRAW));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getUVs().size() * sizeof(Vec2), &mesh.getUVs()[0], GL_STATIC_DRAW));
 	GLCall(glVertexAttribPointer(LAYOUT_ATTR_UV, 2, GL_FLOAT, GL_FALSE, 0, 0));
 	GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_UV));
 

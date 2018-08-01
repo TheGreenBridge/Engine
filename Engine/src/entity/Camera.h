@@ -14,6 +14,7 @@ namespace engine {	namespace graphics {
 		float key_pitch, key_yaw, key_roll;
 
 		mat4 m_ViewMatrix;
+		mat4 m_ProjectionMatrix;
 		Quaternion m_Rotation;
 		float m_Fov, m_AspectRatio, m_Near, m_Far;
 

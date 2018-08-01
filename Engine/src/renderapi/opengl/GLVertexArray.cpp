@@ -59,20 +59,20 @@ namespace engine { namespace graphics {
 
 	//--------------------------------------------------------------------------
 	VertexBuffer* VertexArray::createAndAddBuffer(U32 size, 
-		 const VertexBufferLayout& layout, BufferUsage usage)
+		 const BufferLayout& layout, BufferUsage usage)
 	{
 		VertexBuffer* buffer = NEW_MEM VertexBuffer(size, usage);
 		m_Buffers.emplace_back(buffer);
-		addBuffer(*buffer, layout);
+		addBuffer(buffer, layout);
 		return buffer;
 	}
 
 	//--------------------------------------------------------------------------
-	void VertexArray::addBuffer(const VertexBuffer& buffer, 
-		const VertexBufferLayout& layout)
+	void VertexArray::addBuffer(VertexBuffer* buffer, 
+		const BufferLayout& layout)
 	{
 		bind();
-		buffer.bind();
+		buffer->bind();
 		U32 offset = 0;
 		const std::vector<LayoutElement>& elements = layout.getLayout();
 
@@ -87,7 +87,7 @@ namespace engine { namespace graphics {
 			offset += element.count * getSizeOfType(element.type);
 		}
 		
-		buffer.unbind();
+		buffer->unbind();
 		unbind();
 	}
 

@@ -65,6 +65,31 @@ mat4 mat4::Perspective(float fov, float aspectRatio, float near, float far) {
 	return result;
 }
 
+mat4 mat4::Orthographic(const float & b, const float & t, const float & l, const float & r, const float & n, const float & f)
+{
+	mat4 M;
+	M[0] = 2 / (r - l);
+	M[1] = 0;
+	M[2] = 0;
+	M[3] = 0;
+
+	M[4] = 0;
+	M[5] = 2 / (t - b);
+	M[6] = 0;
+	M[7] = 0;
+
+	M[8] = 0;
+	M[9] = 0;
+	M[10] = -2 / (f - n);
+	M[11] = 0;
+
+	M[12] = -(r + l) / (r - l);
+	M[13] = -(t + b) / (t - b);
+	M[14] = -(f + n) / (f - n);
+	M[15] = 1;
+	return M;
+}
+
 mat4 & mat4::operator *=(const mat4 &other) {
 	return multiply(other);
 }

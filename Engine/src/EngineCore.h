@@ -6,6 +6,9 @@
 #include "entity\EntityManager.h"
 #include "systems\SystemManager.h"
 #include <memory\MemoryManager.h>
+#include <graphics\BufferManager.h>
+#include <graphics\TextureManager.h>
+#include <graphics\ShaderManager.h>
 
 namespace engine {
 
@@ -26,7 +29,12 @@ namespace engine {
 		static void Update();
 		static void Terminate();
 
-		static MemoryManager m_memoryMgr;
+		static MemoryManager gMemoryManager;
+
+		static TextureManager gTextureManager;
+		static ShaderManager gShaderManager;
+		static BufferManager gBufferManager;
+
 
 		static EntityManager* getEntityManager() ;
 		static ComponentManager* getComponentManager() ;

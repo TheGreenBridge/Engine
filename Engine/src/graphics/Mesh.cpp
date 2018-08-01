@@ -4,17 +4,23 @@
 #include <graphics/api/Texture.h>
 
 typedef std::vector<Vec3> vect3;
-typedef std::vector<vec2> vect2;
+typedef std::vector<Vec2> vect2;
 
 namespace engine {	namespace graphics {
 
 	Mesh::Mesh(vect3 &vertices, vect3 &normals, vect2 &uvs)
 		: m_Vertices(vertices), m_Normals(normals), m_UVs(uvs)
-	{}
+	{
 
-	Mesh::Mesh(){}
+	}
 
-	Mesh::~Mesh() {
+	Mesh::Mesh()
+	{
+
+	}
+
+	Mesh::~Mesh() 
+	{
 
 	}
 

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 namespace engine {	namespace memory {
-	LinearAllocator::LinearAllocator(size_t size) {
+	LinearAllocator::LinearAllocator(U32 size) {
 		
 		m_pBegin = malloc(size);
 		// To increment size * 8 
@@ -26,7 +26,7 @@ namespace engine {	namespace memory {
 		std::free(m_pBegin);
 	}
 
-	blk LinearAllocator::allocate(size_t size) {
+	blk LinearAllocator::allocate(U32 size) {
 		blk allocation;
 		if (size < m_freeStorage) {
 			void *pMark = m_pCurrentLocation;
@@ -44,7 +44,7 @@ namespace engine {	namespace memory {
 		}
 		else {
 	
-			LOG("Allocator", "Could not allocate memory!");
+			LOG_ERROR("Allocator", "Could not allocate memory!");
 			allocation.ptr = nullptr;
 			allocation.size = 0;
 		}
@@ -52,7 +52,7 @@ namespace engine {	namespace memory {
 		return allocation;
 	}
 
-	void LinearAllocator::free(blk allocation) {
+	void LinearAllocator::deallocate(blk allocation) {
 		//std::free(location);
 	}
 

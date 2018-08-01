@@ -20,6 +20,7 @@ namespace engine {	namespace graphics {
 	//--------------------------------------------------------------------------
 	Texture::Texture() 
 	{
+		GLCall(glGenTextures(1, &m_Handle));
 		LOG("Created Texture 2D");
 	}
 
@@ -33,7 +34,7 @@ namespace engine {	namespace graphics {
 	//--------------------------------------------------------------------------
 	Texture::~Texture() 
 	{
-		//glDeleteTextures(1, &m_Handle);
+		GLCall(glDeleteTextures(1, &m_Handle));
 		LOG("Deleted Texture 2D");
 	}
 
@@ -46,7 +47,7 @@ namespace engine {	namespace graphics {
 			return;
 		}
 		
-		GLCall(glGenTextures(1, &m_Handle));
+		
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glActiveTexture(GL_TEXTURE0));
 
@@ -70,7 +71,7 @@ namespace engine {	namespace graphics {
 
 		m_Width = width;
 		m_Height = height;
-		GLCall(glGenTextures(1, &m_Handle));
+		//GLCall(glGenTextures(1, &m_Handle));
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glActiveTexture(GL_TEXTURE0));
 

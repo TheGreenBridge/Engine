@@ -96,9 +96,6 @@
     <ClCompile Include="src\audio\AudioSource.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Renderable2D.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderapi\opengles\GLESTexture2D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -145,9 +142,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\entity\EntityManager.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\memory\allocator\IAllocator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\memory\allocator\LinearAllocator.cpp">
@@ -306,10 +300,25 @@
     <ClCompile Include="src\renderapi\opengl\GLVertexArray.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderapi\opengl\GLVertexBufferLayout.cpp">
+    <ClCompile Include="src\memory\MemoryManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\memory\MemoryManager.cpp">
+    <ClCompile Include="src\renderapi\opengl\GLUniformBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderapi\opengl\GLIndexBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\TextureManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\BufferManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderapi\opengl\GLBufferLayout.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\ShaderManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -324,9 +333,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\meshloader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\math\vec2.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\Mesh.h">
@@ -590,12 +596,6 @@
     <ClInclude Include="tests\old_commentsj.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\PhysicComponent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\Renderable3DComponent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\systems\AnimationManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -731,9 +731,6 @@
     <ClInclude Include="src\graphics\api\IndexBuffer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\api\VertexBufferLayout.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\platform\Window.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -741,6 +738,33 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\memory\MemoryManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\api\UniformBuffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Vertex.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\Vec2.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\TextureManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\ShaderManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\BufferManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\api\BufferLayout.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\Renderable3D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\Physic.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -770,6 +794,7 @@
     <None Include="res\shader\ui\text.glsl" />
     <None Include="res\shader\tests\testShader.glsl" />
     <None Include="res\shader\default\boxshader.glsl" />
+    <None Include="res\materials\material.lua" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\inputmapping\contexts.xml" />

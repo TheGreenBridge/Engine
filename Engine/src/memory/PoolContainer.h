@@ -37,7 +37,7 @@ namespace engine {
 
 		template <typename T>
 		PoolContainer<T>::PoolContainer(size_t size)
-			: m_Allocator(size)
+			: m_Allocator(&Engine::gMemoryManager, size)
 		{
 
 		}
