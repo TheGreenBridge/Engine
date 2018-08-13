@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../math/Quaternion.h"
-#include "../../math/Vec3.h"
+#include <math/Quaternion.h>
+#include <math/Vec3.h>
 
 
 struct Transform {
@@ -12,6 +12,7 @@ struct Transform {
 	Transform(const Vec3 &position, const Quaternion &rotation, const float scale)
 		: position(position), rotation(rotation), scale(scale) {}
 	Transform() : position(Vec3(0,0,0)), rotation(Quaternion(0,0,0,1)), scale(1.0f) {}
+
 };
 
 struct TransformExt {

@@ -19,11 +19,7 @@ namespace engine {	namespace component {
 	};
 
 
-	struct RenderItem
-	{
-		Renderable3D* renderable;
-		U32 distance;
-	};
+	
 
 }}
 

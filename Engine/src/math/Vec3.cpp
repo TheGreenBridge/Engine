@@ -34,7 +34,7 @@ Vec3 &Vec3::operator-=(const Vec3 &other) {
 	return *this;
 }
 
-Vec3 Vec3::operator*(const float value) const {
+Vec3 Vec3::operator*(const F32 value) const {
 	Vec3 result;
 	result.x = x * value;
 	result.y = y * value;
@@ -61,10 +61,16 @@ Vec3 Vec3::operator-(const Vec3 &other) const {
 	return result;
 }
 
-float Vec3::dotProduct(const Vec3 &vector1, const Vec3 &vector2) {
-	float result;
+F32 Vec3::dotProduct(const Vec3 &vector1, const Vec3 &vector2) {
+	F32 result;
 	result = vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z;
 	return result;
+}
+
+F32 Vec3::distance(const Vec3& first, const Vec3& second)
+{
+	Vec3 distance = first - second;
+	return distance.length();
 }
 
 Vec3 Vec3::crossProduct(const Vec3 &vector1, const Vec3 &vector2)
@@ -78,7 +84,7 @@ Vec3 Vec3::crossProduct(const Vec3 &vector1, const Vec3 &vector2)
 	return result;
 }
 
-float Vec3::length() {
+F32 Vec3::length() {
 	return sqrt(x*x + y*y + z*z);
 }
 
@@ -89,7 +95,7 @@ void Vec3::normalize() {
 
 Vec3 Vec3::normalize(Vec3 &vector) {
 	Vec3 result = vector;
-	float test = vector.length();
+	F32 test = vector.length();
 	result /= vector.length();
 
 	return result;

@@ -3,9 +3,9 @@
 //
 // Abstracts a texture on the graphics memory
 //
-// Author: Sumi
+// Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 19.07.18
+// Changed: 13.08.18
 //------------------------------------------------------------------------------
 //
 
@@ -16,18 +16,10 @@
 namespace engine {	namespace graphics {
 
 	class Texture {
-	private:
-		U32 m_Handle;
-		I32 m_Width, m_Height;
 	public:
-		// Ctr
+		// Ctor & Dtor
 		Texture();
 		Texture(const char *path);
-
-		// deleted Ctr
-		Texture(const Texture&) = delete;
-		Texture(Texture&&) = delete;
-
 		~Texture();
 
 		void loadImage(const char *path);
@@ -42,5 +34,16 @@ namespace engine {	namespace graphics {
 		void unbind() const;
 
 		static void setActive(U32 index);
+
+		// Deleted Ctor
+		Texture(const Texture&) = delete;
+		Texture(Texture&&) = delete;
+		Texture& operator=(const Texture&) = delete;
+		Texture& operator=(Texture&&) = delete;
+
+	private:
+
+		U32 m_Handle;
+		I32 m_Width, m_Height;
 	};
 }}

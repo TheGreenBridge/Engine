@@ -29,6 +29,7 @@ namespace engine {
 		while (!window.isClosed())
 		{
 			window.clear();
+			Engine::Update();
 			run_();
 			window.update();
 		}

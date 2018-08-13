@@ -167,6 +167,7 @@
     <ClCompile Include="src\application\Application.cpp" />
     <ClCompile Include="src\asset\AssetLoader.cpp" />
     <ClCompile Include="src\asset\AssetParser.cpp" />
+    <ClCompile Include="src\asset\ResourceManager.cpp" />
     <ClCompile Include="src\audio\AudioSource.cpp" />
     <ClCompile Include="src\debug\ATB.cpp" />
     <ClCompile Include="src\EngineCore.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="src\entity\FollowCamera.cpp" />
     <ClCompile Include="src\entity\Light.cpp" />
     <ClCompile Include="src\graphics\BufferManager.cpp" />
+    <ClCompile Include="src\graphics\RenderQueue.cpp" />
     <ClCompile Include="src\graphics\ShaderManager.cpp" />
     <ClCompile Include="src\graphics\TextureManager.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp" />
@@ -224,6 +226,7 @@
     <ClCompile Include="src\utils\FileReader\JsonReader.cpp" />
     <ClCompile Include="src\utils\FileReader\XmlReader.cpp" />
     <ClCompile Include="src\utils\FileUtils.cpp" />
+    <ClCompile Include="src\utils\Hash.cpp" />
     <ClCompile Include="src\utils\Log.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\utils\types\String.cpp" />
@@ -260,6 +263,7 @@
     <ClInclude Include="src\application\Application.h" />
     <ClInclude Include="src\asset\AssetLoader.h" />
     <ClInclude Include="src\asset\AssetParser.h" />
+    <ClInclude Include="src\asset\ResourceManager.h" />
     <ClInclude Include="src\audio\AudioSource.h" />
     <ClInclude Include="src\collision\AABB.h" />
     <ClInclude Include="src\collision\Collidable2D.h" />
@@ -281,6 +285,7 @@
     <ClInclude Include="src\entity\Light.h" />
     <ClInclude Include="src\graphics\api\UniformBuffer.h" />
     <ClInclude Include="src\graphics\BufferManager.h" />
+    <ClInclude Include="src\graphics\RenderQueue.h" />
     <ClInclude Include="src\graphics\ShaderManager.h" />
     <ClInclude Include="src\graphics\TextureManager.h" />
     <ClInclude Include="src\graphics\Vertex.h" />
@@ -369,6 +374,7 @@
     <ClInclude Include="src\utils\FileReader\JsonReader.h" />
     <ClInclude Include="src\utils\FileReader\XmlReader.h" />
     <ClInclude Include="src\utils\FileUtils.h" />
+    <ClInclude Include="src\utils\Hash.h" />
     <ClInclude Include="src\utils\Log.h" />
     <ClInclude Include="src\utils\meshloader.h" />
     <ClInclude Include="src\utils\Time.h" />
@@ -382,6 +388,7 @@
     <ClInclude Include="tests\old_commentsj.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="res\entities\test.lua" />
     <None Include="res\materials\material.lua" />
     <None Include="res\scripts\test.lua" />
@@ -393,8 +400,7 @@
     <None Include="res\shader\default\boxshader.glsl" />
     <None Include="res\shader\default\default.frag" />
     <None Include="res\shader\default\default.vert" />
-    <None Include="res\shader\default\defaultmaterial.frag" />
-    <None Include="res\shader\default\defaultmaterial.vert" />
+    <None Include="res\shader\default\defaultmaterial.glsl" />
     <None Include="res\shader\environment\environmentShader.frag" />
     <None Include="res\shader\environment\environmentShader.vert" />
     <None Include="res\shader\example.glsl" />

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <common\types.h>
+// std
 #include <chrono>
 
 typedef std::chrono::time_point<std::chrono::steady_clock> timepoint;
@@ -18,6 +20,7 @@ public:
 
 	void erasePastTime();
 
-	long long getDelta()const;
-	long long getPastTime() const;
+	U64 getDelta() const;
+	F32 getDeltaF32() const;
+	U64 getPastTime() const;
 };

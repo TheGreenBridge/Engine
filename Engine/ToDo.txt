@@ -1,28 +1,14 @@
 
 ToDo:
 
-# ComponentManager -> PoolContainer memory from MemoryManager
+[check] ComponentManager -> PoolContainer memory from MemoryManager
 # SystemManager
 
 
-Type Checking:
-
-Bei Start checken, ob auch GLFloat == 4 bytes, ...
 
 
-Componentmanager
-{
-	Model
-	Material
-
-
-}
-
-AnimationData
-{
-
-}
-
+[ ] Type Checking: Bei Start checken, ob auch GLFloat == 4 bytes, ...
+[ ] Save Renderstates (enabled features, depth test, backface culling, blending, ...)
 
 
 Cubemap

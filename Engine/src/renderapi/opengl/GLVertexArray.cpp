@@ -32,7 +32,7 @@ namespace engine { namespace graphics {
 	}
 
 	//--------------------------------------------------------------------------
-	VertexArray::VertexArray()
+	VertexArray::VertexArray() : m_Index(0)
 	{
 		GLCall(glGenVertexArrays(1, &m_Handle));
 	}
@@ -79,12 +79,14 @@ namespace engine { namespace graphics {
 		for (U32 i = 0; i < elements.size(); ++i)
 		{
 			const auto& element = elements[i];
-			GLCall(glEnableVertexAttribArray(m_Index));
 			GLCall(glVertexAttribPointer(m_Index, element.count, element.type,
 				element.normalized, layout.getStride(), (void*)offset));
+			GLCall(glEnableVertexAttribArray(m_Index));
 
 			m_Index++;
 			offset += element.count * getSizeOfType(element.type);
+
+			m_Buffers.push_back(buffer);
 		}
 		
 		buffer->unbind();

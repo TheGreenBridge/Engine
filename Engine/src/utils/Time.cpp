@@ -5,7 +5,7 @@
 //
 // Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 21.07.18
+// Changed: 13.08.18
 //------------------------------------------------------------------------------
 //
 
@@ -18,11 +18,12 @@ Time::Time():
 
 //------------------------------------------------------------------------------
 void Time::measureTime() {
-	std::chrono::high_resolution_clock::now();
+	//std::chrono::high_resolution_clock::now();
 	auto now = std::chrono::high_resolution_clock::now();
 	// operation to be timed ...
 	//std::cin.get();
-	m_Dt = std::chrono::duration_cast<std::chrono::milliseconds>(now-m_LastTime).count();
+	m_Dt = std::chrono::duration_cast<std::chrono::milliseconds>
+		(now-m_LastTime).count();
 	m_LastTime = now;
 	//std::cout << "vergangene Zeit:" << time << "Seconds" << "ns\n";
 	m_PastTime += m_Dt;
@@ -45,11 +46,16 @@ void Time::erasePastTime() {
 }
 
 //------------------------------------------------------------------------------
-long long Time::getDelta() const {
+U64 Time::getDelta() const {
 	return m_Dt;
 }
 
 //------------------------------------------------------------------------------
-long long Time::getPastTime() const {
-	return m_PastTime;
+F32 Time::getDeltaF32() const {
+	return static_cast<F32>(static_cast<F32>(m_Dt) / 1000.0f);
+}
+
+//------------------------------------------------------------------------------
+U64 Time::getPastTime() const {
+	return static_cast<U64>(m_PastTime);
 }

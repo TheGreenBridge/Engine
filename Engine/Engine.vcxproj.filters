@@ -321,6 +321,15 @@
     <ClCompile Include="src\graphics\ShaderManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\RenderQueue.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Hash.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asset\ResourceManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity\Entity.h">
@@ -767,6 +776,15 @@
     <ClInclude Include="src\Components\Physic.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\RenderQueue.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Hash.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asset\ResourceManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\ui\uishader.frag" />
@@ -778,8 +796,6 @@
     <None Include="res\shader\terrain\terrainshader.vert" />
     <None Include="res\shader\environment\environmentShader.frag" />
     <None Include="res\shader\environment\environmentShader.vert" />
-    <None Include="res\shader\default\defaultmaterial.vert" />
-    <None Include="res\shader\default\defaultmaterial.frag" />
     <None Include="res\shader\default\aabbshader.vert" />
     <None Include="res\shader\default\aabbshader.frag" />
     <None Include="res\shader\default\basic.frag" />
@@ -795,6 +811,8 @@
     <None Include="res\shader\tests\testShader.glsl" />
     <None Include="res\shader\default\boxshader.glsl" />
     <None Include="res\materials\material.lua" />
+    <None Include="res\shader\default\defaultmaterial.glsl" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\inputmapping\contexts.xml" />

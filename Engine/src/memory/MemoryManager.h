@@ -10,18 +10,18 @@
 namespace engine {
 	namespace memory {
 
-		class MemoryManager : public LinearAllocator{
-		private:
-
+		class MemoryManager : public IAllocator{
 
 		public:
 			MemoryManager();
 			~MemoryManager();
 
-			//blk allocate(U32 size);
-			//void deallocate(blk allocation);
+			blk allocate(U32 size);
+			void deallocate(blk allocation);
 
 			void hardReset();
+		private:
+			LinearAllocator m_allocator;
 		};
 
 	}

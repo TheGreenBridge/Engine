@@ -3,7 +3,8 @@
 #include "Vec3.h"
 #include "mat4.h"
 
-struct Quaternion {
+struct Quaternion 
+{
 	float x, y, z, w;
 
 	Quaternion() = default;

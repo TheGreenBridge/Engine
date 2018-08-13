@@ -1,9 +1,11 @@
 #pragma once
 
+#include <common\types.h>
+
 // size = 4 * 3 = 12 bytes
 struct Vec3 {
-	float x, y, z;
-	Vec3(float const x, float const y, const float z) : x(x), y(y), z(z) {}
+	F32 x, y, z;
+	Vec3(const F32 x, const F32 y, const F32 z) : x(x), y(y), z(z) {}
 	Vec3() : x(0), y(0), z(0) { }
 
 	Vec3 & operator+=(const Vec3 &other);
@@ -13,12 +15,17 @@ struct Vec3 {
 
 	Vec3 operator + (const Vec3 &other) const;
 	Vec3 operator -(const Vec3 &other) const;
-	Vec3 operator * (const float value) const;
+	Vec3 operator * (const F32 value) const;
 
-	float length();
+	
+
+	F32 length();
 	void normalize();
 
-	static float dotProduct(const Vec3 &vector1, const Vec3 &vector2);
+
+
+	static F32 distance(const Vec3& first, const Vec3& second);
+	static F32 dotProduct(const Vec3 &vector1, const Vec3 &vector2);
 	static Vec3 crossProduct(const Vec3 &vector1, const Vec3 &vector2);
 	static Vec3 normalize(Vec3 &vector);
 };

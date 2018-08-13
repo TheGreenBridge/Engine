@@ -27,6 +27,7 @@ namespace engine {	namespace graphics {
 	//--------------------------------------------------------------------------
 	Texture::Texture(const char*path) 
 	{
+		GLCall(glGenTextures(1, &m_Handle));
 		loadImage(path);
 		LOG("Created Texture 2D");
 	}

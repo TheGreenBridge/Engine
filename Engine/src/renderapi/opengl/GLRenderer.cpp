@@ -17,28 +17,42 @@
 #include <entity\Camera.h>
 
 #include <graphics\pbr\PBRMaterial.h>
-
+#include <EngineCore.h>
 
 using namespace engine::graphics;
 using namespace engine;
 
 namespace engine {	namespace graphics {
-	
-	Renderer::Renderer()
-	{
 
+	
+	//--------------------------------------------------------------------------
+	Renderer::Renderer() : 
+		m_RenderQueue(Engine::gMemoryManager.allocate(sizeof(RenderItem) * 50).ptr, 50)
+	{
+		VS_uniformBuffer = Engine::gBufferManager.createUniformBuffer(sizeof(VS_Uniforms));
+		VS_uniformBuffer->setBindingPoint(0);
+		FS_uniformBuffer = Engine::gBufferManager.createUniformBuffer(sizeof(FS_Uniforms));
+		FS_uniformBuffer->setBindingPoint(1);
 	}
 
-	Renderer::Renderer(Camera *camera) 
+	//------------------------------------------------------------------------------
+	Renderer::Renderer(Camera *camera) : 
+		m_RenderQueue(Engine::gMemoryManager.allocate(sizeof(RenderItem) * 50).ptr, 50)
 	{
 		setCamera(camera);
+		VS_uniformBuffer = Engine::gBufferManager.createUniformBuffer(sizeof(VS_Uniforms));
+		VS_uniformBuffer->setBindingPoint(0);
+		FS_uniformBuffer = Engine::gBufferManager.createUniformBuffer(sizeof(FS_Uniforms));
+		FS_uniformBuffer->setBindingPoint(1);
 	}
 
+	//------------------------------------------------------------------------------
 	Renderer::~Renderer() 
 	{
 
 	}
 
+	//------------------------------------------------------------------------------
 	void Renderer::loadCollisionShapes() 
 	{
 
@@ -61,6 +75,7 @@ namespace engine {	namespace graphics {
 		GLCall(glEnableVertexAttribArray(0));
 	}
 
+	//------------------------------------------------------------------------------
 	void Renderer::initialize() 
 	{
 		loadCollisionShapes();
@@ -306,42 +321,43 @@ namespace engine {	namespace graphics {
 	
 	
 
-	
-
-	void Renderer::renderPBR(Entity &entity) const
-	{
-		const PBRMaterial &material = *entity.pbrmaterial;
-		const Shader &shader = material.getShader();
-
-		shader.enable();
-
-		GLCall(glBindVertexArray(entity.model->vao));
-
-		shader.setUniformMat4("projection", m_Camera->getProjectionMatrix());
-		shader.setUniformMat4("view", m_Camera->getViewMatrix());
-		shader.setUniformMat4("model", entity.getTransformation());
-
-		//shader.setUniform1f("roughness", material.roughness);
-		//shader.setUniform1f("metallic", material.metallic);
-		//shader.setUniform3f("albedo", material.albedo);
-
-		shader.setUniform1f("ao", 1.0f);
-		shader.setUniform3f("light", m_Lights[0].getPosition());
-
-		shader.setUniformTexture("albedoMap", 0, material.getAlbedo());
-		shader.setUniformTexture("metallicMap", 1, material.getMetallic());
-		shader.setUniformTexture("roughnessMap", 2, material.getRoughness());
-
-		shader.setUniform3f("camPos", m_Camera->getPosition());
-
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
-		
-		GLCall(glBindVertexArray(0));
-		shader.disable();
-	}
-
 	*/
 
+	//void Renderer::renderPBR(Entity &entity) const
+	//{
+	//	const PBRMaterial &material = *entity.pbrmaterial;
+	//	const Shader &shader = material.getShader();
+
+	//	shader.enable();
+
+	//	GLCall(glBindVertexArray(entity.model->vao));
+
+	//	shader.setUniformMat4("projection", m_Camera->getProjectionMatrix());
+	//	shader.setUniformMat4("view", m_Camera->getViewMatrix());
+	//	shader.setUniformMat4("model", entity.getTransformation());
+
+	//	//shader.setUniform1f("roughness", material.roughness);
+	//	//shader.setUniform1f("metallic", material.metallic);
+	//	//shader.setUniform3f("albedo", material.albedo);
+
+	//	shader.setUniform1f("ao", 1.0f);
+	//	shader.setUniform3f("light", m_Lights[0].getPosition());
+
+	//	shader.setUniformTexture("albedoMap", 0, material.getAlbedo());
+	//	shader.setUniformTexture("metallicMap", 1, material.getMetallic());
+	//	shader.setUniformTexture("roughnessMap", 2, material.getRoughness());
+
+	//	shader.setUniform3f("camPos", m_Camera->getPosition());
+
+	//	GLCall(glDrawArrays(GL_TRIANGLES, 0, entity.mesh->numVertices * sizeof(Vec3)));
+	//	
+	//	GLCall(glBindVertexArray(0));
+	//	shader.disable();
+	//}
+
+	//
+
+	//------------------------------------------------------------------------------
 	void Renderer::render(const Cubemap &cubemap, const VertexArray& vao, const Shader &shader) const
 	{
 		GLCall(glDepthMask(GL_FALSE));
@@ -357,13 +373,12 @@ namespace engine {	namespace graphics {
 		GLCall(glDepthMask(GL_TRUE));
 	}
 		
-		
-	
-
+	//------------------------------------------------------------------------------
 	void Renderer::setCamera(Camera *camera) {
 		m_Camera = camera;
 	}
 
+	//------------------------------------------------------------------------------
 	void Renderer::setLight(U32 slot, const Light &light)
 	{
 		if (slot >= MAX_LIGHTS && slot < 0)	{
@@ -373,6 +388,7 @@ namespace engine {	namespace graphics {
 		m_Lights[slot] = light;				
 	}
 
+	//------------------------------------------------------------------------------
 	Light &Renderer::getLight(U32 slot) 
 	{	
 		if (slot >= MAX_LIGHTS && slot < 0)	{
@@ -382,7 +398,9 @@ namespace engine {	namespace graphics {
 		return m_Lights[slot];	
 	}
 
-	void Renderer::combineTextures(const U32 vao, const Texture &tex1, const Texture &tex2, const Shader &shader)
+	//------------------------------------------------------------------------------
+	void Renderer::combineTextures(const U32 vao, 
+		const Texture &tex1, const Texture &tex2, const Shader &shader)
 	{
 		shader.enable();
 
@@ -392,8 +410,71 @@ namespace engine {	namespace graphics {
 		shader.disable();
 	}
 
-	void Renderer::submit(const RenderItem& renderable)
+	//------------------------------------------------------------------------------
+	void Renderer::submit(const Renderable3D& renderable)
 	{
+		RenderItem item;
+		const Vec3& modelPosition = renderable.transform->position;
+		const Vec3& cameraPosition = m_Camera->getPosition();
 
+		item.distance = Vec3::distance(cameraPosition, modelPosition);
+		item.renderable = &renderable;
+
+		m_RenderQueue.pushItem(item);
+	}
+
+	//------------------------------------------------------------------------------
+	void Renderer::sortRenderQueue()
+	{
+		// Priority:
+
+		// 1 Shader
+		// 2 Texture
+		// 3 Depth
+	}
+
+	//------------------------------------------------------------------------------
+	void Renderer::render()
+	{
+		//VS_Uniforms vs_uniforms;
+		//FS_Uniforms fs_uniforms;
+
+		//fs_uniforms.viewPos = m_Camera->getPosition();
+
+		//vs_uniforms.projection = m_Camera->getProjectionMatrix();
+		//vs_uniforms.view = m_Camera->getViewMatrix();
+
+		//VS_uniformBuffer->setData(&vs_uniforms, sizeof(mat4) * 2, 0);
+		//FS_uniformBuffer->setData(&fs_uniforms.viewPos, sizeof(Vec3), 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		const RenderItem* renderItem;
+		while (renderItem = m_RenderQueue.next())
+		{
+			const Renderable3D& renderable = *renderItem->renderable;
+
+			//vs_uniforms.model = mat4::TransformToMat4(*renderable.transform);
+			//VS_uniformBuffer->setData(&vs_uniforms.model, sizeof(mat4), sizeof(mat4) * 2);
+			
+			renderable.model->vertices->bind();
+			renderable.material->shader->enable();
+
+			renderable.material->shader->setUniformMat4("pr_matrix", m_Camera->getProjectionMatrix());
+			renderable.material->shader->setUniformMat4("view_matrix", m_Camera->getViewMatrix());
+
+			renderable.material->shader->setUniformMat4("transformation_matrix", mat4::TransformToMat4(*renderable.transform));
+			renderable.material->shader->setUniform3f("viewPos", m_Camera->getPosition());
+
+			//fs_uniforms.texture = renderable.material->texture->getID();
+			//FS_uniformBuffer->setData(&fs_uniforms.texture, sizeof(U32), 0);
+			//renderable.material->shader->setUniformTexture("modelTexture", 0, renderable.material->texture->getID());
+
+			//renderable.material->texture->bind();
+
+			//renderable->material->uniforms->bind();
+
+			renderable.model->vertices->draw(renderable.model->numVertices);
+		}
+		GLCall(glUseProgram(0));
+		GLCall(glBindVertexArray(0));
 	}
 }}

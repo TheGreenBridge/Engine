@@ -5,7 +5,7 @@
 //
 // Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 22.07.18
+// Changed: 13.08.18
 //------------------------------------------------------------------------------
 //
 
@@ -17,8 +17,15 @@ namespace engine {
 	class Application {
 	protected:
 		Window window;
+		U32 m_FPS;
 
 		Application(const char* title, U32 width, U32 height);
+
+		// Deleted Ctor
+		Application(const Application&) = delete;
+		Application(Application&&) = delete;
+		Application& operator=(const Application&) = delete;
+		Application& operator=(Application&&) = delete;
 
 	public:
 		Application() = delete;

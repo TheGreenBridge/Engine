@@ -1,6 +1,10 @@
 #include "Console.h"
 #include "../../utils/Log.h"
+
 #include <iostream>
+#include <sstream>
+#include <vector>
+#include <iterator>
 #include <EngineCore.h>
 
 namespace engine {
@@ -10,37 +14,63 @@ namespace engine {
 
 	void work()
 	{
+		Entity* entity = nullptr;
+		std::vector<std::string> params;
 		while (Console::m_IsRunning) {
 			std::string inputtext;
-			std::cin >> inputtext;
 
-			if (inputtext == "hallo") std::cout << "peace!" << std::endl;
-			if (inputtext == "help") std::cout << "Command list: *hallo *exit" << std::endl;
-			if (inputtext == "move-up") {		
-				Entity *entity = Engine::getEntityManager()->getEntity(1);
+			std::getline(std::cin, inputtext);
+
+			LOG("command", inputtext);
+
+			std::stringstream ss(inputtext);
+			std::istream_iterator<std::string> begin(ss);
+			std::istream_iterator<std::string> end;
+			std::vector<std::string> params(begin, end);
+			//std::copy(params.begin(), params.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+
+			if (params.size() == 0)
+			{
+				continue;
+			}
+
+			std::string command = params[0];
+
+			if (command == "hallo") LOG("peace!");
+			else if (command == "help") LOG("Command list: *hallo *exit");
+			else if (command == "fetch")
+			{
+				if (params.size() != 2) continue;
+				U32 index = std::stoi(params[1]);
+				entity = Engine::getEntityManager()->getEntity(index);
+				if (entity == nullptr)
+				{
+					LOG("could not find entity");
+				}
+			}
+			else if (command == "move-up") {
 				if (entity != nullptr) {					
 					entity->transform.position.y += 0.5f;
 				}
 			}
-			if (inputtext == "move-left") {
-				Entity *entity = Engine::getEntityManager()->getEntity(1);
+			else if (command == "move-left") {
 				if (entity != nullptr) {
 					entity->transform.position.x -= 0.5f;
 				}
 			}
-			if (inputtext == "move-right") {
-				Entity *entity = Engine::getEntityManager()->getEntity(1);
+			else if (command == "move-right") {
 				if (entity != nullptr) {
 					entity->transform.position.x += 0.5f;
 				}
 			}
-			if (inputtext == "move-down") {
-				Entity *entity = Engine::getEntityManager()->getEntity(1);
+			else if (command == "move-down") {
 				if (entity != nullptr) {
 					entity->transform.position.y -= 0.5f;
 				}
 			}
-			if (inputtext == "exit") break;
+			else if (command == "exit") break;
+			else LOG("no command");
+			
 		}
 	}
 

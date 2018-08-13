@@ -4,15 +4,24 @@
 #include <math\vec3.h>
 #include <common\types.h>
 
-
-
+// Forward Declarations
 namespace engine {	
-	
 	class Entity;
-	namespace entity{
-	
+}
+
+namespace engine { namespace graphics {
 
 	class FollowCamera : public Camera{
+
+	public:
+		FollowCamera(Entity *entity);
+		~FollowCamera();
+
+		void update(float dTime);
+
+		void increasePosition(F32 dx, F32 dy, F32 dz);
+		void increaseRotation(const Quaternion &quat);
+
 	protected:
 		
 		F32 velocity = 1.2f;
@@ -21,6 +30,7 @@ namespace engine {
 		F32 angleAroundEntity = 0;
 
 		Entity *m_pEntity;
+		
 	private:
 		void calculateCameraPosition(F32 horizDistance, F32 verticDistance);
 		F32 calculateHorizontalDistance();
@@ -29,17 +39,6 @@ namespace engine {
 		void calculateYaw();
 		void calculatePitch();
 		void calculateAngleAroundEntity();
-
-	public:
-		FollowCamera(Entity *entity);
-		~FollowCamera();
-
-
-		void update(float dTime);
-
-		void increasePosition(F32 dx, F32 dy, F32 dz);
-		void increaseRotation(const Quaternion &quat);
-		
 	};
 }}
 

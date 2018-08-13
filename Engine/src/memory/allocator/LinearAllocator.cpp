@@ -44,7 +44,7 @@ namespace engine {	namespace memory {
 		}
 		else {
 	
-			LOG_ERROR("Allocator", "Could not allocate memory!");
+			LOG_ERROR("LinearAllocator Could not allocate memory!");
 			allocation.ptr = nullptr;
 			allocation.size = 0;
 		}

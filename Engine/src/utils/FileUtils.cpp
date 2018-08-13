@@ -24,7 +24,8 @@ namespace engine {
 		// err is 0 if file failed to open
 		if (err != 0)
 		{
-			LOG_ERROR("Could not read file in path!");
+			std::string errortext = "Could not read file in path " + std::string(filepath);
+			LOG_ERROR(errortext.c_str());
 			return std::string("");
 		}
 

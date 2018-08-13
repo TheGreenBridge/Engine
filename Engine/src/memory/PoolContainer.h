@@ -6,7 +6,9 @@
 namespace engine {
 	namespace memory {
 
-		class IPoolContainer {
+		class IPoolContainer 
+		{
+
 		};
 
 		template<typename T>
@@ -16,7 +18,8 @@ namespace engine {
 			PoolAllocator<T> m_Allocator;
 		public:
 
-			PoolContainer(size_t size);
+			explicit PoolContainer(IAllocator* allocator, size_t size);
+			~PoolContainer();
 
 			template <typename... arguments>
 			T* newElement(U32 id, arguments&&... args);
@@ -26,6 +29,13 @@ namespace engine {
 			T* getElement(U32 id) const;
 
 			U32 getElementNumber() const;
+
+			// Deleted Ctor
+			PoolContainer() = delete;
+			PoolContainer(const PoolContainer&) = delete;
+			PoolContainer(PoolContainer&&) = delete;
+			PoolContainer& operator=(const PoolContainer&) = delete;
+			PoolContainer& operator=(PoolContainer&&) = delete;
 		};
 	}
 }
@@ -36,8 +46,13 @@ namespace engine {
 	namespace memory {
 
 		template <typename T>
-		PoolContainer<T>::PoolContainer(size_t size)
-			: m_Allocator(&Engine::gMemoryManager, size)
+		PoolContainer<T>::PoolContainer(IAllocator* allocator, size_t size)
+			: m_Allocator(allocator, size)
+		{
+			
+		}
+		template <typename T>
+		PoolContainer<T>::~PoolContainer()
 		{
 
 		}

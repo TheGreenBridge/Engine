@@ -1,28 +1,38 @@
+//------------------------------------------------------------------------------
+// File Name: Camera.h
+// Description: Shows the scene from the view of this camera
+//
+// Author: Sommerauer Christian
+// Created: 28.01.2017
+// Changed: 13.08.2018
+//------------------------------------------------------------------------------
+//
+
 #pragma once
 
-#include "../math/mat4.h"
-#include "../math/vec3.h"
-#include "../math/Quaternion.h"
-#include <string>
-#include "../utils/Log.h"
+#include <math/mat4.h>
+#include <math/vec3.h>
+#include <math/Quaternion.h>
+#include <utils/Log.h>
+
 
 namespace engine {	namespace graphics {
 
 	class Camera{
 	protected:
 		Vec3 m_Position;//, m_FocalPoint, m_UP, m_ViewDirection;
-		float key_pitch, key_yaw, key_roll;
+		F32 key_pitch, key_yaw, key_roll;
 
 		mat4 m_ViewMatrix;
 		mat4 m_ProjectionMatrix;
 		Quaternion m_Rotation;
-		float m_Fov, m_AspectRatio, m_Near, m_Far;
+		F32 m_Fov, m_AspectRatio, m_Near, m_Far;
 
 	public:
 	
-		float m_Speed;
+		F32 m_Speed;
 	
-		Camera(float fov, float aspectRatio, float near, float far);
+		Camera(F32 fov, F32 aspectRatio, F32 near, F32 far);
 		~Camera();
 
 		mat4 getProjectionMatrix() const;
@@ -31,7 +41,7 @@ namespace engine {	namespace graphics {
 
 		void update();
 
-		void setSpeed(const float speed) { m_Speed = speed; }
+		void setSpeed(const F32 speed) { m_Speed = speed; }
 		float getSpeed()const { return m_Speed; }
 
 		inline const Vec3 &getPosition() const { return m_Position; }
@@ -40,57 +50,24 @@ namespace engine {	namespace graphics {
 		inline const Vec3 &getRotation() const { return m_Rotation.toEulerAngles(); }
 		const Quaternion &getQuatRotation() const { return m_Rotation; }
 	
-		inline void setRotation(const Vec3 &rotation, const float angle) { m_Rotation.setRotation(rotation, angle);
+		inline void setRotation(const Vec3 &rotation, const F32 angle) { m_Rotation.setRotation(rotation, angle);
 		m_Rotation.normalize();
 		}
 
 		void Translate(const Vec3 &translation);
 
 		//inline void Rotate(const vec3 &rotation, const float angle) { m_Rotation.rotate(rotation, angle);}
-		void Rotate(const Vec3 &rotationAngles, float angle);
-		void Rotate(const float yaw, const float pitch, const float roll);
+		void Rotate(const Vec3 &rotationAngles, F32 angle);
+		void Rotate(const F32 yaw, const F32 pitch, const F32 roll);
 
-		inline void Translate(float x, float y, float z) { m_Position += Vec3(x, y, z); }
-		inline void Rotate(float x, float y, float z, float angle) { m_Rotation.rotate(Vec3(x,y,z), angle); }
+		inline void Translate(F32 x, F32 y, F32 z) { m_Position += Vec3(x, y, z); }
+		inline void Rotate(F32 x, F32 y, F32 z, F32 angle) { m_Rotation.rotate(Vec3(x,y,z), angle); }
 
 		mat4 lookAt(const Vec3 &position, const Vec3 &target, const Vec3 &up);
 
-		void quatRotate(float angle, const Vec3 &axis);
+		void quatRotate(F32 angle, const Vec3 &axis);
 
-		void printInfo() {
-			LOG("FOV", this->m_Fov);
-			LOG("Aspect", this->m_AspectRatio);
-			LOG("near", this->m_Near);
-			LOG("far", this->m_Far);
-			LOG("Rotation",
-				std::to_string(this->m_Rotation.x) + " , " +
-				std::to_string(this->m_Rotation.y) + " , " +
-				std::to_string(this->m_Rotation.z) + " , " +
-				std::to_string(this->m_Rotation.w));
-		
-			LOG("ViewMatrix", m_ViewMatrix);
-			LOG("TRANSLATION.X : ", m_ViewMatrix.elements[12]);
-		
-			LOG("m_Rotation",
-				" X: "  + std::to_string(m_Rotation.x) + 
-				" Y: " + std::to_string(m_Rotation.y) +
-				" Z: " + std::to_string(m_Rotation.z) +
-				" W: " + std::to_string(m_Rotation.w));
-		
-			mat4 translation(	1, 0, 0, 0,
-								0, 1, 0, 0,
-								0, 0, 1, 0,
-								0, 0, 0, 1);
-
-			mat4 rotation(  1, 0, 0, 0,
-							0, 1, 0, 0,
-							0, 0, 1, 0,
-							0, 0, 0, 1);
-
-			mat4 result = rotation * translation;
-
-			LOG("TEST MATRIX", result);
-		}
+		void printInfo();
 	};
 
 }}

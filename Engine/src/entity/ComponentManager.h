@@ -5,7 +5,7 @@
 //
 // Author: Sommerauer Christian
 // Created: xx.xx.xx
-// Changed: 23.07.18
+// Changed: 13.08.18
 //------------------------------------------------------------------------------
 //
 
@@ -19,79 +19,101 @@
 #include <entity\component\Transform.h>
 #include <entity\Entity.h>
 #include <utils\Log.h>
+
+// std
 #include <map>
-#include <memory\MemoryManager.h>
+
 	
 namespace engine {
 
+	// Forward Declarations
+	class memory::IAllocator;
+
 	class ComponentManager {
+
+	public:
+		// Ctor & Dtor
+		explicit ComponentManager(memory::IAllocator* allocator);
+		~ComponentManager();
+
+		// Component Interface
+		template <typename T, typename... arguments>
+		T* AddComponent(const Entity *entity, arguments&&... args);
+
+		template <typename T>
+		T* ComponentManager::GetComponent(const Entity *entity);
+
+
+		// Deleted Ctor
+		ComponentManager() = delete;
+		ComponentManager(const ComponentManager&) = delete;
+		ComponentManager(ComponentManager&&) = delete;
+		ComponentManager& operator=(const ComponentManager&) = delete;
+		ComponentManager& operator=(ComponentManager&&) = delete;
+
 	private:
 		static U32 TypeCounter;
 		static U32 GetTypeCounter();
-
-		static memory::MemoryManager *m_memory;
-
-		std::map<size_t, memory::IPoolContainer*> m_container;
+		
+		memory::IAllocator* m_memory;
+		std::map<U32, memory::IPoolContainer*> m_container;
 		
 		template <typename T>
-		void addNewContainer() 
+		void addNewContainer();
+	};
+}
+
+// Template implementation
+namespace engine {
+
+	//----------------------------------------------------------------------
+	template <typename T, typename... arguments>
+	T* ComponentManager::AddComponent(const Entity *entity, arguments&&... args)
+	{
+		if (m_container.find(typeid(T).hash_code()) == m_container.end())
 		{
-			blk temp = m_memory->allocate(sizeof(memory::PoolContainer<T>));
-			m_container.insert(
-				std::pair<size_t, memory::IPoolContainer*>
+			addNewContainer<T>();
+		}
+
+		memory::PoolContainer<T>* container =
+			reinterpret_cast<memory::PoolContainer<T>*>
+			(m_container.find(typeid(T).hash_code())->second);
+
+		return container->newElement(
+			entity->m_UniqueId.id, std::forward<arguments>(args)...);
+
+		//if (std::is_same<T, Model>::value) {
+		//	m_model.newElement(entity.m_UniqueId.id, std::forward<arguments>(args)...);
+		//}			
+	}
+
+	//----------------------------------------------------------------------
+	template <typename T>
+	T* ComponentManager::GetComponent(const Entity *entity)
+	{
+		memory::PoolContainer<T>* container =
+			reinterpret_cast<memory::PoolContainer<T>*>(
+				m_container.find(typeid(T).hash_code())->second);
+		return container->getElement(entity->m_UniqueId.id);
+	}
+
+	//----------------------------------------------------------------------
+	template <typename T>
+	void ComponentManager::addNewContainer()
+	{
+		blk temp = m_memory->allocate(sizeof(memory::PoolContainer<T>));
+		m_container.insert(
+			std::pair<U32, memory::IPoolContainer*>
+			(
+				typeid(T).hash_code(),
+				dynamic_cast<memory::IPoolContainer*>
 				(
-					typeid(T).hash_code(), 
-					dynamic_cast<memory::IPoolContainer*>
-					(
-						new(temp.ptr)  memory::PoolContainer<T>(30)
+					new(temp.ptr)  memory::PoolContainer<T>(m_memory, 30)
 					)
 				)
-			);
-		}
-
-	public:
-		ComponentManager();
-		~ComponentManager();
-
-		template <typename T, typename... arguments>
-		T* AddComponent(const Entity *entity, arguments&&... args)
-		{
-			//LOG(typeid(T).name());
-			//LOG("WHAT");
-			//LOG("test", typeid(T).hash_code());
-			//LOG("sizeis", sizeof(typeid(T)));
-
-			if (m_container.find(typeid(T).hash_code()) == m_container.end())
-			{
-				addNewContainer<T>();
-			}
-
-			memory::PoolContainer<T> *container = reinterpret_cast<memory::PoolContainer<T>*> (m_container.find(typeid(T).hash_code())->second);
-
-			return container->newElement(entity->m_UniqueId.id, std::forward<arguments>(args)...);
-
-			
-
-			//if (std::is_same<T, Model>::value) {
-			//	m_model.newElement(entity.m_UniqueId.id, std::forward<arguments>(args)...);
-			//}
-			//else if (std::is_same<T, Transform>::value)
-			//{
-			//	m_trans.newElement(entity.m_UniqueId.id, std::forward<arguments>(args)...);
-
-			//}
-			
-		}		//m_test.newElement(entity.m_UniqueId.id, std::forward<arguments>(args));
-
-		template <typename T>
-		T* GetComponent(const Entity *entity)
-		{
-			memory::PoolContainer<T>* container = reinterpret_cast<memory::PoolContainer<T>*>(m_container.find(typeid(T).hash_code())->second);		
-			return container->getElement(entity->m_UniqueId.id);
-		}
-	};
-
- }
+		);
+	}
+}
 
 #endif //__COMPONENT_MANAGER_H__	
 

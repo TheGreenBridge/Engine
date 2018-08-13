@@ -1,5 +1,6 @@
 #include "mat4.h"
 #include <sstream>
+#include <entity\component\Transform.h>
 
 mat4::mat4(float diagonal)
 {
@@ -65,28 +66,29 @@ mat4 mat4::Perspective(float fov, float aspectRatio, float near, float far) {
 	return result;
 }
 
-mat4 mat4::Orthographic(const float & b, const float & t, const float & l, const float & r, const float & n, const float & f)
+mat4 mat4::Orthographic(const float & bottom, const float & top, const float & left, const float & right, const float & near, const float & far)
 {
 	mat4 M;
-	M[0] = 2 / (r - l);
+	M[0] = 2 / (right - left);
 	M[1] = 0;
 	M[2] = 0;
 	M[3] = 0;
 
 	M[4] = 0;
-	M[5] = 2 / (t - b);
+	M[5] = 2 / (top - bottom);
 	M[6] = 0;
 	M[7] = 0;
 
 	M[8] = 0;
 	M[9] = 0;
-	M[10] = -2 / (f - n);
+	M[10] = -2 / (far - near);
 	M[11] = 0;
 
-	M[12] = -(r + l) / (r - l);
-	M[13] = -(t + b) / (t - b);
-	M[14] = -(f + n) / (f - n);
+	M[12] = -(right + left) / (right - left);
+	M[13] = -(top + bottom) / (top - bottom);
+	M[14] = -(far + near) / (far - near);
 	M[15] = 1;
+
 	return M;
 }
 
@@ -158,6 +160,34 @@ mat4 mat4::multiply(const mat4 &other) const {
 	return result;
 }
 
+void mat4::transpose()
+{
+	F32 temp;
+	temp = elements[1];
+	elements[1] = elements[4];
+	elements[4] = temp;
+	temp = elements[2];
+	elements[2] = elements[6];
+	elements[6] = temp;
+	temp = elements[3];
+	elements[3] = elements[12];
+	elements[12] = temp;
+	temp = elements[6];
+	elements[6] = elements[9];
+	elements[9] = temp;
+	temp = elements[7];
+	elements[7] = elements[13];
+	elements[13] = temp;
+	temp = elements[11];
+	elements[11] = elements[14];
+	elements[14] = temp;
+}
+
+void mat4::inverse()
+{
+
+}
+
 mat4 mat4::Translate(const Vec3 &translation){
 	
 	mat4 result(1.0f);
@@ -193,6 +223,26 @@ mat4 mat4::Rotate(float angle, const Vec3& axis)
 	result.elements[0 + 2 * 4] = x * z * omc + y * s;
 	result.elements[1 + 2 * 4] = y * z * omc - x * s;
 	result.elements[2 + 2 * 4] = z * omc + c;
+
+	return result;
+}
+
+mat4 mat4::TransformToMat4(Transform & transform)
+{
+	mat4 result(1.0f);
+
+	result = transform.rotation.toMatrix();
+
+	result[12] = transform.position.x;
+	result[13] = transform.position.y;
+	result[14] = transform.position.z;
+
+	mat4 scaleMatrix(transform.scale, 0, 0, 0,
+		0, transform.scale, 0, 0,
+		0, 0, transform.scale, 0,
+		0, 0, 0, 1);
+
+	result = result * scaleMatrix;
 
 	return result;
 }

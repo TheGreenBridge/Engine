@@ -68,7 +68,7 @@ void LOG(const char* title, const unsigned int number) {
 
 // ERROR
 void logError(const char* text, const char* file, U32 line) {
-	std::cerr << "ERROR: " << text << std::endl;
+	std::cerr << "ERROR: " << text << file << line << std::endl;
 	HALT();
 }
 

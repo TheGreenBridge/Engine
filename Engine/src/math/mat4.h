@@ -4,6 +4,8 @@
 #include "Vec3.h"
 #include "math_def.h"
 
+struct Transform;
+
 struct mat4 {
 	// 64 Bytes
 	union {
@@ -25,10 +27,15 @@ struct mat4 {
 
 	mat4 & multiply(const mat4 &other);
 	mat4 multiply(const mat4 &other) const;
+
+	void transpose();
+	void inverse();
 	
 	static mat4 Perspective(float fov, float aspectRatio, float near, float far);
-	static mat4 Orthographic(const float &b, const float &t, const float &l, const float &r,
-		const float &n, const float &f);
+	static mat4 Orthographic(const float &bottom, const float &top, const float &left, const float &right,
+		const float &near, const float &far);
 	static mat4 Translate(const Vec3 &translation);
 	static mat4 Rotate(float angle, const Vec3& axis);
+
+	static mat4 TransformToMat4(Transform& transform);
 };

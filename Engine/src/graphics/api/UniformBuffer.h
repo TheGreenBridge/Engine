@@ -1,43 +1,52 @@
 //------------------------------------------------------------------------------
 // UniformBuffer.h
 //
-// Represents graphics data
+// Represents graphics data uniforms
 //
 // Author: Sommerauer Christian
 // Created: 30.07.18
-// Changed: 30.07.18
+// Changed: 01.08.18
 //------------------------------------------------------------------------------
 //
 
 #pragma once
 
-#include<common\types.h>
+#include <common\types.h>
 #include <graphics\api\Shader.h>
 
-namespace engine {
-	namespace graphics {
+namespace engine { namespace graphics {
 
-		class UniformBuffer {
-		private:
-			U32 m_Handle;
+	class UniformBuffer {
+	private:
 
-		public:
+		U32 m_Handle;
+		U8 m_BindingPoint;
 
-			UniformBuffer(U32 size, void* pData = nullptr);
+	public:
 
-			// deleted cstr
-			UniformBuffer(const UniformBuffer&) = delete;
-			UniformBuffer() = delete;
+		// Cstr
+		UniformBuffer(U32 size, void* pData = nullptr);
 
-			~UniformBuffer();
+		// Deleted cstr
+		UniformBuffer() = delete;
+		UniformBuffer(const UniformBuffer&) = delete;
+		UniformBuffer(UniformBuffer&&) = delete;
+		UniformBuffer& operator=(const UniformBuffer&) = delete;
+		UniformBuffer& operator=(UniformBuffer&&) = delete;
 
-			void setData(U32 offset, void * pointer, U32 size) const;
+		~UniformBuffer();
 
-			U32 getHandle() const;
+		// Binding
+		void bind() const;
+		void unbind() const;
 
-			void bind() const;
-			void unbind() const;
-		};
+		// Setter
+		void setData(const void * pointer, const U32 size, const U32 offset = 0) const;
+		void setBindingPoint(const U8 slot);
 
-	}
-}
+		// Getter
+		U32 getHandle() const;		
+		U8 getBindindPoint() const;
+	};
+
+}}

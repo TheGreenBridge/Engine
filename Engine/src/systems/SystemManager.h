@@ -37,6 +37,7 @@ namespace engine {
 		std::vector<ISystem*> m_Systems;
 		LinearAllocator m_Allocator;
 		Time m_Time;
+		U32 m_FPSCounter;
 		U32 m_FPS;
 		bool isActivated;
 	public:
@@ -58,7 +59,9 @@ namespace engine {
 		T* requestMemory(size_t N);
 		void testManager();
 
-		long long getDeltaTime() const;
+		U64 getDeltaTime() const;
+		F32 getDeltaTimef() const;
+		U32 getFPS() const;
 	};
 }
 

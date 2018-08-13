@@ -1,10 +1,11 @@
 #include "MemoryManager.h"
+#include <utils\Log.h>
 
 namespace engine {
 	namespace memory {
 
 		MemoryManager::MemoryManager()
-			: LinearAllocator(GLOBAL_MEMORY)
+			: m_allocator(GLOBAL_MEMORY)
 		{
 
 		}
@@ -14,15 +15,17 @@ namespace engine {
 
 		}
 
-		/*blk MemoryManager::allocate(U32 size)
+		blk MemoryManager::allocate(U32 size)
 		{
-			return allocate(size);
+			LOG("Allocation: " + size);
+			m_allocator.logStates();
+			return m_allocator.allocate(size);
 		}
 
 		void MemoryManager::deallocate(blk allocation)
 		{
 
-		}*/
+		}
 
 		void MemoryManager::hardReset()
 		{

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <utils\Log.h>
+#include <common\types.h>
 
 extern "C" {
 	#include <3rdParty\Lua\lua.h>
@@ -101,24 +102,24 @@ private:
 // Specializations
 
 template <>
-inline bool LuaScript::lua_get<bool>(const std::string& variableName) {
-	return (bool)lua_toboolean(L, -1);
+inline BOOL LuaScript::lua_get<bool>(const std::string& variableName) {
+	return static_cast<BOOL>(lua_toboolean(L, -1));
 }
 
 template <>
-inline float LuaScript::lua_get<float>(const std::string& variableName) {
+inline F32 LuaScript::lua_get<float>(const std::string& variableName) {
 	if (!lua_isnumber(L, -1)) {
 		printError(variableName, "Not a number");
 	}
-	return (float)lua_tonumber(L, -1);
+	return static_cast<F32>(lua_tonumber(L, -1));
 }
 
 template <>
-inline int LuaScript::lua_get<int>(const std::string& variableName) {
+inline I32 LuaScript::lua_get<int>(const std::string& variableName) {
 	if (!lua_isnumber(L, -1)) {
 		printError(variableName, "Not a number");
 	}
-	return (int)lua_tonumber(L, -1);
+	return static_cast<I32>(lua_tonumber(L, -1));
 }
 
 template <>

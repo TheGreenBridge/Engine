@@ -34,7 +34,7 @@ namespace engine { namespace graphics{
 
 		U32 m_ShaderID;
 
-		U32 m_UniformIndex;
+		//U32 m_UniformIndex;
 
 		const char* m_VertPath;
 		const char* m_FragPath;
@@ -67,7 +67,8 @@ namespace engine { namespace graphics{
 		void setUniform1f(const char *name, F32 value) const;
 		void setUniform1i(const char *name, I32 value) const;
 		void setUniformTexture(const char *name, I32 slot, I32 texture) const;
-		
+
+		void setUniformBlockIndex(const char* name, U32 slot);
 		//void setUniformBuffer(const UniformBuffer& uniforms, const char* name);
 	};
 

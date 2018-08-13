@@ -20,7 +20,7 @@ namespace engine {
 	using namespace graphics;
 	using namespace component;
 
-	void AssetLoader::loadEntity(const char * path)
+	Entity* AssetLoader::loadEntity(const char * path)
 	{
 		LuaScript script(path);
 
@@ -34,69 +34,56 @@ namespace engine {
 		entity->transform.position.y = script.get<float>("entity.position.y");
 		entity->transform.position.z = script.get<float>("entity.position.z");
 
+		std::string shaderPath = "res/shader/default/defaultmaterial.glsl";
+		std::string geometryPath = "res/mesh/pig.obj";
+		std::string texturePath = "res/textures/wood_texture.png";
+		
+		// Geometry
 		
 		Model *model = compMgr->AddComponent<Model>(entity);	
+		Mesh mesh;
+		FileUtils::load_obj(geometryPath.c_str(), mesh);
+
+		VertexBuffer* vbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getVertices().size() * sizeof(Vec3));
+		VertexBuffer* nbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getNormals().size() * sizeof(Vec3));
+		VertexBuffer* uvbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getUVs().size() * sizeof(Vec2));
+
+		vbuffer->setData(mesh.getVertices().size() * sizeof(Vec3), mesh.getVertices().data());
+		nbuffer->setData(mesh.getNormals().size() * sizeof(Vec3), mesh.getNormals().data());
+		uvbuffer->setData(mesh.getUVs().size() * sizeof(Vec2), mesh.getUVs().data());
+
+		BufferLayout layout;
+		layout.pushFloat(3);
+		BufferLayout layout_uvs;
+		layout_uvs.pushFloat(2);
+
+		VertexArray* vao = Engine::gBufferManager.createVertexArray();
+		
+		vao->addBuffer(vbuffer, layout);
+		vao->addBuffer(nbuffer, layout);
+		vao->addBuffer(uvbuffer, layout_uvs);
+
+		model->vertices = vao;
+		model->numVertices = mesh.numVertices;
+
+		// Material
+
+		Material* material = compMgr->AddComponent<Material>(entity);
+		Shader* shader = Engine::gShaderManager.createShader(shaderPath.c_str());
+
+		material->shader = shader;
+		//material->shader->setUniformBlockIndex("vs_uniforms", 0);
+		//material->shader->setUniformBlockIndex("fs_uniforms", 1);
+		material->texture = Engine::gResourceManager.getTexture(texturePath.c_str());
+
+		// Final Renderable
 
 		Renderable3D* renderable = compMgr->AddComponent<Renderable3D>(entity);
 		renderable->transform = &entity->transform;
 		renderable->model = model;
-		renderable->material;
-
-		Material* material = compMgr->AddComponent<Material>(entity);
-		material->shader = Engine::gShaderManager.createShader("");
-		material->texture = Engine::gTextureManager.createTexture();
+		renderable->material = material;
 		
-		material->texture->loadImage("");
-
-		UniformBuffer* uniformBuffer = 		Engine::gBufferManager.createUniformBuffer(10);
-		material->uniforms = uniformBuffer;
-		
-		
-		struct {
-			F32 test;
-			F32 test3;
-		} uniform;
-
-		
-
-
-
-		/*compMgr->AddComponent<PBRMaterial>(entity,
-			Texture("res/textures/pbr_rust/rustediron2_basecolor.png"),
-			Texture("res/textures/pbr_rust/rustediron2_metallic.png"),
-			Texture("res/textures/pbr_rust/rustediron2_roughness.png"),
-			pbrShader);*/
-
-		//PBRMaterial *pbrmaterial = compMgr->GetComponent<PBRMaterial>(entity);
-		
-		
-		Mesh mesh;
-		FileUtils::load_obj("res/mesh/pig.obj", mesh);
-
-		VertexBuffer* position_buffer = Engine::gBufferManager.createVertexBuffer(mesh.getVertices().size(), BufferUsage::STATIC);
-		VertexBuffer* normal_buffer = Engine::gBufferManager.createVertexBuffer(mesh.getNormals().size(), BufferUsage::STATIC);
-		VertexBuffer* uv_buffer = Engine::gBufferManager.createVertexBuffer(mesh.getUVs().size(), BufferUsage::STATIC);
-		
-		BufferLayout layout;
-		layout.pushFloat(3);
-
-		VertexArray* vao = Engine::gBufferManager.createVertexArray();
-
-		vao->addBuffer(position_buffer, layout);
-		vao->addBuffer(normal_buffer, layout);
-		vao->addBuffer(uv_buffer, layout);
-
-
-		model->vertices = vao;
-
-		
-
-		//model = Loader::loadModel(*mesh);
-
-		//entity->mesh = mesh;
-		//entity->pbrmaterial = pbrmaterial;
-		//entity->model = model;*/
-
+		return entity;
 	}
 }
 

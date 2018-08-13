@@ -1,15 +1,23 @@
 
 1) File-Structure:
 
-Every File needs a header-text:
+	Every File needs a header-text:
 
 //------------------------------------------------------------------------------
-// example.cpp
-//
-// short description
+// File Name: Camera.h
+// Description: Shows the scene from the view of this camera
 //
 // Author: Sommerauer Christian
-// Created: 31.07.18
-// Changed: 31.07.18
+// Created: 28.01.2017
+// Changed: 13.08.2018
 //------------------------------------------------------------------------------
 //
+
+
+2) Types
+
+# ENUMS:
+
+	They have to start with a big letter E
+
+	e.g.: enum EName

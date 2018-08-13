@@ -1,31 +1,49 @@
+//------------------------------------------------------------------------------
+// File Name: Camera.h
+// Description: Shows the scene from the view of this camera
+//
+// Author: Sommerauer Christian
+// Created: 28.01.2017
+// Changed: 13.08.2018
+//------------------------------------------------------------------------------
+//
+
 #include "Camera.h"
-#include "../math/Vec3.h"
+// std
+#include <string>
 
 namespace engine {	namespace graphics {
 
-	Camera::Camera(float fov, float aspectRatio, float near, float far)
+	//--------------------------------------------------------------------------
+	Camera::Camera(F32 fov, F32 aspectRatio, F32 near, F32 far)
 		: m_Fov(fov), m_AspectRatio(aspectRatio), m_Near(near), m_Far(far),
-		m_Rotation(0.0f,0.0f,0.0f,1.0f), m_Speed(0.01f){
+		m_Rotation(0.0f, 0.0f, 0.0f, 1.0f), m_Speed(0.01f){
 		key_roll = 0;
 		key_pitch = 0;
 		key_roll = 0;
 	}
 
-	Camera::~Camera() {}
+	//--------------------------------------------------------------------------
+	Camera::~Camera() 
+	{
 
-	mat4 Camera::getProjectionMatrix() const{
-		
+	}
+
+	//--------------------------------------------------------------------------
+	mat4 Camera::getProjectionMatrix() const
+	{		
 		return m_ProjectionMatrix;
 	}
 
-
-
-	inline void setRotation(const Vec3 &rotation) {
-
+	//--------------------------------------------------------------------------
+	inline void setRotation(const Vec3 &rotation) 
+	{
+		
 	} 
 
-	void Camera::Rotate(const float yaw, const float pitch, const float roll) {
-	
+	//--------------------------------------------------------------------------
+	void Camera::Rotate(const F32 yaw, const F32 pitch, const F32 roll)
+	{
 		key_yaw= yaw;
 		key_pitch = pitch;
 		key_roll = roll;
@@ -38,8 +56,9 @@ namespace engine {	namespace graphics {
 		m_Rotation.normalize();
 	}
 
-	void Camera::Rotate(const Vec3 &axis, float angle) {
-	
+	//--------------------------------------------------------------------------
+	void Camera::Rotate(const Vec3 &axis, F32 angle)
+	{
 		//key_pitch = 0;
 		//key_roll = 0;
 		//key_yaw = 0;
@@ -96,13 +115,15 @@ namespace engine {	namespace graphics {
 		//m_Rotation.normalize();
 	}
 
-	void Camera::quatRotate(float angle, const Vec3 &axis) {
-	
+	//--------------------------------------------------------------------------
+	void Camera::quatRotate(F32 angle, const Vec3 &axis)
+	{
 	
 	}
 
-	void Camera::update() {
-
+	//--------------------------------------------------------------------------
+	void Camera::update() 
+	{
 		// IN2GPU EXAMPLE
 
 		//m_Rotation.setRotation(Vec3(key_pitch*PI/180, key_yaw*PI / 180, key_roll*PI / 180));
@@ -121,8 +142,9 @@ namespace engine {	namespace graphics {
 		m_ProjectionMatrix = mat4::Perspective(m_Fov, m_AspectRatio, m_Near, m_Far);
 	}
 
-	mat4 Camera::lookAt(const Vec3 &eye, const Vec3 &target, const Vec3 &up) {
-
+	//--------------------------------------------------------------------------
+	mat4 Camera::lookAt(const Vec3 &eye, const Vec3 &target, const Vec3 &up) 
+	{
 		Vec3 f = target - eye;
 		f.normalize();
 
@@ -145,11 +167,14 @@ namespace engine {	namespace graphics {
 		return result;
 	}
 
-	void Camera::setPosition(const Vec3 &position) {
+	//--------------------------------------------------------------------------
+	void Camera::setPosition(const Vec3 &position) 
+	{
 	
 		m_Position = position;
 	}
 
+	//--------------------------------------------------------------------------
 	void Camera::Translate(const Vec3 &position) {
 		Vec3 forward(m_ViewMatrix[2], m_ViewMatrix[6], m_ViewMatrix[10]);
 		Vec3 strafe(m_ViewMatrix[0], m_ViewMatrix[4], m_ViewMatrix[8]);
@@ -163,10 +188,12 @@ namespace engine {	namespace graphics {
 		//std::cout << "Position: " << m_Position.x << " , " << m_Position.y << " , " << m_Position.z << std::endl;
 	}
 
+	//--------------------------------------------------------------------------
 	mat4 Camera::getViewMatrix() const {
 		return m_ViewMatrix;
 	}
 
+	//--------------------------------------------------------------------------
 	mat4 Camera::getRotationMatrix() const {
 		mat4 result = m_ViewMatrix;
 		result[12] = 0;
@@ -175,4 +202,40 @@ namespace engine {	namespace graphics {
 		return result;
 	}
 
+	//--------------------------------------------------------------------------
+	void Camera::printInfo() 
+	{
+		LOG("FOV", this->m_Fov);
+		LOG("Aspect", this->m_AspectRatio);
+		LOG("near", this->m_Near);
+		LOG("far", this->m_Far);
+		LOG("Rotation",
+			std::to_string(this->m_Rotation.x) + " , " +
+			std::to_string(this->m_Rotation.y) + " , " +
+			std::to_string(this->m_Rotation.z) + " , " +
+			std::to_string(this->m_Rotation.w));
+
+		LOG("ViewMatrix", m_ViewMatrix);
+		LOG("TRANSLATION.X : ", m_ViewMatrix.elements[12]);
+
+		LOG("m_Rotation",
+			" X: " + std::to_string(m_Rotation.x) +
+			" Y: " + std::to_string(m_Rotation.y) +
+			" Z: " + std::to_string(m_Rotation.z) +
+			" W: " + std::to_string(m_Rotation.w));
+
+		mat4 translation(1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1);
+
+		mat4 rotation(1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1);
+
+		mat4 result = rotation * translation;
+
+		LOG("TEST MATRIX", result);
+	}
 }}

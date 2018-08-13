@@ -53,19 +53,6 @@ private:
 	CollisionManager gCollisionManager;
 
 	Console gConsole;
-
-	
-	
-
-	float vertices[12] = {
-		0.0, 0.0,
-		0.5, 0.5,
-		0.0, 0.5,
-		0.0, 0.0,
-		0.5, 0.0,
-		0.5, 0.5
-	};
-
 	Renderer* renderer;
 
 	
@@ -80,7 +67,7 @@ private:
 	UniformBuffer* ubo;
 	Entity *entity;
 
-	//Font font;
+	Font font;
 	
 	void stop_();
 	void run_();

@@ -1,15 +1,28 @@
+//------------------------------------------------------------------------------
+// Material.h
+//
+// Represents a material on a model
+//
+// Author: Sommerauer Christian
+// Created: xx.xx.xx
+// Changed: 13.08.18
+//------------------------------------------------------------------------------
+//
+
 #pragma once
 
 #include <math/Vec3.h>
 #include <graphics\api\UniformBuffer.h>
 
-using namespace engine::graphics;
+
+// Forward Declaration
 namespace engine {	namespace graphics {
-	// forward declaration
 	class Texture;
 	class Shader;
+}}
 
-	
+
+namespace engine {	namespace graphics {
 
 	struct Material {
 		Texture *texture;
