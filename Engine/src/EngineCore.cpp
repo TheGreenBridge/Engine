@@ -24,7 +24,7 @@ namespace engine {
 	
 	// TODO(Som): Will get into ResourceManager
 	TextureManager Engine::gTextureManager(10, 10);
-	ShaderManager Engine::gShaderManager(10);
+	ShaderManager Engine::gShaderManager(20);
 	BufferManager Engine::gBufferManager(&gMemoryManager);
 
 	ResourceManager Engine::gResourceManager(&gMemoryManager);

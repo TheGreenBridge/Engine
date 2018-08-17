@@ -74,6 +74,8 @@ namespace engine { namespace graphics{
 			texture.loadBuffer(face->glyph->bitmap.width, face->glyph->bitmap.rows,
 				face->glyph->bitmap.buffer);*/
 			// Generate texture
+
+			//Texture* texture = Engine::gResourceManager.getTexture();
 			GLuint texture;
 			GLCall(glGenTextures(1, &texture));
 			GLCall(glBindTexture(GL_TEXTURE_2D, texture));
@@ -138,7 +140,6 @@ namespace engine { namespace graphics{
 		GLCall(glActiveTexture(GL_TEXTURE0));
 		m_VertexArray->bind();
 		//glBindVertexArray(VAO);
-		glDisable(GL_DEPTH_TEST);
 
 		// Iterate through all characters
 		std::string::const_iterator c;
@@ -186,7 +187,6 @@ namespace engine { namespace graphics{
 			x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 		}
 		//m_VertexArray->unbind();
-		glEnable(GL_DEPTH_TEST);
 		GLCall(glBindVertexArray(0));
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 	}

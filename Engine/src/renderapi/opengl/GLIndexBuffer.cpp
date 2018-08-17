@@ -45,6 +45,13 @@ namespace engine {
 		}
 
 		//--------------------------------------------------------------------------
+		void IndexBuffer::draw() const
+		{
+			GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
+			GLCall(glDrawElements(GL_LINES, m_Count, GL_UNSIGNED_INT, 0));
+		}
+
+		//--------------------------------------------------------------------------
 		inline U32 IndexBuffer::getCount() const
 		{
 			return m_Count;

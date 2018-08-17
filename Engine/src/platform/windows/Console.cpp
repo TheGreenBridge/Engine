@@ -6,6 +6,7 @@
 #include <vector>
 #include <iterator>
 #include <EngineCore.h>
+#include <Components\Renderable3D.h>
 
 namespace engine {
 
@@ -20,8 +21,6 @@ namespace engine {
 			std::string inputtext;
 
 			std::getline(std::cin, inputtext);
-
-			LOG("command", inputtext);
 
 			std::stringstream ss(inputtext);
 			std::istream_iterator<std::string> begin(ss);
@@ -66,6 +65,13 @@ namespace engine {
 			else if (command == "move-down") {
 				if (entity != nullptr) {
 					entity->transform.position.y -= 0.5f;
+				}
+			}
+			else if (command == "destroy")
+			{
+				if (entity != nullptr)
+				{
+					Engine::getComponentManager()->DestroyComponent<component::Renderable3D>(entity);
 				}
 			}
 			else if (command == "exit") break;

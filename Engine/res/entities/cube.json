@@ -1,0 +1,8 @@
+{
+  "name": "cube",
+
+  "model": "res/mesh/default/box.obj",
+
+  "material": "res/textures/rock_texture.jpg"
+
+}

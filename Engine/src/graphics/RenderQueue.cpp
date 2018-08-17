@@ -37,6 +37,11 @@ namespace engine{ namespace graphics {
 		}
 	}
 
+	RenderItem * RenderQueue::getLastItem() const
+	{
+		return m_Count != 0 ? (m_Head + (m_Count - 1)) : nullptr;
+	}
+
 	//--------------------------------------------------------------------------
 	RenderItem* RenderQueue::next()
 	{

@@ -15,10 +15,12 @@
       <state input="119" output="8"/><!-- w -->
       <state input="32" output="4"/><!-- space -->
       <state input="99" output="5"/><!-- c -->
+      <state input="81" output="10"/><!-- c -->
     </states>
     <actions>
-      <action input="77" output="0"/>
-      <action input="78" output="1"/>   
+      <action input="76" output="0"/>
+      <action input="78" output="1"/>
+      <action input="77" output="2"/>   
     </actions>  
   </mapping>
 </inputcontext>

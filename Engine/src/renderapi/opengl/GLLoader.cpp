@@ -21,31 +21,31 @@
 
 
 
-engine::graphics::Model Loader::loadModel(engine::graphics::Mesh &mesh) {
-	Model model;
-
-	GLCall(glGenVertexArrays(1, &model.vao));
-	GLCall(glBindVertexArray(model.vao));
-	// Vertices
-	GLCall(glGenBuffers(3, &model.vbo_vertices));
-	GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_vertices));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getVertices().size() * sizeof(Vec3), &mesh.getVertices()[0], GL_STATIC_DRAW));
-	GLCall(glVertexAttribPointer(LAYOUT_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, 0, 0));
-	GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_POSITION));
-	// Normals
-	GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_normals));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getNormals().size() * sizeof(Vec3), &mesh.getNormals()[0], GL_STATIC_DRAW));
-	GLCall(glVertexAttribPointer(LAYOUT_ATTR_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, 0));
-	GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_NORMAL));
-	//UV Coordinates
-	GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_uvs));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getUVs().size() * sizeof(Vec2), &mesh.getUVs()[0], GL_STATIC_DRAW));
-	GLCall(glVertexAttribPointer(LAYOUT_ATTR_UV, 2, GL_FLOAT, GL_FALSE, 0, 0));
-	GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_UV));
-
-	GLCall(glBindVertexArray(0));
-	return model;
-}
+//engine::graphics::Model Loader::loadModel(engine::graphics::Mesh &mesh) {
+//	Model model;
+//
+//	//GLCall(glGenVertexArrays(1, &model.vao));
+//	//GLCall(glBindVertexArray(model.vao));
+//	//// Vertices
+//	//GLCall(glGenBuffers(3, &model.vbo_vertices));
+//	//GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_vertices));
+//	//GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getVertices().size() * sizeof(Vec3), &mesh.getVertices()[0], GL_STATIC_DRAW));
+//	//GLCall(glVertexAttribPointer(LAYOUT_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, 0, 0));
+//	//GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_POSITION));
+//	//// Normals
+//	//GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_normals));
+//	//GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getNormals().size() * sizeof(Vec3), &mesh.getNormals()[0], GL_STATIC_DRAW));
+//	//GLCall(glVertexAttribPointer(LAYOUT_ATTR_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, 0));
+//	//GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_NORMAL));
+//	////UV Coordinates
+//	//GLCall(glBindBuffer(GL_ARRAY_BUFFER, model.vbo_uvs));
+//	//GLCall(glBufferData(GL_ARRAY_BUFFER, mesh.getUVs().size() * sizeof(Vec2), &mesh.getUVs()[0], GL_STATIC_DRAW));
+//	//GLCall(glVertexAttribPointer(LAYOUT_ATTR_UV, 2, GL_FLOAT, GL_FALSE, 0, 0));
+//	//GLCall(glEnableVertexAttribArray(LAYOUT_ATTR_UV));
+//
+//	//GLCall(glBindVertexArray(0));
+//	return model;
+//}
 
 void Loader::testloadSkinnedMesh(unsigned int *vao, unsigned int *vbo, const float *vertices, const float *normals, const float *uvs, const int *joints, const float *weights,
 	const unsigned int vertSize) {

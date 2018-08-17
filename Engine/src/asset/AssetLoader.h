@@ -1,6 +1,13 @@
 #pragma once
 
 namespace engine {
+	namespace graphics {
+	class Renderer;
+	}
+}
+
+namespace engine {
+		
 
 	class Entity;
 
@@ -8,6 +15,7 @@ namespace engine {
 	private:
 
 	public:
-		static Entity* loadEntity(const char *path);
+		static Entity* loadEntity(graphics::Renderer& renderer, const char *path);
+		static void loadScene(graphics::Renderer& renderer, const char* path);
 	};
 }

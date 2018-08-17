@@ -27,7 +27,7 @@ using namespace engine::collision;
 using namespace engine;
 
 EngineTest::EngineTest() :
-	Application("Project Green Bridge", 1280, 720)
+	Application("Project Green Bridge", 1280, 720), terrain()
 {
 
 }
@@ -42,11 +42,12 @@ void EngineTest::init_()
 	////////////////////////////////////////////////////////////////
 	pbrShader = Engine::gShaderManager.createShader("res/shader/material/pbr_material.glsl");
 	skyBoxShader = Engine::gShaderManager.createShader("res/shader/default/boxshader.glsl");
-	fontShader = Engine::gShaderManager.createShader("res/shader/ui/text.glsl");
+	
 	
 	shader = NEW_MEM Shader("res/shader/tests/testShader.glsl");
 	camera = NEW_MEM Camera(90.0f, 1.7777f, 0.1f, 800.0f);
-	renderer = NEW_MEM Renderer(camera);
+	renderer = NEW_MEM Renderer();
+	renderer->setCamera(camera);
 	//vbo = Engine::gBufferManager.createVertexBuffer(6 * 2 * sizeof(U32), BufferUsage::DYNAMIC);
 	skyvbo = Engine::gBufferManager.createVertexBuffer(1 * sizeof(U32), BufferUsage::STATIC);
 	//vao = NEW_MEM VertexArray();
@@ -54,25 +55,28 @@ void EngineTest::init_()
 	skybox = NEW_MEM Cubemap();
 	////////////////////////////////////////////////////////////////
 
+
 	EntityManager *entMgr = Engine::getEntityManager();
 	ComponentManager *compMgr = Engine::getComponentManager();
 	SystemManager *sysMgr = Engine::getSystemManager();
 
 	entity = entMgr->newEntity();	
+	terrain.init();
 
-	srand(time(NULL));
-	for (int i = 0; i < 3; ++i)
-	{
-		Entity* ent = AssetLoader::loadEntity("res/entities/test.lua");
-		Renderable3D * renderable = Engine::getComponentManager()->GetComponent<Renderable3D>(ent);
-		/* initialize random seed: */
+	AssetLoader::loadScene(*renderer, "res/scenes/scene.json");
 
-		/* generate secret number between 1 and 10: */
-		renderable->transform->position.x = rand() % 20 + 1;
-		renderable->transform->position.y = rand() % 20 + 1;
-		renderable->transform->position.z = rand() % 20 + 1;
-		renderer->submit(*renderable);
-	}
+	//srand(time(NULL));
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	Entity* ent = AssetLoader::loadEntity("res/entities/entity.json");
+	//	Renderable3D * renderable = Engine::getComponentManager()->GetComponent<Renderable3D>(ent);
+	//	/* initialize random seed: */
+	//	/* generate secret number between 1 and 10: */
+	//	renderable->transform->position.x = rand() % 20 + 1;
+	//	renderable->transform->position.y = rand() % 20 + 1;
+	//	renderable->transform->position.z = rand() % 20 + 1;
+	//	renderer->submit(*renderable);
+	//}
 
 	/*compMgr->AddComponent<Model>(entity);
 	compMgr->AddComponent<Mesh>(entity);*/
@@ -131,10 +135,41 @@ void EngineTest::init_()
 
 	gConsole.runConsole();
 
-	font.init();
+
+
+	Mesh mesh;
+
+	/*
+	FileUtils::load_obj(geometryPath.c_str(), mesh);
+
+	VertexBuffer* vbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getVertices().size() * sizeof(Vec3));
+	VertexBuffer* nbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getNormals().size() * sizeof(Vec3));
+	VertexBuffer* uvbuffer = Engine::gBufferManager.createVertexBuffer(mesh.getUVs().size() * sizeof(Vec2));
+
+	vbuffer->setData(mesh.getVertices().size() * sizeof(Vec3), mesh.getVertices().data());
+	nbuffer->setData(mesh.getNormals().size() * sizeof(Vec3), mesh.getNormals().data());
+	uvbuffer->setData(mesh.getUVs().size() * sizeof(Vec2), mesh.getUVs().data());
+
+	BufferLayout layout;
+	layout.pushFloat(3);
+	BufferLayout layout_uvs;
+	layout_uvs.pushFloat(2);
+
+	VertexArray* vao = Engine::gBufferManager.createVertexArray();
+
+	vao->addBuffer(vbuffer, layout);
+	vao->addBuffer(nbuffer, layout);
+	vao->addBuffer(uvbuffer, layout_uvs);
+
+	model->vertices = vao;
+	model->numVertices = mesh.numVertices;*/
+
+
+
+
 }
 
-
+U32 counter = 0;
 
 void EngineTest::run_()
 {
@@ -143,16 +178,20 @@ void EngineTest::run_()
 
 	renderer->render(*skybox, *skyvao, *skyBoxShader);
 
-	//renderer->renderPBR(*entity);
-
-	//vao->bind();
-	//vao->draw(6);
-	//vao->unbind();
-	
 	renderer->render();
-	font.renderText(*fontShader, *camera, "SUMI", 25.0f, 25.0f, 1.0f, Vec3(1.0, 0.0, 0.0));
+
+
+	
+	//terrain.update();
+
+	counter = ++counter % 25;
+
+	renderer->renderTerrain(terrain);
+
 	std::string fps = "FPS: " + std::to_string(Engine::getSystemManager()->getFPS());
-	font.renderText(*fontShader, *camera, fps.c_str(), 0.0f, 700.0f, 0.5f, Vec3(0.0, 1.0, 0.0));
+	renderer->renderGUIText(fps.c_str(), 0.0f, 700.0f, 0.4f, Color::Green);
+	renderer->renderGUIText("version: 0.0.01", 0.0f, 680.0f, 0.4f, Color::Green);
+	renderer->renderGUIText("@sumi", 0.0f, 660.0f, 0.4f, Color::Green);
 }
 
 void EngineTest::pause_()

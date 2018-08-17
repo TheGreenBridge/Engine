@@ -4,28 +4,18 @@
 //
 // Author: Sommerauer Christian
 // Created: 05.02.2017
-// Changed: 13.08.2018
+// Changed: 16.08.2018
 //------------------------------------------------------------------------------
 //
 
 #pragma once
 
-#include <entity/Entity.h>
-#include <entity\Scene.h>
-#include <entity\Light.h>
-
-
-#include <graphics\api\Shader.h>
-#include <graphics\api\Cubemap.h>
-#include <graphics\api\VertexArray.h>
-
-
-#include <graphics\pbr\PBRMaterial.h>
-
-#include <Components\Renderable3D.h>
-#include <graphics\RenderQueue.h>
-
 #include <common/types.h>
+#include <entity\Light.h>
+#include <graphics\RenderQueue.h>
+#include <graphics\Font.h>
+#include <graphics\Color.h>
+#include <map>
 
 #define MAX_LIGHTS 4
 
@@ -41,6 +31,15 @@ namespace engine {
 	}
 	namespace graphics {
 		class Camera;
+		class Terrain;
+		class Cubemap;
+		class Shader;
+	}
+	namespace component {
+		class Renderable3D;
+	}
+	namespace entity {
+		class Terrain;
 	}
 }
 /////////////////////////////////////////////////////////
@@ -57,18 +56,18 @@ namespace engine { namespace graphics {
 
 	struct StateCache
 	{
-		U32 shader;
-		U32 vertexArray;
-		U32 vertexBuffer;
-		U32 texture;
+		Shader* shader;
+		VertexArray* vertexArray;
+		VertexBuffer* vertexBuffer;
+		Texture* texture;
 		U32 enableFlags;
 	};
 
 	struct VS_Uniforms
 	{
-		mat4 projection;
-		mat4 view;
+		mat4 camera;
 		mat4 model;
+		Vec3 lightPosition;
 	};
 
 	struct FS_Uniforms
@@ -76,24 +75,41 @@ namespace engine { namespace graphics {
 		Vec3 viewPos;
 	};
 
+	struct SortKey
+	{
+		U64 key;
+		RenderItem* renderItem;
+	};
+
 	class Renderer {
 	private:
 		Camera *m_Camera;
 		Cubemap *m_Skybox;
-		U32 vbo_aabb;
+		Terrain *m_Terrain;
+
+		Shader* m_fontShader;
+
 		Light m_Lights[MAX_LIGHTS];
 
 		UniformBuffer* VS_uniformBuffer;
 		UniformBuffer* FS_uniformBuffer;
 
+		VS_Uniforms vs_uniforms;
+		FS_Uniforms fs_uniforms;
+		Font font;
+
 		RenderQueue m_RenderQueue;
+		std::vector<SortKey> m_sort;
+
 		StateCache m_cache;
 
-		void loadCollisionShapes();
+		//void loadCollisionShapes();
+		void prepare();
+		void clearCache();
+		void clearRenderQueue();
 
 	public:
 		Renderer();
-		Renderer(Camera *camera);
 
 		Renderer(const Renderer&) = delete;
 
@@ -101,24 +117,6 @@ namespace engine { namespace graphics {
 
 		void initialize();
 		void render(const Cubemap &cubemap, const VertexArray& vao, const Shader &shader) const;
-			
-		/*void render(const Scene &scene, const Shader &shader, const Light &light) const;
-		void render(const U32 vbo, const Shader &shader, const int dim, U32 size) const;
-			
-		void render(Entity &entity, const Texture &texture, const Shader &shader) const;
-
-		void render(Entity &entity, const Shader &shader) const;
-			
-		void renderLINES(Entity &entity, const Shader &shader) const;
-		void renderUI(Entity &entity, const Shader &shader) const;
-			
-		void renderRenderSkin(Entity &entity, const Shader &shader) const;
-		void renderAABB(const collision::AABB3D &aabb, const Shader &shader) const;
-		void renderAABBs(const collision::AABB3D *aabb, const U32 size, const Shader &shader) const;
-		void renderTerrain(const U32 vbo, const Shader &shader, const int dim, U32 size) const;
-		void renderReflection(Entity &entity) const;
-		
-		//void renderPBR(Entity &entity) const;*/
 
 		void setCamera(Camera *camera);
 		void setSkybox(Cubemap *skybox) { m_Skybox = skybox; }
@@ -133,6 +131,12 @@ namespace engine { namespace graphics {
 
 		void submit(const Renderable3D& renderable);
 		void sortRenderQueue();
+		void loadRenderQueue();
 		void render();
+		void renderGUI();
+		void renderGUIText(const char*, const F32& x, const F32& y, 
+			const F32& size, const Vec3& color);
+
+		void renderTerrain(entity::Terrain& terrain);
 	};
 }}

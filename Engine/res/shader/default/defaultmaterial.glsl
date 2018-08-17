@@ -5,18 +5,12 @@ layout (location = 0) in vec3 vPosition;
 layout (location = 1) in vec3 vNormal;
 layout (location = 2) in vec2 vTexCoord;
 
-//layout (std140) uniform vs_uniforms
-//{
-//	mat4 pr_matrix;
-//	mat4 view_matrix;
-//	mat4 transformation_matrix;	
-//};
-
-uniform mat4 pr_matrix = mat4(1.0);
-uniform	mat4 view_matrix = mat4(1.0);
-uniform mat4 transformation_matrix = mat4(1.0);	
-
-vec3 lightPosition = vec3(3.0, 3.0, 0.0);
+layout (std140) uniform vs_uniforms
+{
+	mat4 view_matrix;
+	mat4 transformation_matrix;
+	vec3 lightPosition;	
+};
 
 out VS_OUT
 {
@@ -26,16 +20,11 @@ out VS_OUT
 	vec3 FragPos;
 } vs_out;
 
-//out	vec2 TexCoord;
-//out	vec3 SurfaceNormal;
-//out	vec3 ToLightVector;
-//out	vec3 FragPos;
-
 void main(){
 	vec4 worldPosition = transformation_matrix * vec4(vPosition, 1.0);
 	vec4 positionRelativeToCam = view_matrix * worldPosition;
 
-	gl_Position = pr_matrix * positionRelativeToCam;
+	gl_Position = positionRelativeToCam;
 
 	// output
 	vs_out.ToLightVector = lightPosition - worldPosition.xyz;
@@ -59,22 +48,16 @@ in VS_OUT
 	vec3 FragPos;
 } fs_in;
 
-
-in vec2 TexCoord;
-in vec3 SurfaceNormal;
-in vec3 ToLightVector;
-in vec3 FragPos;
-
 out vec4 fragColor;
 
-//uniform sampler2D modelTexture;
-uniform vec3 viewPos;
+uniform sampler2D modelTexture;
+//uniform vec3 viewPos;
 
 
-//layout (std140) uniform fs_uniforms
-//{
-//	vec3 viewPos;
-//};
+layout (std140) uniform fs_uniforms
+{
+	vec3 viewPos;
+};
 
 
 
@@ -97,7 +80,11 @@ void main(){
 	}
 
     vec3 totalDiffuse = max(brightness * lightColour, 0.2);
-    vec4 textureColour = vec4(1,0,0,1);
+
+    vec4 textureColour = texture(modelTexture, fs_in.TexCoord);
+    //vec4 textureColour = vec4(0.0, 1.0, 0.0, 1.0);
+	
+
 	vec4 diffuse = vec4(totalDiffuse, 1.0) * textureColour;
 	
 	// Specular

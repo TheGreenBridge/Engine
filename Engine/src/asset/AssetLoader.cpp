@@ -11,32 +11,61 @@
 #include <graphics\api\IndexBuffer.h>
 
 #include <Components\Renderable3D.h>
+#include <graphics\api\Renderer.h>
 
 #include <memory\Memory.h>
 #include <EngineCore.h>
+
+#include<3rdParty\RapidJSON\document.h>
 
 namespace engine {
 
 	using namespace graphics;
 	using namespace component;
 
-	Entity* AssetLoader::loadEntity(const char * path)
+	Entity* AssetLoader::loadEntity(Renderer& renderer, const char * path)
 	{
-		LuaScript script(path);
+		//LuaScript script(path);
 
 		//Shader pbrShader("res/shader/material/pbr_material.glsl");
+		std::string geometryPath = "res/mesh/pig.obj";
+		std::string shaderPath = "res/shader/default/defaultmaterial.glsl";
+		std::string texturePath = "res/textures/wood_texture.png";
+
+		std::string file = FileUtils::read_file(path);
+
+		rapidjson::Document document;
+		document.Parse(file.c_str());
+
+		if (document.IsObject())
+		{
+			if (document.HasMember("name") && document["name"].IsString())
+			{
+				LOG(document["name"].GetString());
+			}
+
+			if (document.HasMember("model") && document["model"].IsString())
+			{
+				geometryPath = document["model"].GetString();
+				LOG(document["model"].GetString());
+			}
+
+			if (document.HasMember("material") && document["material"].IsString())
+			{
+				LOG(document["material"].GetString());
+				texturePath = document["material"].GetString();
+			}
+		}
+
 
 		EntityManager *entMgr = Engine::getEntityManager();
 		ComponentManager *compMgr = Engine::getComponentManager();
 
 		Entity *entity = entMgr->newEntity();
-		entity->transform.position.x = script.get<float>("entity.position.x");
+		/*entity->transform.position.x = script.get<float>("entity.position.x");
 		entity->transform.position.y = script.get<float>("entity.position.y");
-		entity->transform.position.z = script.get<float>("entity.position.z");
+		entity->transform.position.z = script.get<float>("entity.position.z");*/
 
-		std::string shaderPath = "res/shader/default/defaultmaterial.glsl";
-		std::string geometryPath = "res/mesh/pig.obj";
-		std::string texturePath = "res/textures/wood_texture.png";
 		
 		// Geometry
 		
@@ -72,8 +101,8 @@ namespace engine {
 		Shader* shader = Engine::gShaderManager.createShader(shaderPath.c_str());
 
 		material->shader = shader;
-		//material->shader->setUniformBlockIndex("vs_uniforms", 0);
-		//material->shader->setUniformBlockIndex("fs_uniforms", 1);
+		material->shader->setUniformBlockIndex("vs_uniforms", 0);
+		material->shader->setUniformBlockIndex("fs_uniforms", 1);
 		material->texture = Engine::gResourceManager.getTexture(texturePath.c_str());
 
 		// Final Renderable
@@ -82,8 +111,55 @@ namespace engine {
 		renderable->transform = &entity->transform;
 		renderable->model = model;
 		renderable->material = material;
+
+		//renderer.submit(*renderable);
 		
 		return entity;
 	}
-}
 
+	void AssetLoader::loadScene(Renderer& renderer, const char * path)
+	{
+		std::string file = FileUtils::read_file(path);
+		rapidjson::Document document;
+		document.Parse(file.c_str());
+
+		if (!document.IsObject())
+		{
+			LOG_ERROR("Could not load scene");
+			return;
+		}
+
+		if (document.HasMember("scene") && document["scene"].IsString())
+		{
+			LOG("Loading Scene... ", std::string(document["scene"].GetString()));
+		}
+
+		if (document.HasMember("terrain") && document["terrain"].IsString())
+		{
+			LOG(document["terrain"].GetString());
+		}
+
+		if (document.HasMember("entities") && document["entities"].IsArray())
+		{
+			const rapidjson::Value& a = document["entities"];
+			for (rapidjson::SizeType i = 0; i < a.Size(); i++) // Uses SizeType instead of size_t
+			{
+				const rapidjson::Value& raw = a[i];
+				if (raw.HasMember("path") && raw["path"].IsString())
+				{
+					LOG("Path", std::string(raw["path"].GetString()));
+					Entity* entity = loadEntity(renderer, a[i]["path"].GetString());
+
+					if (raw.HasMember("position") && raw["position"].IsArray())
+					{
+						const rapidjson::Value& position = raw["position"];
+						entity->transform.position = 
+							Vec3(position[0].GetFloat(), position[1].GetFloat(), position[2].GetFloat());		
+
+
+					}
+				}
+			}
+		}
+	}
+}

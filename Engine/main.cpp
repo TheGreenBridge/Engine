@@ -4,11 +4,9 @@
 int main() {
 
 	EngineTest test;
-
 	test.init();
 	test.runApp();
 	test.stop();
 
 	return 0;
-
 }

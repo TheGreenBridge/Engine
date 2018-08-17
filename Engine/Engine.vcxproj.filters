@@ -291,9 +291,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\font\Font.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderapi\opengl\GLVertexBuffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -328,6 +325,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\asset\ResourceManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Font.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Random.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -728,9 +731,6 @@
     <ClInclude Include="src\3rdParty\Lua\lzio.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\font\Font.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\math\iVec2.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -785,6 +785,18 @@
     <ClInclude Include="src\asset\ResourceManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\Color.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Font.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\allocator\PoolIterator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Random.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\ui\uishader.frag" />
@@ -792,8 +804,6 @@
     <None Include="res\scripts\test.lua" />
     <None Include="res\shader\default\default.frag" />
     <None Include="res\shader\default\default.vert" />
-    <None Include="res\shader\terrain\terrainshader.frag" />
-    <None Include="res\shader\terrain\terrainshader.vert" />
     <None Include="res\shader\environment\environmentShader.frag" />
     <None Include="res\shader\environment\environmentShader.vert" />
     <None Include="res\shader\default\aabbshader.vert" />
@@ -813,6 +823,12 @@
     <None Include="res\materials\material.lua" />
     <None Include="res\shader\default\defaultmaterial.glsl" />
     <None Include="ClassDiagram.cd" />
+    <None Include="res\entities\entity.json" />
+    <None Include="res\entities\ball.json" />
+    <None Include="res\entities\cube.json" />
+    <None Include="res\scenes\scene.json" />
+    <None Include="engine_config.json" />
+    <None Include="res\shader\terrain\terrainshader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\inputmapping\contexts.xml" />

@@ -1,0 +1,8 @@
+{
+  "name": "ball",
+
+  "model": "res/mesh/default/sphere.obj",
+
+  "material": "res/textures/texture_flat_rock.jpg"
+
+}

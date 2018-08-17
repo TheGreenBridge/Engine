@@ -41,8 +41,13 @@ namespace engine {
 		T* AddComponent(const Entity *entity, arguments&&... args);
 
 		template <typename T>
-		T* ComponentManager::GetComponent(const Entity *entity);
+		T* GetComponent(const Entity *entity);
 
+		template <typename T>
+		void DestroyComponent(const Entity* entity);
+
+		template <typename T>
+		memory::PoolAllocator<T>* getContainer();
 
 		// Deleted Ctor
 		ComponentManager() = delete;
@@ -99,6 +104,16 @@ namespace engine {
 
 	//----------------------------------------------------------------------
 	template <typename T>
+	void ComponentManager::DestroyComponent(const Entity* entity)
+	{
+		memory::PoolContainer<T>* container =
+			reinterpret_cast<memory::PoolContainer<T>*>(
+				m_container.find(typeid(T).hash_code())->second);
+		container->deleteElement(entity->m_UniqueId.id);
+	}
+
+	//----------------------------------------------------------------------
+	template <typename T>
 	void ComponentManager::addNewContainer()
 	{
 		blk temp = m_memory->allocate(sizeof(memory::PoolContainer<T>));
@@ -112,6 +127,19 @@ namespace engine {
 					)
 				)
 		);
+	}
+
+	//----------------------------------------------------------------------
+	template <typename T>
+	memory::PoolAllocator<T>* ComponentManager::getContainer()
+	{
+		auto it = m_container.find(typeid(T).hash_code());
+		if (it != m_container.end())
+		{
+			memory::PoolContainer<T>* container = reinterpret_cast<memory::PoolContainer<T>*>(it->second);
+			return container->getAllocator();
+		}
+		else return nullptr;
 	}
 }
 

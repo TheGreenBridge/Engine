@@ -1,0 +1,13 @@
+{
+  "scene": "Level 1",
+  "terrain":"blub",
+  "entities": [
+    { "name": "entity 1", "position" :  [0,0,0] ,"path": "res/entities/ball.json" },
+    { "name": "entity 2", "position" :  [5,0,0] ,"path": "res/entities/entity.json" },
+    { "name": "entity 3", "position" :  [0,5,0] ,"path": "res/entities/cube.json" },
+    { "name": "entity 4", "position" :  [0,5, 11] ,"path": "res/entities/cube.json" },
+    { "name": "entity 55", "position" :  [10,5,0] ,"path": "res/entities/cube.json" },
+    { "name": "entity 36", "position" :  [-13,5,0] ,"path": "res/entities/cube.json" },
+    { "name": "entity 10", "position" :  [-5,5,0] ,"path": "res/entities/entity.json" }
+  ] 
+}

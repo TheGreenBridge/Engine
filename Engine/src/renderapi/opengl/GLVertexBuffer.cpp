@@ -35,6 +35,7 @@ namespace engine { namespace graphics {
 	VertexBuffer::VertexBuffer(U32 size, BufferUsage usage) : 
 		m_Size(size), m_Usage(usage)
 	{
+		// size is in bytes!!!
 		GLCall(glGenBuffers(1, &m_Handle));
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, nullptr, BufferUsageToGL(m_Usage)));

@@ -46,6 +46,7 @@ namespace engine { namespace graphics {
 
 		// Add Items
 		void pushItem(const RenderItem& item);
+		RenderItem* getLastItem() const;
 
 		RenderItem* next();
 

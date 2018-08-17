@@ -185,7 +185,7 @@
     <ClCompile Include="src\entity\Terrain.cpp" />
     <ClCompile Include="src\graphics\animation\Animation.cpp" />
     <ClCompile Include="src\graphics\animation\AnimationLoader.cpp" />
-    <ClCompile Include="src\graphics\font\Font.cpp" />
+    <ClCompile Include="src\graphics\Font.cpp" />
     <ClCompile Include="src\graphics\pbr\PBRMaterial.cpp" />
     <ClCompile Include="src\memory\PoolContainer.cpp" />
     <ClCompile Include="src\memory\LookupHandle.cpp" />
@@ -228,6 +228,7 @@
     <ClCompile Include="src\utils\FileUtils.cpp" />
     <ClCompile Include="src\utils\Hash.cpp" />
     <ClCompile Include="src\utils\Log.cpp" />
+    <ClCompile Include="src\utils\Random.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\utils\types\String.cpp" />
     <ClCompile Include="tests\EngineTest.cpp" />
@@ -285,11 +286,13 @@
     <ClInclude Include="src\entity\Light.h" />
     <ClInclude Include="src\graphics\api\UniformBuffer.h" />
     <ClInclude Include="src\graphics\BufferManager.h" />
+    <ClInclude Include="src\graphics\Color.h" />
     <ClInclude Include="src\graphics\RenderQueue.h" />
     <ClInclude Include="src\graphics\ShaderManager.h" />
     <ClInclude Include="src\graphics\TextureManager.h" />
     <ClInclude Include="src\graphics\Vertex.h" />
     <ClInclude Include="src\math\Vec2.h" />
+    <ClInclude Include="src\memory\allocator\PoolIterator.h" />
     <ClInclude Include="src\memory\MemoryManager.h" />
     <ClInclude Include="src\entity\Terrain.h" />
     <ClInclude Include="src\graphics\animation\Animation.h" />
@@ -304,7 +307,7 @@
     <ClInclude Include="src\graphics\api\Loader.h" />
     <ClInclude Include="src\graphics\api\VertexArray.h" />
     <ClInclude Include="src\graphics\api\BufferLayout.h" />
-    <ClInclude Include="src\graphics\font\Font.h" />
+    <ClInclude Include="src\graphics\Font.h" />
     <ClInclude Include="src\graphics\pbr\PBRMaterial.h" />
     <ClInclude Include="src\graphics\Renderable2D.h" />
     <ClInclude Include="src\graphics\api\Shader.h" />
@@ -377,6 +380,7 @@
     <ClInclude Include="src\utils\Hash.h" />
     <ClInclude Include="src\utils\Log.h" />
     <ClInclude Include="src\utils\meshloader.h" />
+    <ClInclude Include="src\utils\Random.h" />
     <ClInclude Include="src\utils\Time.h" />
     <ClInclude Include="src\utils\types\String.h" />
     <ClInclude Include="src\3rdParty\RapidXml\rapidxml.hpp" />
@@ -389,6 +393,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="res\entities\ball.json" />
+    <None Include="res\entities\cube.json" />
+    <None Include="res\entities\entity.json" />
+    <None Include="res\scenes\scene.json" />
     <None Include="res\entities\test.lua" />
     <None Include="res\materials\material.lua" />
     <None Include="res\scripts\test.lua" />
@@ -408,12 +416,12 @@
     <None Include="res\shader\post_processing\blurring.glsl" />
     <None Include="res\shader\post_processing\combine.glsl" />
     <None Include="res\shader\post_processing\one_color.glsl" />
-    <None Include="res\shader\terrain\terrainshader.frag" />
-    <None Include="res\shader\terrain\terrainshader.vert" />
+    <None Include="res\shader\terrain\terrainshader.glsl" />
     <None Include="res\shader\tests\testShader.glsl" />
     <None Include="res\shader\ui\text.glsl" />
     <None Include="res\shader\ui\uishader.frag" />
     <None Include="res\shader\ui\uishader.vert" />
+    <None Include="engine_config.json" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="rules.txt" />

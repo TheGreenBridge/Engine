@@ -16,6 +16,7 @@ namespace engine {	namespace component {
 		Transform* transform;
 		Model* model;
 		Material* material;
+		BOOL castShadows;
 	};
 
 

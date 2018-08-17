@@ -56,4 +56,11 @@ namespace engine { namespace asset {
 		return nullptr;
 	}
 
+	graphics::Texture * ResourceManager::createTexture(const char* name)
+	{
+		U32 hash = Hash::toHash(name);
+		Texture* texture = m_TextureContainer.newElement(hash);
+		return texture;
+	}
+
 } }

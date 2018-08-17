@@ -9,11 +9,6 @@ namespace engine {
 		
 
 	struct Model {
-		U32 vao;
-		U32 vbo_vertices;
-		U32 vbo_normals;
-		U32 vbo_uvs;
-
 		//VertexArray vao;
 		U32 numVertices;
 

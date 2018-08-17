@@ -17,10 +17,11 @@ namespace engine {
 
 	Entity * EntityManager::newEntity()
 	{
-		EntityIds++;
 		Entity* entity = m_Allocator.allocate();
 		m_Handle.insertEntry(EntityIds, entity);
 		entity->m_UniqueId.id = EntityIds;
+
+		EntityIds++;
 		return entity;
 	}
 
@@ -34,6 +35,6 @@ namespace engine {
 	}
 
 	U32 EntityManager::getEntityCount() const {
-		return m_Allocator.getSize();
+		return m_Allocator.getAllocations();
 	}
 }

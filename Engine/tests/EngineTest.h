@@ -13,6 +13,7 @@
 #include <entity\Camera.h>
 #include <entity\Entity.h> // MESH MODEL MATERIAL(TEXTURE) ANIMATION(TRANSFORM)
 #include <entity\FollowCamera.h>
+#include <entity\Terrain.h>
 
 #include <EngineCore.h>
 
@@ -22,7 +23,6 @@
 #include <graphics\api\Renderer.h>
 #include <graphics\api\Loader.h>
 #include <graphics\api\Texture.h>
-#include <graphics\font\Font.h>
 #include <graphics\api\Framebuffer.h>
 #include <graphics\api\UniformBuffer.h>
 
@@ -38,6 +38,7 @@
 using namespace engine;
 using namespace engine::memory;
 using namespace engine::collision;
+using namespace engine::entity;
 
 #define MEM_STORAGE 8192 // 8 KiB = 8 * 2^10
 
@@ -54,6 +55,7 @@ private:
 
 	Console gConsole;
 	Renderer* renderer;
+	entity::Terrain terrain;
 
 	
 	Camera* camera;
@@ -66,8 +68,6 @@ private:
 	VertexBuffer* vbo, *skyvbo;
 	UniformBuffer* ubo;
 	Entity *entity;
-
-	Font font;
 	
 	void stop_();
 	void run_();

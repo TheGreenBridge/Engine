@@ -21,12 +21,14 @@ enum class STATE : U8 {
 	camera_left = 7,
 	camera_forward = 8,
 	camera_backward = 9,
+	magic = 10,
+
 };
 
 enum class ACTION : U8 {
-	change_camera_debug,
-	change_camera_3rdperson,
-	test,
+	change_camera_debug = 0,
+	change_camera_3rdperson = 1,
+	magic = 2,
 	_,
 };
 

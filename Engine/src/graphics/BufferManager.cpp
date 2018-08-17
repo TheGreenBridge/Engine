@@ -20,6 +20,7 @@ namespace engine {	namespace graphics {
 		m_PoolVAO(allocator, NUM_VAO),
 		m_PoolVBO(allocator, NUM_VBO),
 		m_PoolUniform(allocator, NUM_UNIFORM),
+		m_PoolIndices(allocator, NUM_INDICES),
 		m_memory(allocator)
 	{
 
@@ -49,6 +50,11 @@ namespace engine {	namespace graphics {
 		return m_PoolUniform.allocate(size);
 	}
 
+	IndexBuffer * BufferManager::createIndexBuffer(const U32* data, U32 count)
+	{
+		return m_PoolIndices.allocate(data, count);
+	}
+
 	//--------------------------------------------------------------------------
 	void BufferManager::destroy(VertexArray* vao)
 	{
@@ -65,6 +71,12 @@ namespace engine {	namespace graphics {
 	void BufferManager::destroy(UniformBuffer* uniform)
 	{
 		m_PoolUniform.deallocate(uniform);
+	}
+
+	//--------------------------------------------------------------------------
+	void BufferManager::destroy(IndexBuffer* indices)
+	{
+		m_PoolIndices.deallocate(indices);
 	}
 
 }}

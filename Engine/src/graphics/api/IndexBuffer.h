@@ -16,26 +16,30 @@
 namespace engine {	namespace graphics {
 
 		class IndexBuffer {
-
-		private:
-			U32 m_Handle;
-			U32 m_Count;
-			IndexBuffer();
-
 		public:
 			// Ctr
 			IndexBuffer(const U32* data, U32 count);
-			// Deleted Ctr
-			IndexBuffer(const IndexBuffer&) = delete;
 
 			~IndexBuffer();
 
 			// Binding
 			void bind() const;
 			void unbind() const;
+			void draw() const;
 
 			// Getter
 			inline U32 getCount() const;
+
+			// Deleted Ctr
+			IndexBuffer() = delete;
+			IndexBuffer(const IndexBuffer&) = delete;
+			IndexBuffer(IndexBuffer&&) = delete;
+			IndexBuffer& operator=(const IndexBuffer&) = delete;
+			IndexBuffer& operator=(IndexBuffer&&) = delete;
+
+		private:
+			U32 m_Handle;
+			U32 m_Count;
 		};
 
 	}

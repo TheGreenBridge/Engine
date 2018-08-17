@@ -45,6 +45,7 @@ namespace engine {	namespace asset {
 		graphics::Texture* getTexture(const char* path);
 		graphics::Model* getModel(const char* path);
 		graphics::Material* getMaterial(const char* path);
+		graphics::Texture* createTexture(const char* name);
 
 
 		// Deleted Ctor

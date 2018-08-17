@@ -18,6 +18,14 @@
 
 namespace engine {	namespace graphics {
 
+	struct Frustum
+	{
+		F32 m_Fov;
+		F32 m_AspectRatio;
+		F32 m_Near;
+		F32 m_Far;
+	};
+
 	class Camera{
 	protected:
 		Vec3 m_Position;//, m_FocalPoint, m_UP, m_ViewDirection;
@@ -26,7 +34,7 @@ namespace engine {	namespace graphics {
 		mat4 m_ViewMatrix;
 		mat4 m_ProjectionMatrix;
 		Quaternion m_Rotation;
-		F32 m_Fov, m_AspectRatio, m_Near, m_Far;
+		Frustum m_Frustum;
 
 	public:
 	
@@ -49,9 +57,13 @@ namespace engine {	namespace graphics {
 
 		inline const Vec3 &getRotation() const { return m_Rotation.toEulerAngles(); }
 		const Quaternion &getQuatRotation() const { return m_Rotation; }
+
+		Frustum getFrustum() const;
 	
-		inline void setRotation(const Vec3 &rotation, const F32 angle) { m_Rotation.setRotation(rotation, angle);
-		m_Rotation.normalize();
+		inline void setRotation(const Vec3 &rotation, const F32 angle) 
+		{ 
+			m_Rotation.setRotation(rotation, angle);
+			m_Rotation.normalize();
 		}
 
 		void Translate(const Vec3 &translation);
@@ -66,6 +78,8 @@ namespace engine {	namespace graphics {
 		mat4 lookAt(const Vec3 &position, const Vec3 &target, const Vec3 &up);
 
 		void quatRotate(F32 angle, const Vec3 &axis);
+
+
 
 		void printInfo();
 	};

@@ -15,12 +15,14 @@
 namespace engine {	namespace graphics {
 
 	//--------------------------------------------------------------------------
-	Camera::Camera(F32 fov, F32 aspectRatio, F32 near, F32 far)
-		: m_Fov(fov), m_AspectRatio(aspectRatio), m_Near(near), m_Far(far),
-		m_Rotation(0.0f, 0.0f, 0.0f, 1.0f), m_Speed(0.01f){
-		key_roll = 0;
-		key_pitch = 0;
-		key_roll = 0;
+	Camera::Camera(F32 fov, F32 aspectRatio, F32 near, F32 far) : 
+		m_Frustum{ fov , aspectRatio , near, far },
+		m_Rotation(0.0f, 0.0f, 0.0f, 1.0f), m_Speed(0.01f),
+		key_roll(0),
+		key_pitch (0),
+		key_yaw (0)
+	{
+		
 	}
 
 	//--------------------------------------------------------------------------
@@ -139,7 +141,8 @@ namespace engine {	namespace graphics {
 		m_ViewMatrix = rotation * translation;
 		
 		// update perspective
-		m_ProjectionMatrix = mat4::Perspective(m_Fov, m_AspectRatio, m_Near, m_Far);
+		m_ProjectionMatrix = mat4::Perspective(m_Frustum.m_Fov, m_Frustum.m_AspectRatio, 
+			m_Frustum.m_Near, m_Frustum.m_Far);
 	}
 
 	//--------------------------------------------------------------------------
@@ -189,12 +192,14 @@ namespace engine {	namespace graphics {
 	}
 
 	//--------------------------------------------------------------------------
-	mat4 Camera::getViewMatrix() const {
+	mat4 Camera::getViewMatrix() const
+	{
 		return m_ViewMatrix;
 	}
 
 	//--------------------------------------------------------------------------
-	mat4 Camera::getRotationMatrix() const {
+	mat4 Camera::getRotationMatrix() const 
+	{
 		mat4 result = m_ViewMatrix;
 		result[12] = 0;
 		result[13] = 0;
@@ -203,17 +208,23 @@ namespace engine {	namespace graphics {
 	}
 
 	//--------------------------------------------------------------------------
+	Frustum Camera::getFrustum() const 
+	{
+		return m_Frustum;
+	}
+
+	//--------------------------------------------------------------------------
 	void Camera::printInfo() 
 	{
-		LOG("FOV", this->m_Fov);
-		LOG("Aspect", this->m_AspectRatio);
-		LOG("near", this->m_Near);
-		LOG("far", this->m_Far);
+		LOG("FOV", m_Frustum.m_Fov);
+		LOG("Aspect", m_Frustum.m_AspectRatio);
+		LOG("near", m_Frustum.m_Near);
+		LOG("far", m_Frustum.m_Far);
 		LOG("Rotation",
-			std::to_string(this->m_Rotation.x) + " , " +
-			std::to_string(this->m_Rotation.y) + " , " +
-			std::to_string(this->m_Rotation.z) + " , " +
-			std::to_string(this->m_Rotation.w));
+			std::to_string(m_Rotation.x) + " , " +
+			std::to_string(m_Rotation.y) + " , " +
+			std::to_string(m_Rotation.z) + " , " +
+			std::to_string(m_Rotation.w));
 
 		LOG("ViewMatrix", m_ViewMatrix);
 		LOG("TRANSLATION.X : ", m_ViewMatrix.elements[12]);

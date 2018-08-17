@@ -28,6 +28,8 @@ namespace engine {
 
 			T* getElement(U32 id) const;
 
+			PoolAllocator<T>* getAllocator();
+
 			U32 getElementNumber() const;
 
 			// Deleted Ctor
@@ -76,6 +78,12 @@ namespace engine {
 		template <typename T>
 		T* PoolContainer<T>::getElement(U32 id) const {
 			return m_Handle.getEntry(id);
+		}
+
+		template<typename T>
+		inline PoolAllocator<T>* PoolContainer<T>::getAllocator()
+		{
+			return &m_Allocator;
 		}
 
 		template <typename T>

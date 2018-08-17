@@ -22,6 +22,7 @@
 #include "entity\ComponentManager.h"
 #include <asset\ResourceManager.h>
 
+
 namespace engine {
 
 	using namespace engine::asset;
