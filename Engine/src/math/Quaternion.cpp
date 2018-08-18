@@ -195,7 +195,7 @@ mat4 Quaternion::toMatrix() {
 
 Vec3 Quaternion::toEulerAngles() const {
 	
-	return Vec3(atan2(2*x*w - 2*y*z, 1 - 2*x*x - 2*z*z),
-		atan2(2*y*w - 2*x*z, 1 - 2*y*y - 2*z*z),
-		asin(2*x*y + 2*z*w));
+	return Vec3(atan2(2.0f*x*w - 2.0f*y*z, 1.0f - 2.0f*x*x - 2.0f*z*z),
+		atan2(2.0f*y*w - 2.0f*x*z, 1.0f - 2.0f*y*y - 2.0f*z*z),
+		asin(2.0f*x*y + 2.0f*z*w));
 }

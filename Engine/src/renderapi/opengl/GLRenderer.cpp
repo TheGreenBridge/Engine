@@ -208,8 +208,38 @@ namespace engine {	namespace graphics {
 		for (PoolIterator<Renderable3D> it = pool->begin(); it != pool->end(); ++it)
 		{
 			if (!it.m_item->allocated) continue;
-			submit(*it);
+			Vec3 &position = (*it).transform->position;
+			EPlacement placement = m_Camera->sphereInFrustum(position, 1.0f);
+			if (placement == EPlacement::INSIDE || placement == EPlacement::INTERSECT)
+			{
+				submit(*it);
+			}
+			
 		}
+
+		/*if (m_Camera->sphereInFrustum(Vec3(0, 0, 0), 1.0f) == EPlacement::INSIDE)
+		{
+			renderGUIText("Sphere 0,0,0 rad 1.0 inside", 25,25, 0.4f, Color::Red);
+		}
+		else
+		{
+			renderGUIText("sphere not inside", 25, 25, 0.4f, Color::Red);
+		}*/
+
+
+		if (m_Camera->pointInFrustum(Vec3(0, 0, 0)) == EPlacement::INSIDE )
+		{
+			renderGUIText("Point 0,0,0 inside", 25, 50, 0.4f, Color::Green);
+		}
+		else
+		{
+			renderGUIText("point not inside", 25, 50, 0.4f, Color::Red);
+		}
+
+		std::string camera_pos = "Camera Pos X " + std::to_string(m_Camera->getPosition().x) +
+			" Y " + std::to_string(m_Camera->getPosition().y) +
+			" Z " + std::to_string(m_Camera->getPosition().z);
+		renderGUIText(camera_pos.c_str(), 25, 75, 0.4f, Color::Red);
 	}
 
 	F32 counter = 0;
@@ -278,14 +308,16 @@ namespace engine {	namespace graphics {
 	{
 		U32 x = 1100, y = 700;
 		renderGUIText("RenderQueue", x, y, 0.4f, Color::Green);
+		U32 renderItemCounter = 0;
 		for (auto it = m_sort.begin(); it != m_sort.end(); ++it)
 		{
 			y -= 20;
+			renderItemCounter++;
 			renderGUIText(std::to_string(it->key).c_str(), x, y, 0.4f, Color::Green);
 		}
 
-		U32 entities = Engine::getEntityManager()->getEntityCount();
-		std::string text = "Entities: " + std::to_string(entities);
+		//U32 entities = Engine::getEntityManager()->getEntityCount();
+		std::string text = "Entities: " +std::to_string( renderItemCounter );
 		renderGUIText(text.c_str(), x, y-20, 0.4f, Color::Red);
 	}
 

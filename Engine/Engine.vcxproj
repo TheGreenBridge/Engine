@@ -181,6 +181,8 @@
     <ClCompile Include="src\graphics\RenderQueue.cpp" />
     <ClCompile Include="src\graphics\ShaderManager.cpp" />
     <ClCompile Include="src\graphics\TextureManager.cpp" />
+    <ClCompile Include="src\math\Frustum.cpp" />
+    <ClCompile Include="src\math\Plane.cpp" />
     <ClCompile Include="src\memory\MemoryManager.cpp" />
     <ClCompile Include="src\entity\Terrain.cpp" />
     <ClCompile Include="src\graphics\animation\Animation.cpp" />
@@ -291,6 +293,8 @@
     <ClInclude Include="src\graphics\ShaderManager.h" />
     <ClInclude Include="src\graphics\TextureManager.h" />
     <ClInclude Include="src\graphics\Vertex.h" />
+    <ClInclude Include="src\math\Frustum.h" />
+    <ClInclude Include="src\math\Plane.h" />
     <ClInclude Include="src\math\Vec2.h" />
     <ClInclude Include="src\memory\allocator\PoolIterator.h" />
     <ClInclude Include="src\memory\MemoryManager.h" />

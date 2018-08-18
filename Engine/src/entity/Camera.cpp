@@ -4,7 +4,7 @@
 //
 // Author: Sommerauer Christian
 // Created: 28.01.2017
-// Changed: 13.08.2018
+// Changed: 18.08.2018
 //------------------------------------------------------------------------------
 //
 
@@ -16,7 +16,7 @@ namespace engine {	namespace graphics {
 
 	//--------------------------------------------------------------------------
 	Camera::Camera(F32 fov, F32 aspectRatio, F32 near, F32 far) : 
-		m_Frustum{ fov , aspectRatio , near, far },
+		Frustum{ fov , aspectRatio , near, far },
 		m_Rotation(0.0f, 0.0f, 0.0f, 1.0f), m_Speed(0.01f),
 		key_roll(0),
 		key_pitch (0),
@@ -141,8 +141,131 @@ namespace engine {	namespace graphics {
 		m_ViewMatrix = rotation * translation;
 		
 		// update perspective
-		m_ProjectionMatrix = mat4::Perspective(m_Frustum.m_Fov, m_Frustum.m_AspectRatio, 
-			m_Frustum.m_Near, m_Frustum.m_Far);
+		m_ProjectionMatrix = mat4::Perspective(m_Fov, m_AspectRatio, m_Near, m_Far);
+
+
+		// update frustum
+
+
+		/*
+
+		Visual 3D representation of the frustum with all planes and the corner points
+
+									[top]			  __o ftl
+			 									 ____/	|\
+			 							  ______/       |#\
+							ntl o________/           ___|##\ o ftr  		
+								|\	 ntr   _________/	|###|                      left
+								|#\o______/	   ________ |###|     [far]				\
+						[near]	|##|__________/		   o\###|                        \
+							nbl	o\#|				fbl  \##|                         \
+								  \|__________            \#|                         right
+							   nbr o		  \____________\|o fbr
+		
+										[bottom]
+		*/
+
+		
+		// Gram Schmidt
+		// unit vector in Z direction (look direction)
+
+		Vec3 position = m_Position;
+		position.x *= -1;
+		position.y *= -1;
+
+		Vec3 Z = m_Rotation.toEulerAngles();
+		Z.normalize();
+
+		// Hack
+		Z = Vec3(0,0,-1);
+
+		/*LOG("Rotation");
+		LOG(m_Rotation);
+		*/
+		Vec3 Y = UP - Z * Vec3::dotProduct(UP, Z);
+
+		Y.normalize();
+
+		// unit vector in X direction
+		Vec3 X = Vec3::crossProduct(Y, Z);
+		X.normalize();
+
+		F32 tang = (float)tan(m_Fov * (PI / 180.0f) * 0.5f);
+		
+		// Width and Height of the near plane and the front plane
+		// To Calculate the 8 corner points of the frustum
+		F32 nw = m_Near * tang;
+		F32 nh = nw / m_AspectRatio;
+		F32 fw = m_Far * tang;
+		F32 fh = fw / m_AspectRatio;
+
+		// nc .. near plane center, fc .. far plane center
+		// X, Y, Z are the unit vectors of the frustum
+		Vec3 nc = position - Z * m_Near;
+		Vec3 fc = position - Z * m_Far;
+
+		// Points on the near plane
+		Vec3 ntl = nc + (Y * nh) - (X * nw);
+		Vec3 ntr = nc + (Y * nh) + (X * nw);
+		Vec3 nbl = nc - (Y * nh) - (X * nw);
+		Vec3 nbr = nc - (Y * nh) + (X * nw);
+
+		// Points on the far plane
+		Vec3 ftl = fc + (Y * fh) - (X * fw);
+		Vec3 ftr = fc + (Y * fh) + (X * fw);
+		Vec3 fbl = fc - (Y * fh) - (X * fw);
+		Vec3 fbr = fc - (Y * fh) + (X * fw);
+
+		// Set all border planes of the frustum
+		planes[TOP].setPoints(ntr, ntl, ftl);
+		planes[BOTTOM].setPoints(nbl, nbr, fbr);
+		planes[LEFT].setPoints(ntl, nbl, fbl);
+		planes[RIGHT].setPoints(nbr, ntr, fbr);
+		planes[NEAR].setPoints(ntl, ntr, nbr);
+		planes[FAR].setPoints(ftr, ftl, fbl);
+
+		/*LOG("AspectRatio", m_AspectRatio);
+
+		LOG("nc");
+		LOG(nc);
+
+		LOG("fc");
+		LOG(fc);
+
+		LOG("nh", nh);
+		LOG("nw", nw);
+		LOG("fh", fh);
+		LOG("fw", fw);
+		*/LOG("X,Y,Z");
+		LOG(X);
+		LOG(Y);
+		LOG(Z);/*
+
+		LOG("#####Points#######");
+		LOG("ntl:");
+		LOG( ntl);
+		
+		LOG("ntr: ");
+		LOG(ntr);
+
+		LOG("nbl");
+		LOG(nbl);
+
+		LOG("nbr");
+		LOG(nbr);
+
+
+		LOG("ftl:");
+		LOG(ftl);
+
+		LOG("ftr: ");
+		LOG(ftr);
+
+		LOG("fbl");
+		LOG(fbl);
+
+		LOG("fbr");
+		LOG(fbr);*/
 	}
 
 	//--------------------------------------------------------------------------
@@ -210,16 +333,16 @@ namespace engine {	namespace graphics {
 	//--------------------------------------------------------------------------
 	Frustum Camera::getFrustum() const 
 	{
-		return m_Frustum;
+		return *this;
 	}
 
 	//--------------------------------------------------------------------------
 	void Camera::printInfo() 
 	{
-		LOG("FOV", m_Frustum.m_Fov);
-		LOG("Aspect", m_Frustum.m_AspectRatio);
-		LOG("near", m_Frustum.m_Near);
-		LOG("far", m_Frustum.m_Far);
+		LOG("FOV", m_Fov);
+		LOG("Aspect", m_AspectRatio);
+		LOG("near", m_Near);
+		LOG("far", m_Far);
 		LOG("Rotation",
 			std::to_string(m_Rotation.x) + " , " +
 			std::to_string(m_Rotation.y) + " , " +

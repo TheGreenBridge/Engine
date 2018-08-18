@@ -42,11 +42,20 @@ Vec3 Vec3::operator*(const F32 value) const {
 	return result;
 }
 
+Vec3 Vec3::operator*(const Vec3 & other) const
+{
+	Vec3 result;
+	result.x = x * other.x;
+	result.y = y * other.y;
+	result.z = z * other.z;
+	return result;
+}
+
 Vec3 Vec3::operator+(const Vec3 &other) const {
 	Vec3 result;
 	result.x = x + other.x;
 	result.y = y + other.y;
-	result.z = x + other.z;
+	result.z = z + other.z;
 
 	return result;
 
@@ -84,7 +93,7 @@ Vec3 Vec3::crossProduct(const Vec3 &vector1, const Vec3 &vector2)
 	return result;
 }
 
-F32 Vec3::length() {
+F32 Vec3::length() const {
 	return sqrt(x*x + y*y + z*z);
 }
 

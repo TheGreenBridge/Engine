@@ -123,6 +123,8 @@ void EngineTest::init_()
 		if (inputs.find(STATE::camera_right)) { camera->Translate(Vec3(-distance, 0, 0)); }
 		if (inputs.find(STATE::camera_up)) { camera->Translate(Vec3(0, -distance, 0)); }
 		if (inputs.find(STATE::camera_down)) { camera->Translate(Vec3(0, distance, 0)); }
+		//if (inputs.find(STATE::camera_down)) { LOG_ERROR("pause"); }
+
 	}, 2);
 
 	skyvbo->resize(108*sizeof(F32));

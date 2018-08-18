@@ -16,21 +16,16 @@ struct Vec3 {
 	Vec3 operator + (const Vec3 &other) const;
 	Vec3 operator -(const Vec3 &other) const;
 	Vec3 operator * (const F32 value) const;
+	Vec3 operator * (const Vec3& other) const;
 
-	
-
-	F32 length();
+	F32 length() const;
 	void normalize();
-
-
 
 	static F32 distance(const Vec3& first, const Vec3& second);
 	static F32 dotProduct(const Vec3 &vector1, const Vec3 &vector2);
 	static Vec3 crossProduct(const Vec3 &vector1, const Vec3 &vector2);
 	static Vec3 normalize(Vec3 &vector);
 };
-
-
 
 
 const Vec3 UP(0, 1, 0);

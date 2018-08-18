@@ -15,18 +15,12 @@
 #include <math/Quaternion.h>
 #include <utils/Log.h>
 
+#include <math\Frustum.h>
+
 
 namespace engine {	namespace graphics {
 
-	struct Frustum
-	{
-		F32 m_Fov;
-		F32 m_AspectRatio;
-		F32 m_Near;
-		F32 m_Far;
-	};
-
-	class Camera{
+	class Camera : public Frustum{
 	protected:
 		Vec3 m_Position;//, m_FocalPoint, m_UP, m_ViewDirection;
 		F32 key_pitch, key_yaw, key_roll;
@@ -34,7 +28,7 @@ namespace engine {	namespace graphics {
 		mat4 m_ViewMatrix;
 		mat4 m_ProjectionMatrix;
 		Quaternion m_Rotation;
-		Frustum m_Frustum;
+		//Frustum m_Frustum;
 
 	public:
 	
@@ -78,8 +72,6 @@ namespace engine {	namespace graphics {
 		mat4 lookAt(const Vec3 &position, const Vec3 &target, const Vec3 &up);
 
 		void quatRotate(F32 angle, const Vec3 &axis);
-
-
 
 		void printInfo();
 	};
